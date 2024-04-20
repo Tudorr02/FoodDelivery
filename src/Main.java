@@ -12,7 +12,7 @@ public class Main {
             // Instance for Clients
             DataStorageServices<Client> clientDS = DataStorageServices.getInstance();
             DataConverter<Client> clientConverter = new ClientConverter();
-            clientDS.readCsv("D:\\Faculate\\ANUL 3\\sem2\\poo\\JavaProject\\Code\\res\\CSV\\Client_Data.csv", clientConverter);
+            clientDS.readCsv("", clientConverter);
 
 
             // Optionally, print out to verify loading
@@ -21,7 +21,7 @@ public class Main {
             }
             }
             finally{
-                System.out.printf("Exceptie tudori!");
+                System.out.printf("Exceptie tudori  vlad!");
         }
     }
 

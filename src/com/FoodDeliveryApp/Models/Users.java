@@ -3,7 +3,7 @@ import com.FoodDeliveryApp.Converters.DataConverter;
 
 import java.util.Arrays;
 import java.util.List;
-public abstract class Users implements DataConverter {
+public abstract class Users{
 
 
     private String lastName;
@@ -22,29 +22,6 @@ public abstract class Users implements DataConverter {
         this.phoneNumber = phoneNumber;
     }
 
-
-    @Override
-    public Users convertFromCsv(String csvLine) {
-        List<String> values = Arrays.asList(csvLine.split(","));
-        Users user = new Users(values.get(0).trim(),values.get(1).trim(),values.get(2).trim(),values.get(3).trim(),values.get(4).trim(),values.get(5).trim()) {}; // Concrete instantiation would be based on actual subclasses
-        return user;
-    }
-
-    @Override
-    public String convertToCsv(Object object) {
-        if (!(object instanceof Users)) {
-            throw new IllegalArgumentException("Object must be an instance of Users");
-        }
-        Users user = (Users) object;
-        return String.join(",",
-                user.getFirstName(),
-                user.getLastName(),
-                user.getUserName(),
-                user.getPassword(),
-                user.getUserID(),
-                user.getPhoneNumber()
-        );
-    }
 
     public void setLastName(String lastName) {
         this.lastName = lastName;

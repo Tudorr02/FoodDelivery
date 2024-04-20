@@ -27,32 +27,4 @@ public class DeliveryMan extends Users {
         this.rating = rating;
     }
 
-    @Override
-    public Users convertFromCsv(String csvLine) {
-        // Call the general conversion method from the superclass to handle common fields
-        Users user = super.convertFromCsv(csvLine);
-        List<String> values = Arrays.asList(csvLine.split(","));
-        if (values.size() < 9) {
-            throw new IllegalArgumentException("Invalid CSV line: does not contain enough data elements for delivery man.");
-        }
-        // Set additional fields specific to DeliveryMan
-        this.nationality = values.get(6).trim();
-        this.vehicle = values.get(7).trim();
-        this.rating = Double.parseDouble(values.get(8).trim());
-        return this;
-    }
-    @Override
-    public String convertToCsv(Object object) {
-        if (!(object instanceof DeliveryMan)) {
-            throw new IllegalArgumentException("Object must be an instance of DeliveryMan");
-        }
-        DeliveryMan deliveryMan = (DeliveryMan) object;
-        // Call the superclass method to get the CSV string for common fields
-        String baseCsv = super.convertToCsv(deliveryMan);
-        // Append the DeliveryMan-specific fields to the base CSV
-        return String.join(",", baseCsv,
-                deliveryMan.getNationality(),
-                deliveryMan.getVehicle(),
-                String.valueOf(deliveryMan.getRating()));
-    }
 }
