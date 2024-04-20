@@ -21,8 +21,9 @@ public class Main {
             }
             }
             finally{
-                System.out.printf("Exceptie!");
+                System.out.printf("Exceptie tudori!");
         }
     }
+
 
 }
