@@ -1,10 +1,7 @@
 package com.FoodDeliveryApp.Models;
-import com.FoodDeliveryApp.Converters.DataConverter;
 
-import java.util.Arrays;
-import java.util.List;
+
 public abstract class Users{
-
 
     private String lastName;
     private String firstName;
