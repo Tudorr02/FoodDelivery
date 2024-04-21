@@ -1,21 +1,21 @@
-lastName,firstName,userName,password,userID,phoneNumber,deliveryAddress,email
-hAaPZUf,TFdLj,GDWLEBZN,JAmCfoiUXX,789290,1717633615,"wqDhfLtlnrBLgXF, ZlHHT, yZpLUEtbdg",nbGRs@YQCIo.com
-WzQCmUo,KQrRu,sUBrTafc,lZiHJxDvsk,321456,7779376395,"JjDBYsOtivQEDQB, WkkXK, VxWyLXAcgY",bNrVJ@PvGBM.com
-ntbjxAU,EfGBL,PYYBKEeZ,hPPgLYoFVi,502410,2278013222,"pVwusWytqfikflM, Olabp, xMHaAjwTjd",vonCr@LhHbZ.com
-MjwxerI,UJdiB,zFpTYWMv,DJLSNWfsXk,494841,9721085167,"DfqWTRruofwcVal, ktSID, vrMrlyecaZ",QRUoR@FoqXX.com
-FjYsHCt,OANPm,dGMepXtk,LROLCKcNcz,391239,1582480394,"zhUJAFggMbpMTdn, dMjcZ, dQUghNWqDK",qeIYD@fgfft.com
-UzGUxCs,mLHiT,uEKXMsZo,asWygXKZNh,959051,2450177742,"bamxsAyNXIAPWWL, CqqkI, pwtJqpUqDh",FEaGJ@Qbpvy.com
-ncHKWRu,cysnB,iYDUtDTm,qQYuKtWNBc,068258,2673921079,"sSQSxUXtKnFRaCq, zipIF, ihLafOkHqD",AHFAP@zIrgq.com
-DgFjqhw,HqJLf,HTcShuzm,XieXjoGCIk,368152,2334758339,"LaduOBtJBGhKzCU, SNoIp, klCuCVZSuM",pGWbu@LyWLB.com
-mvGRTES,xGVNb,XTTnXrec,MITszJycYf,883487,0507908052,"sMVVXxQAfXOifKX, zepGL, oYOjNDgLio",ucBKa@sMcdX.com
-jnXRLMz,GhLKX,RuPCPDhJ,eYyapDNIby,355201,2982591768,"xFdqkaufwXGwhAY, SBsmA, bklmdXofhV",Bqfrw@FFBwD.com
-FwiVhAp,VkXhr,QfygOWlW,jdlVIJHsHB,048887,7490892074,"UQQRhbZJNRZRFgY, PNImC, UgmgcAbPdk",XbqSZ@XioDl.com
-htHVcpp,mTyGd,TfthkgfX,PpMZLCMBuI,302077,9039758089,"wqCSjwaKUKbeXBo, nFUup, OrzntiaOMj",DagUp@RATsq.com
-IKpucAK,Iqboc,WkllbaAR,CgEgygQylX,371615,0489758326,"dtrvPYQzczGuREM, zCUoC, GqKmqTGFor",tFQOm@HIbRV.com
-yhHhSXF,ZZqoj,ITlnyNbG,phgsbJZDMN,443534,4620239146,"NlnSMnMgFirrpJv, tevyo, VQupMbJeKP",TXaSY@CinVZ.com
-iSDsSWt,qdFYj,rJcBVoNA,GVstVDHnqs,231446,5866730563,"XEtISTQsxYVOaBd, Swjnr, SzUNZJqKzu",FqZYs@vjVRw.com
-wDDCpmF,IngaN,hjlNhSvO,lmXhdAqVjt,195120,2337100772,"OVdLiYsjpXvjJnw, GKTEE, eglfFFREWq",dgFsC@gsWXH.com
-HLlYHdv,RUDdu,IXGfkveP,FhXRfxRlvH,557981,2703299021,"AYKGnDCKQxVlVno, XilMz, XreyGGZYTS",SnaeF@fNCMF.com
-VwBFCeh,xwwJq,MgCByPDL,pIQgnNqKJi,081369,6142420551,"rYuUrtQOKYFxpGe, wSdxz, kYJckKwhmF",UKwHW@KMGhA.com
-zxUOEGi,VHfja,moiIyqft,ymPbJhvewG,099655,2454123781,"bEUajQDoRksmEug, eRwzA, WqefEAdvRJ",SFLRj@eIDGB.com
-RglkCPH,rRYWx,jCELrMhh,qEsjGJhije,161707,4646384928,"JUZJmBFUwXDmbQy, SKLkE, sbwZFhKtXN",asuiS@qqbiA.com
+LastName,FirstName,UserName,Password,UserID,PhoneNumber,DeliveryAddress,Email
+Nicolae,Vasile,VasileNicolae,SecurePass123,C-100001,40178066688,Cluj-Napoca,vasile.nicolae@example.com
+Dumitrescu,Vasile,VasileDumitrescu,SecurePass123,C-100002,40873060971,Bucharest,vasile.dumitrescu@example.com
+Ciobanu,Andrei,AndreiCiobanu,SecurePass123,C-100003,40764668377,Cluj-Napoca,andrei.ciobanu@example.com
+Dumitrescu,Vasile,VasileDumitrescu,SecurePass123,C-100004,40855713722,Constanta,vasile.dumitrescu@example.com
+Ciobanu,Andrei,AndreiCiobanu,SecurePass123,C-100005,40688674068,Constanta,andrei.ciobanu@example.com
+Stanescu,Ion,IonStanescu,SecurePass123,C-100006,40757086356,Bucharest,ion.stanescu@example.com
+Vasiliu,Cristian,CristianVasiliu,SecurePass123,C-100007,40146953239,Constanta,cristian.vasiliu@example.com
+Ciobanu,Andrei,AndreiCiobanu,SecurePass123,C-100008,40969201693,Cluj-Napoca,andrei.ciobanu@example.com
+Marin,Ion,IonMarin,SecurePass123,C-100009,40445156155,Constanta,ion.marin@example.com
+Tudose,Sorin,SorinTudose,SecurePass123,C-100010,40397788785,Timisoara,sorin.tudose@example.com
+Dumitrescu,Bogdan,BogdanDumitrescu,SecurePass123,C-100011,40234778693,Cluj-Napoca,bogdan.dumitrescu@example.com
+Marin,Bogdan,BogdanMarin,SecurePass123,C-100012,40218819262,Cluj-Napoca,bogdan.marin@example.com
+Stanescu,Mihai,MihaiStanescu,SecurePass123,C-100013,40539586536,Timisoara,mihai.stanescu@example.com
+Marin,Cristian,CristianMarin,SecurePass123,C-100014,40987809586,Cluj-Napoca,cristian.marin@example.com
+Nicolae,Cristian,CristianNicolae,SecurePass123,C-100015,40396940906,Cluj-Napoca,cristian.nicolae@example.com
+Dumitrescu,Stefan,StefanDumitrescu,SecurePass123,C-100016,40280923221,Constanta,stefan.dumitrescu@example.com
+Dumitrescu,Bogdan,BogdanDumitrescu,SecurePass123,C-100017,40883506849,Iasi,bogdan.dumitrescu@example.com
+Vasiliu,Dan,DanVasiliu,SecurePass123,C-100018,40843914602,Constanta,dan.vasiliu@example.com
+Munteanu,Cristian,CristianMunteanu,SecurePass123,C-100019,40184882053,Iasi,cristian.munteanu@example.com
+Marin,Mihai,MihaiMarin,SecurePass123,C-100020,40921670653,Bucharest,mihai.marin@example.com
