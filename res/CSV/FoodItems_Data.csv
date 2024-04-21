@@ -1,0 +1,31 @@
+FoodItemID,Name,Description,Weight(g),Price(Lei)
+1,Sushi Platter,Sushi Platter - Desert italian cu mascarpone,300,27.13
+2,Mushroom Risotto,Mushroom Risotto - Wrap cu falafel din Orientul Mijlociu,400,19.77
+3,Sushi Platter,Sushi Platter - Paine crocanta cu usturoi si unt,100,30.73
+4,Tiramisu,Tiramisu - Wrap cu falafel din Orientul Mijlociu,500,36.64
+5,Mushroom Risotto,Mushroom Risotto - Bogata si cremoasa cu pancetta,100,30.85
+6,Dim Sum,Dim Sum - Bogata si cremoasa cu pancetta,500,32.2
+7,Cheesecake,Cheesecake - Supa thailandeza acra si picanta,100,35.29
+8,Pancakes,"Pancakes - Salata de romaine, parmezan si crutoane",300,22.98
+9,Pork Ribs,Pork Ribs - Clasica cu mozzarella si busuioc,400,34.33
+10,Vegan Burger,Vegan Burger - Bogata si cremoasa cu pancetta,100,24.1
+11,Apple Pie,Apple Pie - Clasica cu mozzarella si busuioc,100,22.62
+12,Sushi Platter,Sushi Platter - Salata proaspata cu feta si masline,300,46.35
+13,Grilled Salmon,"Grilled Salmon - Perfect gatit, cu sos de unt si lamaie",400,42.04
+14,Spaghetti Carbonara,Spaghetti Carbonara - Risotto cremos cu ciuperci salbatice,100,44.34
+15,Raspberry Tart,Raspberry Tart - Curry picant cu pui fraged,300,43.8
+16,Raspberry Tart,Raspberry Tart - Variatie de dim sum traditional,100,31.23
+17,Garlic Bread,"Garlic Bread - Perfect gatit, cu sos de unt si lamaie",300,48.7
+18,Beef Stew,Beef Stew - Desert cremos cu crusta de biscuiti,100,24.97
+19,Pizza Margherita,Pizza Margherita - Supa thailandeza acra si picanta,400,25.98
+20,Garlic Bread,Garlic Bread - Costite afumate si condimentate,200,25.83
+21,Caesar Salad,Caesar Salad - Chifla vegetala cu branza vegana,100,30.41
+22,Tiramisu,Tiramisu - Pufoase si servite cu sirop,500,24.62
+23,Mushroom Risotto,Mushroom Risotto - Supa thailandeza acra si picanta,300,42.93
+24,Chicken Curry,"Chicken Curry - Perfect gatit, cu sos de unt si lamaie",100,10.96
+25,Tom Yum Soup,Tom Yum Soup - Pufoase si servite cu sirop,200,22.86
+26,Tom Yum Soup,Tom Yum Soup - Placinta dulce si acidulata cu crusta frageda,300,26.95
+27,Sushi Platter,Sushi Platter - Placinta dulce si acidulata cu crusta frageda,500,28.13
+28,Grilled Salmon,Grilled Salmon - Clasica cu mozzarella si busuioc,500,37.01
+29,Chicken Curry,Chicken Curry - Bogata si cremoasa cu pancetta,300,14.43
+30,Sushi Platter,Sushi Platter - Desert cremos cu crusta de biscuiti,400,44.58

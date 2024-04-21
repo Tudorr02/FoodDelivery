@@ -7,7 +7,6 @@ public class Restaurant {
     private String name;
     private String restaurantID;
     private String location;
-
     private List<FoodItem> menu; // List of FoodItems for the menu
     private double rating;
     private String priceRange;
