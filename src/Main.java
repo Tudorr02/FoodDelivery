@@ -7,23 +7,8 @@ import com.FoodDeliveryApp.Services.DataStorageServices;
 import java.io.IOException;
 
 public class Main {
-    public static <IOException extends Throwable> void main(String[] args) throws java.io.IOException {
-        try {
-            // Instance for Clients
-            DataStorageServices<Client> clientDS = DataStorageServices.getInstance();
-            DataConverter<Client> clientConverter = new ClientConverter();
-            clientDS.readCsv("", clientConverter);
 
-
-            // Optionally, print out to verify loading
-            for (Client client : clientDS.getObjects()) {
-                System.out.println(client.toString());
-            }
-            }
-            finally{
-                System.out.printf("Exceptie tudori  vlad!");
-        }
+    public static void main(String[] args) {
+        DataStorageServices.getInstance();
     }
-
-
 }
