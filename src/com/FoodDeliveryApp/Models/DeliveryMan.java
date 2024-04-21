@@ -27,4 +27,12 @@ public class DeliveryMan extends Users {
         this.rating = rating;
     }
 
+    @Override
+    public String toString() {
+        return super.toString()  +
+                "nationality='" + nationality + '\'' +
+                ", vehicle='" + vehicle + '\'' +
+                ", rating=" + rating +
+                '}';
+    }
 }
