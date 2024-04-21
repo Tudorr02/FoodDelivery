@@ -1,5 +1,6 @@
 package com.FoodDeliveryApp.Models;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 
 public abstract class Order {
@@ -8,5 +9,5 @@ public abstract class Order {
     private String restaurantID;
     private ShoppingCart shoppingCart; // Assuming ShoppingCart is a defined class
     private String paymentMethod;
-    private Date orderDate;
+    private LocalDateTime orderDate;
 }
