@@ -1,0 +1,11 @@
+FirstName,LastName,UserName,Password,UserID,PhoneNumber,Nationality,Vehicle,Rating
+Mihai,Popescu,Ion87,Pass1234,D-100001,40776204350,Romanian,Dacia,2.1
+Cristian,Ciobanu,Stefan77,Pass1234,D-100002,40781276459,Romanian,Dacia,2.6
+Andrei,Ionescu,Ion87,Pass1234,D-100003,40758791020,Romanian,Dacia,4.1
+Stefan,Popescu,Andrei92,Pass1234,D-100004,40748369947,Romanian,Dacia,1.1
+Andrei,Nicolae,Bogdan83,Pass1234,D-100005,40702251925,Romanian,Scooter,2.8
+Mihai,Ciobanu,Alex123,Pass1234,D-100006,40768377056,Romanian,Scooter,1.9
+Ion,Dumitrescu,Alex123,Pass1234,D-100007,40769910327,Romanian,Dacia,2.8
+Sorin,Ionescu,Mihai84,Pass1234,D-100008,40789678268,Romanian,Scooter,4.4
+Sorin,Vasiliu,Alex123,Pass1234,D-100009,40776361054,Romanian,Dacia,3
+Stefan,Munteanu,Ion87,Pass1234,D-100010,40713273002,Romanian,Scooter,3.2
