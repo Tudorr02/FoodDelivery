@@ -6,7 +6,7 @@ import java.util.Map;
 public class ShoppingCart {
 
     private String shoppingCartID;
-    private Map<FoodItem, Integer> items; // Holds FoodItems and their quantities
+    private Map<Integer, Integer> items; // Holds FoodItems and their quantities
     private double total;
 
     // Constructor
