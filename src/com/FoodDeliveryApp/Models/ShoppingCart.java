@@ -26,6 +26,16 @@ public class ShoppingCart {
         updateTotal();
     }
 
+    public ShoppingCart(String shoppingCartID, Map<FoodItem, Integer> items, double total) {
+        this.shoppingCartID = shoppingCartID;
+        this.items = items;
+        this.total = total;
+    }
+
+    public String getShoppingCartID() {
+        return shoppingCartID;
+    }
+
     // Method to remove an item from the cart
     public void removeItem(FoodItem item) {
         if (items.containsKey(item)) {

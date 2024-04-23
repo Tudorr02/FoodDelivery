@@ -3,9 +3,8 @@ package com.FoodDeliveryApp.Services;
 import com.FoodDeliveryApp.Converters.ClientConverter;
 import com.FoodDeliveryApp.Converters.DataConverter;
 import com.FoodDeliveryApp.Converters.DeliveryManConverter;
-import com.FoodDeliveryApp.Models.Client;
-import com.FoodDeliveryApp.Models.DeliveryMan;
-import com.FoodDeliveryApp.Models.Users;
+
+import com.FoodDeliveryApp.Models.*;
 
 import java.io.*;
 import java.nio.file.Files;
@@ -19,11 +18,32 @@ public class DataStorageServices<T> {
 
     // List to hold multiple objects of type T
     private List<T> objects;
-    private List<Users> users;
+
+    // users
+    private List<Client> cUsers;
+    private List<DeliveryMan> dmUsers;
+
+    private List<FoodItem> foodItems;
+    private List<Restaurant> restaurants;
+    private List<Review> reviews;
+    private List<Delivery> deliveries;
+
+    // orders
+    private List<PickUpOrder> puOrders;
+    private List<DeliveryOrder> dOrders;
 
 
     // Private constructor to prevent external instantiation
     private DataStorageServices() {
+        List<Client> cUsers=new ArrayList<>();
+        List<DeliveryMan> dmUsers = new ArrayList<>();
+        List<FoodItem> foodItems= new ArrayList<>();
+        List<Restaurant> restaurants= new ArrayList<>();
+        List<Review> Reviews = new ArrayList<>();
+        List<PickUpOrder> puOrders = new ArrayList<>();
+        List<DeliveryOrder> dOrders = new ArrayList<>();
+        List<Delivery> deliveries = new ArrayList<>();
+
         objects = new ArrayList<>();
     }
 
@@ -42,7 +62,18 @@ public class DataStorageServices<T> {
 
         try {
             this.readCsv("res/CSV/Client_Data.csv", (DataConverter<T>) clientConverter);
+            this.cUsers= (List<Client>) this.getObjects(); objects.clear();
+
             this.readCsv("res/CSV/DeliveryMen_Data.csv",(DataConverter<T>) dmConverter);
+            this.dmUsers= (List<DeliveryMan>) this.getObjects(); objects.clear();
+
+            this.readCsv("res/CSV/FoodItems_Data.csv" , (DataConverter<T>) foodItems);
+            this.foodItems= (List<FoodItem>) this.getObjects(); objects.clear();
+
+            this.readCsv("res/CSV/Restaurants_Data.csv", (DataConverter<T>) restaurants);
+            this.restaurants= (List<Restaurant>) this.getObjects(); objects.clear();
+
+
            // this.readCsv("res/CSV/Client_Data.csv", (DataConverter<T>) clientConverter);
 
 
@@ -67,7 +98,38 @@ public class DataStorageServices<T> {
     public List<T> getObjects() {
         return objects;
     }
-    public List<Users> getUsers(){ return users;}
+
+     public List<Client> getCUsers() {
+        return cUsers;
+    }
+
+    public List<DeliveryMan> getDMUsers() {
+        return dmUsers;
+    }
+
+    public List<FoodItem> getFoodItems() {
+        return foodItems;
+    }
+
+    public List<Restaurant> getRestaurants() {
+        return restaurants;
+    }
+
+    public List<Review> getReviews() {
+        return reviews;
+    }
+
+    public List<Delivery> getDeliveries() {
+        return deliveries;
+    }
+
+    public List<PickUpOrder> getPUOrders() {
+        return puOrders;
+    }
+
+    public List<DeliveryOrder> getDOrders() {
+        return dOrders;
+    }
 
     // Method to set the stored objects
 //    public void setObjects(List<T> objects) {
@@ -75,7 +137,7 @@ public class DataStorageServices<T> {
 //    }
 
     // Method to read data from a CSV file
-    public void readCsv(String filePath, DataConverter<T> converter) throws IOException {
+    public void readCsv(String filePath, DataConverter<T> converter ) throws IOException {
         try (BufferedReader br = Files.newBufferedReader(Paths.get(filePath))) {
             String line;
             int lineIndex = 0;

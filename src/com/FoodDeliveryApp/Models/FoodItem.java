@@ -1,6 +1,13 @@
 package com.FoodDeliveryApp.Models;
 
 public class FoodItem {
+
+    private int foodItemID;
+    private String name;
+    private String description;
+    private double weight; // assuming weight is measured in grams
+    private double price; // assuming price is in a standard currency unit
+
     public String getName() {
         return name;
     }
@@ -21,11 +28,6 @@ public class FoodItem {
         return price;
     }
 
-    private int foodItemID;
-    private String name;
-    private String description;
-    private double weight; // assuming weight is measured in grams
-    private double price; // assuming price is in a standard currency unit
 
     public FoodItem(String name, String description, int foodItemID, double weight, double price) {
         this.name = name;

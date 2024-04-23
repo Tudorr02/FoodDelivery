@@ -21,4 +21,46 @@ public class Restaurant {
         this.priceRange = priceRange;
         this.reviews = reviews;
     }
+
+
+    public String getName() {
+        return name;
+    }
+
+    public String getRestaurantID() {
+        return restaurantID;
+    }
+
+    public String getLocation() {
+        return location;
+    }
+
+    public List<FoodItem> getMenu() {
+        return menu;
+    }
+
+    public double getRating() {
+        return rating;
+    }
+
+    public String getPriceRange() {
+        return priceRange;
+    }
+
+    public List<Review> getReviews() {
+        return reviews;
+    }
+
+    @Override
+    public String toString() {
+        return "Restaurant{" +
+                "name='" + name + '\'' +
+                ", restaurantID='" + restaurantID + '\'' +
+                ", location='" + location + '\'' +
+                ", menu=" + menu +
+                ", rating=" + rating +
+                ", priceRange='" + priceRange + '\'' +
+                ", reviews=" + reviews +
+                '}';
+    }
 }
