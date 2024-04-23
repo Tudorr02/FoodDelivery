@@ -6,7 +6,7 @@ import java.util.Map;
 public class ShoppingCart {
 
     private String shoppingCartID;
-    private Map<FoodItem, Integer> items; // Holds FoodItems and their quantities
+    private Map<String, Integer> items; // Holds FoodItems and their quantities
     private double total;
 
     // Constructor
@@ -15,21 +15,20 @@ public class ShoppingCart {
         this.total = 0.0;
     }
 
-    // Method to add an item to the cart
-    public void addItem(FoodItem item, int quantity) {
-        // Check if the item already exists in the cart
-        if (items.containsKey(item)) {
-            items.put(item, items.get(item) + quantity); // Increment quantity if already exists
-        } else {
-            items.put(item, quantity); // Add new item with quantity
-        }
-        updateTotal();
-    }
-
-    public ShoppingCart(String shoppingCartID, Map<FoodItem, Integer> items, double total) {
+    public ShoppingCart(String shoppingCartID, Map<String, Integer> items, double total) {
         this.shoppingCartID = shoppingCartID;
         this.items = items;
         this.total = total;
+    }
+
+    // Method to add an item to the cart
+    public void addItem(String itemId, int quantity) {
+        if (items.containsKey(itemId)) {
+            items.put(itemId, items.get(itemId) + quantity); // Increment quantity if already exists
+        } else {
+            items.put(itemId, quantity); // Add new item with quantity
+        }
+        updateTotal();
     }
 
     public String getShoppingCartID() {
@@ -37,9 +36,9 @@ public class ShoppingCart {
     }
 
     // Method to remove an item from the cart
-    public void removeItem(FoodItem item) {
-        if (items.containsKey(item)) {
-            items.remove(item); // Remove the item completely
+    public void removeItem(String itemId) {
+        if (items.containsKey(itemId)) {
+            items.remove(itemId); // Remove the item completely
             updateTotal();
         }
     }
@@ -47,8 +46,9 @@ public class ShoppingCart {
     // Method to update the total cost of the cart
     private void updateTotal() {
         total = 0.0;
-        for (Map.Entry<FoodItem, Integer> entry : items.entrySet()) {
-            total += entry.getKey().getPrice() * entry.getValue(); // Multiply item price by its quantity
+        for (Map.Entry<String, Integer> entry : items.entrySet()) {
+            FoodItem item = FoodItem.getFoodItemById(entry.getKey());
+            total += item.getPrice() * entry.getValue(); // Multiply item price by its quantity
         }
     }
 

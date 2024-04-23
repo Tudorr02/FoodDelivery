@@ -1,18 +1,8 @@
 package com.FoodDeliveryApp.Models;
 
+import java.time.LocalDateTime;
+
 public class Delivery {
-
-    private String deliveryID;
-    private String deliveryManID;
-    private String orderID;
-    private int expectedTime;
-
-    public Delivery(String deliveryID, String deliveryManID, String orderID, int expectedTime) {
-        this.deliveryID = deliveryID;
-        this.deliveryManID = deliveryManID;
-        this.orderID = orderID;
-        this.expectedTime = expectedTime;
-    }
 
     @Override
     public String toString() {
@@ -20,9 +10,23 @@ public class Delivery {
                 "deliveryID='" + deliveryID + '\'' +
                 ", deliveryManID='" + deliveryManID + '\'' +
                 ", orderID='" + orderID + '\'' +
-                ", expectedTime=" + expectedTime +
+                ", expectedDate=" + expectedDate +
                 '}';
     }
+
+    private String deliveryID;
+    private String deliveryManID;
+    private String orderID;
+
+    private LocalDateTime expectedDate;
+
+    public Delivery(String deliveryID, String deliveryManID, String orderID, LocalDateTime expectedDate) {
+        this.deliveryID = deliveryID;
+        this.deliveryManID = deliveryManID;
+        this.orderID = orderID;
+        this.expectedDate = expectedDate;
+    }
+
 
     public String getDeliveryID() {
         return deliveryID;
@@ -36,7 +40,5 @@ public class Delivery {
         return orderID;
     }
 
-    public int getExpectedTime() {
-        return expectedTime;
-    }
+
 }
