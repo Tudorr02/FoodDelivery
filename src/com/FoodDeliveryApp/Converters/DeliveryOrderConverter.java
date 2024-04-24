@@ -1,7 +1,7 @@
 package com.FoodDeliveryApp.Converters;
 
 import com.FoodDeliveryApp.Models.DeliveryOrder;
-import com.FoodDeliveryApp.Models.ShoppingCart;
+//import com.FoodDeliveryApp.Models.ShoppingCart;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
@@ -24,7 +24,7 @@ public class DeliveryOrderConverter implements DataConverter<DeliveryOrder> {
         String orderID = values[0].trim();
         String customerID = values[1].trim();
         String restaurantID = values[2].trim();
-        String shoppingCartID = values[3].trim(); // Assuming parseShoppingCart() is a method to deserialize ShoppingCart
+        String shoppingCartID = values[3].trim();
         String paymentMethod = values[4].trim();
         LocalDateTime orderDate = null;
         try {
@@ -43,7 +43,7 @@ public class DeliveryOrderConverter implements DataConverter<DeliveryOrder> {
                 deliveryOrder.getOrderID(),
                 deliveryOrder.getCustomerID(),
                 deliveryOrder.getRestaurantID(),
-                deliveryOrder.getShoppingCartID(), // Assuming serializeShoppingCart() is a method to serialize ShoppingCart
+                deliveryOrder.getShoppingCartID(),
                 deliveryOrder.getPaymentMethod(),
                 dateTimeFormatter.format(deliveryOrder.getOrderDate()),
                 String.valueOf(deliveryOrder.getDeliveryDiscountPercent()));
