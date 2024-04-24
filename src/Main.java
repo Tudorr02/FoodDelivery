@@ -1,5 +1,8 @@
 
 import com.FoodDeliveryApp.Models.DeliveryMan;
+import com.FoodDeliveryApp.Models.FoodItem;
+import com.FoodDeliveryApp.Models.Review;
+import com.FoodDeliveryApp.Models.Users;
 import com.FoodDeliveryApp.Services.DataStorageServices;
 
 import javax.xml.crypto.Data;
@@ -9,14 +12,11 @@ public class Main {
     public static void main(String[] args) {
 
         DataStorageServices.getInstance();
-        DataStorageServices.getInstance().getCUsers();
+        DataStorageServices.getInstance().getUsers();
 
-        for(DeliveryMan x :   DataStorageServices.getInstance().getDMUsers() )
+        for( Users x:   DataStorageServices.getInstance().getUsers() )
             System.out.println(x.toString());
 
-
-
     }
-
 
 }

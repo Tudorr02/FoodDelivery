@@ -1,8 +1,6 @@
 package com.FoodDeliveryApp.Services;
 
-import com.FoodDeliveryApp.Converters.ClientConverter;
-import com.FoodDeliveryApp.Converters.DataConverter;
-import com.FoodDeliveryApp.Converters.DeliveryManConverter;
+import com.FoodDeliveryApp.Converters.*;
 
 import com.FoodDeliveryApp.Models.*;
 
@@ -20,6 +18,7 @@ public class DataStorageServices<T> {
     private List<T> objects;
 
     // users
+    private List<Users> users;
     private List<Client> cUsers;
     private List<DeliveryMan> dmUsers;
 
@@ -39,7 +38,7 @@ public class DataStorageServices<T> {
         List<DeliveryMan> dmUsers = new ArrayList<>();
         List<FoodItem> foodItems= new ArrayList<>();
         List<Restaurant> restaurants= new ArrayList<>();
-        List<Review> Reviews = new ArrayList<>();
+        List<Review> reviews = new ArrayList<>();
         List<PickUpOrder> puOrders = new ArrayList<>();
         List<DeliveryOrder> dOrders = new ArrayList<>();
         List<Delivery> deliveries = new ArrayList<>();
@@ -60,14 +59,33 @@ public class DataStorageServices<T> {
     private void initializeData(){
          DataConverter<Client> clientConverter = new ClientConverter();
          DataConverter<DeliveryMan> dmConverter = new DeliveryManConverter();
+         DataConverter<FoodItem> fiConverter = new FoodItemConverter();
+         DataConverter<Review> reviewConverter = new ReviewConverter();
+
 
         try {
+//            this.readCsv("res/CSV/Client_Data.csv", (DataConverter<T>) clientConverter);
+//            this.cUsers= (List<Client>) new ArrayList<>(this.objects);
+//            this.objects.clear();
+//
+//            this.readCsv("res/CSV/DeliveryMen_Data.csv",(DataConverter<T>) dmConverter);
+//            this.dmUsers= (List<DeliveryMan>) new ArrayList<>(this.getObjects());
+//            objects.clear();
+
             this.readCsv("res/CSV/Client_Data.csv", (DataConverter<T>) clientConverter);
-            this.cUsers= (List<Client>) new ArrayList<>(this.objects);
+            this.users = (List<Users>) new ArrayList<>(this.objects);
+
+
+            this.readCsv("res/CSV/DeliveryMen_Data.csv", (DataConverter<T>) dmConverter);
+            this.users = (List<Users>) new ArrayList<>(this.objects);
             this.objects.clear();
 
-            this.readCsv("res/CSV/DeliveryMen_Data.csv",(DataConverter<T>) dmConverter);
-            this.dmUsers= (List<DeliveryMan>) new ArrayList<>(this.getObjects());
+            this.readCsv("res/CSV/FoodItems_Data.csv",(DataConverter<T>) fiConverter);
+            this.foodItems = (List<FoodItem>) new ArrayList<>(this.getObjects());
+            objects.clear();
+
+            this.readCsv("res/CSV/Reviews_Data.csv",(DataConverter<T>) reviewConverter);
+            this.reviews = (List<Review>) new ArrayList<>(this.getObjects());
             objects.clear();
 
 
@@ -91,17 +109,22 @@ public class DataStorageServices<T> {
 //        }
 
     }
+
     // Method to get the stored objects
     public List<T> getObjects() {
         return objects;
     }
 
-     public List<Client> getCUsers() {
-        return cUsers;
-    }
+//     public List<Client> getCUsers() {
+//        return cUsers;
+//    }
 
-    public List<DeliveryMan> getDMUsers() {
-        return dmUsers;
+//    public List<DeliveryMan> getDMUsers() {
+//        return dmUsers;
+//    }
+    public List<Users> getUsers()
+    {
+        return users;
     }
 
     public List<FoodItem> getFoodItems() {

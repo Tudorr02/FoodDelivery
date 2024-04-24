@@ -2,6 +2,17 @@ package com.FoodDeliveryApp.Models;
 
 public class FoodItem {
 
+    @Override
+    public String toString() {
+        return "FoodItem{" +
+                "foodItemID=" + foodItemID +
+                ", name='" + name + '\'' +
+                ", description='" + description + '\'' +
+                ", weight=" + weight +
+                ", price=" + price +
+                '}';
+    }
+
     private int foodItemID;
     private String name;
     private String description;
