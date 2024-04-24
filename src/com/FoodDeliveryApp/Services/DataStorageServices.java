@@ -51,6 +51,7 @@ public class DataStorageServices<T> {
     public static synchronized <U> DataStorageServices<U> getInstance() {
         if (instance == null) {
             instance = new DataStorageServices<U>();
+
             instance.initializeData();
         }
         return (DataStorageServices<U>) instance;
@@ -62,36 +63,32 @@ public class DataStorageServices<T> {
 
         try {
             this.readCsv("res/CSV/Client_Data.csv", (DataConverter<T>) clientConverter);
-            this.cUsers= (List<Client>) this.getObjects(); objects.clear();
+            this.cUsers= (List<Client>) new ArrayList<>(this.objects);
+            this.objects.clear();
 
             this.readCsv("res/CSV/DeliveryMen_Data.csv",(DataConverter<T>) dmConverter);
-            this.dmUsers= (List<DeliveryMan>) this.getObjects(); objects.clear();
-
-            this.readCsv("res/CSV/FoodItems_Data.csv" , (DataConverter<T>) foodItems);
-            this.foodItems= (List<FoodItem>) this.getObjects(); objects.clear();
-
-            this.readCsv("res/CSV/Restaurants_Data.csv", (DataConverter<T>) restaurants);
-            this.restaurants= (List<Restaurant>) this.getObjects(); objects.clear();
+            this.dmUsers= (List<DeliveryMan>) new ArrayList<>(this.getObjects());
+            objects.clear();
 
 
-           // this.readCsv("res/CSV/Client_Data.csv", (DataConverter<T>) clientConverter);
+//
+//            this.readCsv("res/CSV/FoodItems_Data.csv" , (DataConverter<T>) foodItems);
+//            this.foodItems= (List<FoodItem>) this.getObjects(); objects.clear();
+//
+//            this.readCsv("res/CSV/Restaurants_Data.csv", (DataConverter<T>) restaurants);
+//            this.restaurants= (List<Restaurant>) this.getObjects(); objects.clear();
 
-
-            // Assume the instance is specifically for Client
         } catch (IOException e) {
             System.out.println("Error reading CSV data: " + e.getMessage());
         }
 
         // Optionally, print out to verify loading
-        for (T client : this.getObjects()) {
-            System.out.println(client.toString());
-        }
 
-        System.out.println();
-
-        for( T DeliveryMan : this.getObjects()) {
-            System.out.println(DeliveryMan.toString());
-        }
+//        System.out.println();
+//
+//        for( T DeliveryMan : this.getObjects()) {
+//            System.out.println(DeliveryMan.toString());
+//        }
 
     }
     // Method to get the stored objects

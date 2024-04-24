@@ -30,6 +30,8 @@ public class Client extends Users {
                 ", email='" + email + '\'' +
                 '}';
     }
+
+
 }
 
 
