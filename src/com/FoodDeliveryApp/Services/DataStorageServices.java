@@ -255,10 +255,10 @@ public class DataStorageServices<T> {
 
     public DeliveryMan getDeliveryManById(int deliveryManId) throws Exception {
 
-        if(this.users.isEmpty())
-            throw new IOException("Custom Exception - getReviewById : Empty Reviews List !");
-
-        return null;
+//        if(this.users.contains())
+//            throw new IOException("Custom Exception - getDeliveryManById : Empty DeliveryMan List !");
+//
+//        return null;
 
     }
 

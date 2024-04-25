@@ -12,7 +12,7 @@ public class Main {
 
 
 
-        for(  Order x:   DataStorageServices.getInstance().getOrders() )
+        for(  Users x:   DataStorageServices.getInstance().getUsers() )
             System.out.println(x.toString());
 
 
