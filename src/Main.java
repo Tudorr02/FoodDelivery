@@ -7,15 +7,24 @@ import com.FoodDeliveryApp.Services.DataStorageServices;
 
 import javax.xml.crypto.Data;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 public class Main {
     public static void main(String[] args) {
 
         DataStorageServices.getInstance();
-        DataStorageServices.getInstance().getUsers();
+        System.out.println(DataStorageServices.getInstance().getUsers().size()); ;
 
-        for( Users x:   DataStorageServices.getInstance().getUsers() )
+
+
+        for( Review x:   DataStorageServices.getInstance().getReviews() )
             System.out.println(x.toString());
+
+
+
+
 
     }
 

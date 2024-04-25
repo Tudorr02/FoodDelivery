@@ -73,9 +73,6 @@ public class DataStorageServices<T> {
 //            objects.clear();
 
             this.readCsv("res/CSV/Client_Data.csv", (DataConverter<T>) clientConverter);
-            this.users = (List<Users>) new ArrayList<>(this.objects);
-
-
             this.readCsv("res/CSV/DeliveryMen_Data.csv", (DataConverter<T>) dmConverter);
             this.users = (List<Users>) new ArrayList<>(this.objects);
             this.objects.clear();
@@ -98,6 +95,8 @@ public class DataStorageServices<T> {
 
         } catch (IOException e) {
             System.out.println("Error reading CSV data: " + e.getMessage());
+        } catch (Exception e) {
+            throw new RuntimeException(e);
         }
 
         // Optionally, print out to verify loading
@@ -115,13 +114,6 @@ public class DataStorageServices<T> {
         return objects;
     }
 
-//     public List<Client> getCUsers() {
-//        return cUsers;
-//    }
-
-//    public List<DeliveryMan> getDMUsers() {
-//        return dmUsers;
-//    }
     public List<Users> getUsers()
     {
         return users;
@@ -151,13 +143,13 @@ public class DataStorageServices<T> {
         return dOrders;
     }
 
-    // Method to set the stored objects
-//    public void setObjects(List<T> objects) {
-//        this.objects = objects;
-//    }
+    public void setObjects(List<T> objects) {
+
+        this.objects = new ArrayList<T>(objects);
+    }
 
     // Method to read data from a CSV file
-    public void readCsv(String filePath, DataConverter<T> converter ) throws IOException {
+    public void readCsv(String filePath, DataConverter<T> converter ) throws Exception {
         try (BufferedReader br = Files.newBufferedReader(Paths.get(filePath))) {
             String line;
             int lineIndex = 0;
@@ -183,4 +175,22 @@ public class DataStorageServices<T> {
             }
         }
     }
-}
+
+
+    public Users getUserById (String userId) throws Exception {
+
+        if(this.users.isEmpty())
+            throw new IOException("Custom Exception - getUserById : Empty Users List !");
+
+        for (Users user : this.users)
+            if(user.getUserID().equals(userId))
+                return user;
+
+        throw new Exception("getUserById : User not found !");
+
+
+    }
+
+
+
+    }

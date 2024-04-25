@@ -1,14 +1,18 @@
 package com.FoodDeliveryApp.Models;
 
+import com.FoodDeliveryApp.Services.DataStorageServices;
+
+import javax.xml.crypto.Data;
+
 public class Review {
     private String reviewID;
-    private String userId;
+    private Users user;
     private double givenRating;
     private String message;
 
-    public Review(String reviewID, String userId, double givenRating, String message) {
+    public Review(String reviewID, Users user, double givenRating, String message) {
         this.reviewID = reviewID;
-        this.userId = userId;
+        this.user = user;
         this.givenRating = givenRating;
         this.message = message;
     }
@@ -17,8 +21,8 @@ public class Review {
         return reviewID;
     }
 
-    public String getUserId() {
-        return userId;
+    public Users getUser() {
+        return user;
     }
 
     public double getGivenRating() {
@@ -33,7 +37,7 @@ public class Review {
     public String toString() {
         return "Review{" +
                 "reviewID='" + reviewID + '\'' +
-                ", userId='" + userId + '\'' +
+                ", userId='" + user.getUserID() + '\'' + " last name : "+ user.getLastName()+
                 ", givenRating=" + givenRating +
                 ", message='" + message + '\'' +
                 '}';
