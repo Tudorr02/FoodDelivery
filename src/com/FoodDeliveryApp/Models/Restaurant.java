@@ -1,6 +1,7 @@
 package com.FoodDeliveryApp.Models;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class Restaurant {
 
@@ -53,14 +54,36 @@ public class Restaurant {
 
     @Override
     public String toString() {
-        return "Restaurant{" +
-                "name='" + name + '\'' +
-                ", restaurantID='" + restaurantID + '\'' +
-                ", location='" + location + '\'' +
-                ", menu=" + menu +
-                ", rating=" + rating +
-                ", priceRange='" + priceRange + '\'' +
-                ", reviews=" + reviews +
-                '}';
+        StringBuilder builder = new StringBuilder();
+        builder.append("Restaurant{");
+        builder.append("name='").append(name).append('\'');
+        builder.append(", restaurantID='").append(restaurantID).append('\'');
+        builder.append(", location='").append(location).append('\'');
+
+        // Adding menu items' string representations
+        builder.append(", menu=[");
+        if (menu != null) {
+            builder.append(menu.stream()
+                    .map(FoodItem::toString)  // Use FoodItem's toString
+                    .collect(Collectors.joining(", ")));
+        }
+        builder.append("]");
+
+        // Adding rating and price range
+        builder.append(", rating=").append(rating);
+        builder.append(", priceRange='").append(priceRange).append('\'');
+
+        // Adding reviews' string representations
+        builder.append(", reviews=[");
+        if (reviews != null) {
+            builder.append(reviews.stream()
+                    .map(Review::toString)  // Use Review's toString
+                    .collect(Collectors.joining(", ")));
+        }
+        builder.append("]");
+
+        builder.append('}');
+        return builder.toString();
     }
+
 }

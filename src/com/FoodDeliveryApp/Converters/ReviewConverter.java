@@ -2,12 +2,15 @@ package com.FoodDeliveryApp.Converters;
 
 import com.FoodDeliveryApp.Models.FoodItem;
 import com.FoodDeliveryApp.Models.Review;
+import com.FoodDeliveryApp.Services.DataStorageServices;
+import com.FoodDeliveryApp.Models.Users;
+
 import java.util.ArrayList;
 import java.util.List;
 
 public class ReviewConverter implements DataConverter<Review>{
 
-    public Review convertFromCsv(String csvLine) {
+    public Review convertFromCsv(String csvLine) throws Exception {
         // Split the CSV line using a regex that ignores commas inside quotes
         String[] values = csvLine.split(",(?=([^\"]*\"[^\"]*\")*[^\"]*$)");
 
@@ -16,7 +19,7 @@ public class ReviewConverter implements DataConverter<Review>{
         }
 
         String reviewID = values[0].trim();
-        String userId = values[1].trim();
+        Users user = DataStorageServices.getInstance().getUserById((String) values[1].trim());
         double givenRating = Double.parseDouble(values[2].trim());
 
         // Remove possible surrounding quotes from the message
@@ -25,15 +28,17 @@ public class ReviewConverter implements DataConverter<Review>{
             message = message.substring(1, message.length() - 1);
         }
 
-        return new Review(reviewID, userId, givenRating, message);
+        return new Review(reviewID, user, givenRating, message);
     }
 
     public String convertToCsv(Review review) {
         // Ensure messages with commas are quoted
         return String.join(",",
                 review.getReviewID(),
-                review.getUserId(),
+                review.getUser().getUserID(),
                 String.valueOf(review.getGivenRating()),
                 "\"" + review.getMessage() + "\"");
     }
+
+
 }
