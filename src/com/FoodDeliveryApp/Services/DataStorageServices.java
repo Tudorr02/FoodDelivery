@@ -3,6 +3,7 @@ package com.FoodDeliveryApp.Services;
 import com.FoodDeliveryApp.Converters.*;
 
 import com.FoodDeliveryApp.Models.*;
+import org.w3c.dom.ls.LSOutput;
 
 import java.io.*;
 import java.nio.file.Files;
@@ -239,6 +240,11 @@ public class DataStorageServices<T> {
         // If no matching ID is found, throw an exception
         throw new Exception("getReviewById : Review not found !");
     }
+
+//    public DeliveryMan getDeliveryManById(int deliveryManId) throws Exception {
+//
+//        if(this.users.isEmpty())
+//    }
 
 
 

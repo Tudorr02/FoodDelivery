@@ -4,26 +4,15 @@ import java.time.LocalDateTime;
 
 public class Delivery {
 
-    @Override
-    public String toString() {
-        return "Delivery{" +
-                "deliveryID='" + deliveryID + '\'' +
-                ", deliveryManID='" + deliveryManID + '\'' +
-                ", orderID='" + orderID + '\'' +
-                ", expectedDate=" + expectedDate +
-                '}';
-    }
-
     private String deliveryID;
-    private String deliveryManID;
-    private String orderID;
-
+    private DeliveryMan deliveryMan;
+    private Order order;
     private LocalDateTime expectedDate;
 
-    public Delivery(String deliveryID, String deliveryManID, String orderID, LocalDateTime expectedDate) {
+    public Delivery(String deliveryID, DeliveryMan deliveryMan, Order order, LocalDateTime expectedDate) {
         this.deliveryID = deliveryID;
-        this.deliveryManID = deliveryManID;
-        this.orderID = orderID;
+        this.deliveryMan = deliveryMan;
+        this.order = order;
         this.expectedDate = expectedDate;
     }
 
@@ -32,12 +21,23 @@ public class Delivery {
         return deliveryID;
     }
 
-    public String getDeliveryManID() {
-        return deliveryManID;
+    public DeliveryMan getDeliveryMan() {
+        return deliveryMan;
     }
 
-    public String getOrderID() {
-        return orderID;
+    public Order getOrder() {
+        return order;
+    }
+    public LocalDateTime getExpectedDate() { return expectedDate; }
+
+     @Override
+    public String toString() {
+        return "Delivery{" +
+                "deliveryID='" + deliveryID + '\'' +
+                ", deliveryManID='" + deliveryMan + '\'' +
+                ", orderID='" + order + '\'' +
+                ", expectedDate=" + expectedDate +
+                '}';
     }
 
 
