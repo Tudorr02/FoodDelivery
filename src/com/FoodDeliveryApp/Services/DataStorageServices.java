@@ -253,14 +253,14 @@ public class DataStorageServices<T> {
         throw new Exception("getReviewById : Review not found !");
     }
 
-    public DeliveryMan getDeliveryManById(int deliveryManId) throws Exception {
-
-//        if(this.users.contains())
-//            throw new IOException("Custom Exception - getDeliveryManById : Empty DeliveryMan List !");
+//    public DeliveryMan getDeliveryManById(int deliveryManId) throws Exception {
 //
-//        return null;
-
-    }
+////        if(this.users.contains())
+////            throw new IOException("Custom Exception - getDeliveryManById : Empty DeliveryMan List !");
+////
+////        return null;
+//
+//    }
 
     public Restaurant getRestaurantById(String restaurantId) throws Exception {
         if (this.restaurants.isEmpty()) {
