@@ -6,7 +6,7 @@ import java.util.Date;
 public class DeliveryOrder extends Order{
     private int deliveryDiscountPercent;
 
-    public DeliveryOrder(String orderID, String customerID, String restaurantID, String shoppingCartID, String paymentMethod, LocalDateTime orderDate, int deliveryDiscountPercent) {
+    public DeliveryOrder(String orderID, Users customerID, Restaurant restaurantID, ShoppingCart shoppingCartID, String paymentMethod, LocalDateTime orderDate, int deliveryDiscountPercent) {
         super(orderID, customerID, restaurantID, shoppingCartID, paymentMethod, orderDate);
         this.deliveryDiscountPercent = deliveryDiscountPercent;
     }
@@ -17,7 +17,7 @@ public class DeliveryOrder extends Order{
 
     @Override
     public String toString() {
-        return "DeliveryOrder{" +
+        return super.toString() +
                 "deliveryDiscountPercent=" + deliveryDiscountPercent +
                 '}';
     }

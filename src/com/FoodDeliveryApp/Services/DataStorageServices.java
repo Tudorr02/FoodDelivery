@@ -32,6 +32,8 @@ public class DataStorageServices<T> {
     // orders
     private List<PickUpOrder> puOrders;
     private List<DeliveryOrder> dOrders;
+    private List<Order> orders;
+
 
 
     // Private constructor to prevent external instantiation
@@ -45,6 +47,7 @@ public class DataStorageServices<T> {
         List<DeliveryOrder> dOrders = new ArrayList<>();
         List<Delivery> deliveries = new ArrayList<>();
         List<ShoppingCart> shoppingCarts = new ArrayList<>();
+        List<Order> orders = new ArrayList<>();
 
         objects = new ArrayList<>();
     }
@@ -66,6 +69,8 @@ public class DataStorageServices<T> {
          DataConverter<Review> reviewConverter = new ReviewConverter();
          DataConverter<Restaurant> restaurantConverter = new RestaurantConverter();
          DataConverter<ShoppingCart> shoppingCartConverter= new ShoppingCartConverter();
+         DataConverter<PickUpOrder> puConverter = new PickUpOrdersConverter();
+         DataConverter<DeliveryOrder> doConverter = new DeliveryOrderConverter();
 
 
 
@@ -100,7 +105,10 @@ public class DataStorageServices<T> {
             objects.clear();
 
 
-
+            this.readCsv("res/CSV/PickUpOrders_Data.csv",(DataConverter<T>) puConverter);
+            this.readCsv("res/CSV/DeliveryOrders.csv",(DataConverter<T>) doConverter);
+            this.orders = (List<Order>) new ArrayList<>(this.objects);
+            objects.clear();
 
 //
 //            this.readCsv("res/CSV/FoodItems_Data.csv" , (DataConverter<T>) foodItems);
@@ -157,6 +165,10 @@ public class DataStorageServices<T> {
 
     public List<DeliveryOrder> getDOrders() {
         return dOrders;
+    }
+
+    public List<Order>getOrders(){
+        return orders;
     }
 
     public List<ShoppingCart> getShoppingCarts(){
@@ -241,12 +253,41 @@ public class DataStorageServices<T> {
         throw new Exception("getReviewById : Review not found !");
     }
 
-//    public DeliveryMan getDeliveryManById(int deliveryManId) throws Exception {
-//
-//        if(this.users.isEmpty())
-//    }
+    public DeliveryMan getDeliveryManById(int deliveryManId) throws Exception {
 
+        if(this.users.isEmpty())
+            throw new IOException("Custom Exception - getReviewById : Empty Reviews List !");
 
+        return null;
 
+    }
+
+    public Restaurant getRestaurantById(String restaurantId) throws Exception {
+        if (this.restaurants.isEmpty()) {
+            throw new IOException("Custom Exception - getRestaurantById : Empty Restaurant List !");
+        }
+
+        for (Restaurant restaurant : this.restaurants) {
+            if (restaurant.getRestaurantID().equals(restaurantId)) {
+                return restaurant;
+            }
+        }
+
+        throw new Exception("getRestaurantById: Restaurant not found !");
+    }
+
+    public ShoppingCart getShoppingCartById(String shoppingCartId) throws Exception {
+        if (this.shoppingCarts.isEmpty()) {
+            throw new IOException("Custom Exception - getShoppingCartById : Empty ShoppingCart List !");
+        }
+
+        for (ShoppingCart cart : this.shoppingCarts) {
+            if (cart.getShoppingCartID().equals(shoppingCartId)) {
+                return cart;
+            }
+        }
+
+        throw new Exception("getShoppingCartById : ShoppingCart not found !");
+    }
 
 }
