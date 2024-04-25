@@ -5,6 +5,7 @@ import com.FoodDeliveryApp.Converters.*;
 import com.FoodDeliveryApp.Models.*;
 import org.w3c.dom.ls.LSOutput;
 
+import javax.xml.crypto.Data;
 import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -36,6 +37,7 @@ public class DataStorageServices<T> {
 
 
 
+
     // Private constructor to prevent external instantiation
     private DataStorageServices() {
         List<Client> cUsers=new ArrayList<>();
@@ -48,6 +50,7 @@ public class DataStorageServices<T> {
         List<Delivery> deliveries = new ArrayList<>();
         List<ShoppingCart> shoppingCarts = new ArrayList<>();
         List<Order> orders = new ArrayList<>();
+
 
         objects = new ArrayList<>();
     }
@@ -62,6 +65,7 @@ public class DataStorageServices<T> {
         return (DataStorageServices<U>) instance;
     }
 
+
     private void initializeData(){
          DataConverter<Client> clientConverter = new ClientConverter();
          DataConverter<DeliveryMan> dmConverter = new DeliveryManConverter();
@@ -71,6 +75,7 @@ public class DataStorageServices<T> {
          DataConverter<ShoppingCart> shoppingCartConverter= new ShoppingCartConverter();
          DataConverter<PickUpOrder> puConverter = new PickUpOrdersConverter();
          DataConverter<DeliveryOrder> doConverter = new DeliveryOrderConverter();
+         DataConverter<Delivery> deliveryDataConverter = new DeliveryConverter();
 
 
 
@@ -110,6 +115,9 @@ public class DataStorageServices<T> {
             this.orders = (List<Order>) new ArrayList<>(this.objects);
             objects.clear();
 
+            this.readCsv("res/CSV/Delivery_Data.csv", (DataConverter<T>) deliveryDataConverter);
+            this.deliveries = (List<Delivery>) new ArrayList<>(this.objects);
+            objects.clear();
 //
 //            this.readCsv("res/CSV/FoodItems_Data.csv" , (DataConverter<T>) foodItems);
 //            this.foodItems= (List<FoodItem>) this.getObjects(); objects.clear();
@@ -174,6 +182,8 @@ public class DataStorageServices<T> {
     public List<ShoppingCart> getShoppingCarts(){
         return shoppingCarts;
     }
+
+
 
     public void setObjects(List<T> objects) {
 
@@ -253,12 +263,16 @@ public class DataStorageServices<T> {
         throw new Exception("getReviewById : Review not found !");
     }
 
-    public DeliveryMan getDeliveryManById(int deliveryManId) throws Exception {
+    public DeliveryMan getDeliveryManById(String deliveryManId) throws Exception {
 
-//        if(this.users.contains())
-//            throw new IOException("Custom Exception - getDeliveryManById : Empty DeliveryMan List !");
-//
-//        return null;
+        if(this.users.isEmpty())
+            throw new IOException("Custom Exception - getDeliveryManById : Empty DeliveryMan List !");
+
+        for (Users user : this.users)
+            if(user.getUserID().equals(deliveryManId) && user instanceof DeliveryMan)
+                return (DeliveryMan) user;
+
+        throw new Exception("getUserById : User not found !");
 
     }
 
@@ -289,5 +303,20 @@ public class DataStorageServices<T> {
 
         throw new Exception("getShoppingCartById : ShoppingCart not found !");
     }
+
+    public Order getOrderById(String orderId) throws Exception {
+        if (this.orders.isEmpty()) {
+            throw new IOException("Custom Exception - getOrderById : Empty Orders List !");
+        }
+
+        for (Order order : this.orders) {
+            if (order.getOrderID().equals(orderId)) {
+                return order;
+            }
+        }
+
+        throw new Exception("getOrderById: Order not found !");
+    }
+
 
 }

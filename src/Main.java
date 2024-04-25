@@ -11,12 +11,10 @@ public class Main {
         System.out.println(DataStorageServices.getInstance().getShoppingCarts().size());
 
 
-
-        for(  Users x:   DataStorageServices.getInstance().getUsers() )
+        for(  Delivery x:   DataStorageServices.getInstance().getDeliveries() )
             System.out.println(x.toString());
 
 
     }
-
 
 }

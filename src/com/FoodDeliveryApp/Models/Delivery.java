@@ -6,10 +6,10 @@ public class Delivery {
 
     private String deliveryID;
     private DeliveryMan deliveryMan;
-    private Order order;
+    private DeliveryOrder order;
     private LocalDateTime expectedDate;
 
-    public Delivery(String deliveryID, DeliveryMan deliveryMan, Order order, LocalDateTime expectedDate) {
+    public Delivery(String deliveryID, DeliveryMan deliveryMan, DeliveryOrder order, LocalDateTime expectedDate) {
         this.deliveryID = deliveryID;
         this.deliveryMan = deliveryMan;
         this.order = order;
