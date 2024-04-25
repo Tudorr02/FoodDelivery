@@ -39,18 +39,17 @@ public class ShoppingCartConverter implements DataConverter<ShoppingCart> {
 
     @Override
     public ShoppingCart convertFromCsv(String csvLine) throws Exception {
-        String[] parts = csvLine.split(",(?=([^\"]*\"[^\"]*\")*[^\"]*$)");
+        String[] parts = csvLine.split(",\"|\",");
         String shoppingCartID = parts[0];
 
         Map<FoodItem, Integer> items = new HashMap<>();
         List<String> foodItemsPair = List.of(parts[1].split(";"));
 
-        for (int i=0;i<foodItemsPair.size();i++) {
-            foodItemsPair.get(i).replace("(","").replace(")","");
-            String[] shoppingCartItems = foodItemsPair.get(i).split(",");
+        for (String s : foodItemsPair) {
+            String[] shoppingCartItems = s.replace("(", "").replace(")", "").split(",");
             int foodItemField = Integer.parseInt(shoppingCartItems[0]);
             int quantity = Integer.parseInt(shoppingCartItems[1]);
-            items.put(DataStorageServices.getInstance().getFoodItemById(foodItemField),quantity );
+            items.put(DataStorageServices.getInstance().getFoodItemById(foodItemField), quantity);
 
         }
 

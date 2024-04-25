@@ -26,6 +26,7 @@ public class DataStorageServices<T> {
     private List<Restaurant> restaurants;
     private List<Review> reviews;
     private List<Delivery> deliveries;
+    private List<ShoppingCart> shoppingCarts;
 
     // orders
     private List<PickUpOrder> puOrders;
@@ -42,7 +43,7 @@ public class DataStorageServices<T> {
         List<PickUpOrder> puOrders = new ArrayList<>();
         List<DeliveryOrder> dOrders = new ArrayList<>();
         List<Delivery> deliveries = new ArrayList<>();
-        List<ShoppingCart> carts = new ArrayList<>();
+        List<ShoppingCart> shoppingCarts = new ArrayList<>();
 
         objects = new ArrayList<>();
     }
@@ -93,7 +94,9 @@ public class DataStorageServices<T> {
             this.restaurants = (List<Restaurant>) new ArrayList<>(this.getObjects());
             objects.clear();
 
-            //this.readCsv("res/CSV/Restaurants_Data.csv",(DataConverter<T>) shoppingCartConverter;
+            this.readCsv("res/CSV/ShoppingCart_Data.csv",(DataConverter<T>) shoppingCartConverter);
+            this.shoppingCarts = (List<ShoppingCart>) new ArrayList<>(this.getObjects());
+            objects.clear();
 
 
 
@@ -153,6 +156,10 @@ public class DataStorageServices<T> {
 
     public List<DeliveryOrder> getDOrders() {
         return dOrders;
+    }
+
+    public List<ShoppingCart> getShoppingCarts(){
+        return shoppingCarts;
     }
 
     public void setObjects(List<T> objects) {
