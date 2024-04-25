@@ -12,10 +12,10 @@ public class Main {
 
 
 
-        for( ShoppingCart x:   DataStorageServices.getInstance().getShoppingCarts() )
+        for(  Order x:   DataStorageServices.getInstance().getOrders() )
             System.out.println(x.toString());
 
-        System.out.println("TURIS");
+
 
     }
 

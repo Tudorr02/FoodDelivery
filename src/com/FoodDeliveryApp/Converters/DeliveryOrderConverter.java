@@ -1,53 +1,50 @@
 package com.FoodDeliveryApp.Converters;
 
 import com.FoodDeliveryApp.Models.DeliveryOrder;
-//import com.FoodDeliveryApp.Models.ShoppingCart;
-import java.time.LocalDate;
+import com.FoodDeliveryApp.Models.Users;
+import com.FoodDeliveryApp.Models.Restaurant;
+import com.FoodDeliveryApp.Models.ShoppingCart;
+import com.FoodDeliveryApp.Services.DataStorageServices;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.time.LocalDateTime;
-import java.util.Date;
-
 public class DeliveryOrderConverter implements DataConverter<DeliveryOrder> {
-    private static final DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+    private static final DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
     @Override
-    public DeliveryOrder convertFromCsv(String csvLine) {
+    public DeliveryOrder convertFromCsv(String csvLine) throws Exception {
         String[] values = csvLine.split(",");
         if (values.length < 7) {
             throw new IllegalArgumentException("CSV line does not contain enough data for DeliveryOrder.");
         }
-        // Assumes CSV is ordered as orderID, customerID, restaurantID, shoppingCart, paymentMethod, orderDate, deliveryDiscountPercent
+
         String orderID = values[0].trim();
-        String customerID = values[1].trim();
-        String restaurantID = values[2].trim();
-        String shoppingCartID = values[3].trim();
+        Users customer = DataStorageServices.getInstance().getUserById(values[1].trim()); // Fetch user by ID
+        Restaurant restaurant = DataStorageServices.getInstance().getRestaurantById(values[2].trim()); // Fetch restaurant by ID
+        ShoppingCart cart = DataStorageServices.getInstance().getShoppingCartById(values[3].trim()); // Fetch shopping cart by ID
         String paymentMethod = values[4].trim();
-        LocalDateTime orderDate = null;
+        LocalDateTime orderDate;
         try {
-            orderDate = LocalDateTime.parse(values[5].trim(),dateTimeFormatter);
+            orderDate = LocalDateTime.parse(values[5].trim(), dateTimeFormatter);
         } catch (DateTimeParseException e) {
             throw new IllegalArgumentException("Error parsing order date", e);
         }
+        // Assuming a missing implementation for the deliveryDiscountPercent which should be obtained similarly
         int deliveryDiscountPercent = Integer.parseInt(values[6].trim());
 
-        return new DeliveryOrder(orderID, customerID, restaurantID, shoppingCartID, paymentMethod, orderDate, deliveryDiscountPercent);
+        return new DeliveryOrder(orderID, customer, restaurant, cart, paymentMethod, orderDate, deliveryDiscountPercent);
     }
 
     @Override
     public String convertToCsv(DeliveryOrder deliveryOrder) {
         return String.join(",",
                 deliveryOrder.getOrderID(),
-                deliveryOrder.getCustomerID(),
-                deliveryOrder.getRestaurantID(),
-                deliveryOrder.getShoppingCartID(),
+                deliveryOrder.getCustomer().getUserID(),
+                deliveryOrder.getRestaurant().getRestaurantID(),
+                deliveryOrder.getShoppingCart().getShoppingCartID(),
                 deliveryOrder.getPaymentMethod(),
                 dateTimeFormatter.format(deliveryOrder.getOrderDate()),
                 String.valueOf(deliveryOrder.getDeliveryDiscountPercent()));
     }
-
-
 }
