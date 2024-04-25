@@ -21,14 +21,13 @@ public class PickUpOrdersConverter implements DataConverter<PickUpOrder> {
         }
 
         String orderID = values[0].trim();
-        Users customer = DataStorageServices.getInstance().getUserById(values[1].trim()); // Fetch user by ID
-        Restaurant restaurant = DataStorageServices.getInstance().getRestaurantById(values[2].trim()); // Fetch restaurant by ID
-        ShoppingCart cart = DataStorageServices.getInstance().getShoppingCartById(values[3].trim()); // Fetch shopping cart by ID
+        Users customer = DataStorageServices.getInstance().getUserById(values[1].trim());
+        Restaurant restaurant = DataStorageServices.getInstance().getRestaurantById(values[2].trim());
+        ShoppingCart cart = DataStorageServices.getInstance().getShoppingCartById(values[3].trim());
         String paymentMethod = values[4].trim();
-        LocalDateTime orderDate = LocalDateTime.parse(values[5].trim(), formatter);
-        LocalDateTime pickUpTime = LocalDateTime.parse(values[6].trim(), formatter);
+        LocalDateTime orderDate = LocalDateTime.parse(values[5].trim(), formatter);  // Use the corrected formatter
+        LocalDateTime pickUpTime = LocalDateTime.parse(values[6].trim(), formatter); // Use the corrected formatter
 
-        // Passing actual object references instead of IDs
         return new PickUpOrder(orderID, customer, restaurant, cart, paymentMethod, orderDate, pickUpTime);
     }
 
@@ -36,9 +35,9 @@ public class PickUpOrdersConverter implements DataConverter<PickUpOrder> {
     public String convertToCsv(PickUpOrder pickUpOrder) {
         return String.join(",",
                 pickUpOrder.getOrderID(),
-                pickUpOrder.getCustomer().getUserID(), // Assuming Users has getUserID method
-                pickUpOrder.getRestaurant().getRestaurantID(), // Assuming Restaurant has getRestaurantID method
-                pickUpOrder.getShoppingCart().getShoppingCartID(), // Assuming ShoppingCart has getShoppingCartId method
+                pickUpOrder.getCustomer().getUserID(),
+                pickUpOrder.getRestaurant().getRestaurantID(),
+                pickUpOrder.getShoppingCart().getShoppingCartID(),
                 pickUpOrder.getPaymentMethod(),
                 pickUpOrder.getOrderDate().format(formatter),
                 pickUpOrder.getPickUpTime().format(formatter));

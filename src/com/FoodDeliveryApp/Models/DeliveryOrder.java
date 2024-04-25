@@ -17,7 +17,7 @@ public class DeliveryOrder extends Order{
 
     @Override
     public String toString() {
-        return "DeliveryOrder{" +
+        return super.toString() +
                 "deliveryDiscountPercent=" + deliveryDiscountPercent +
                 '}';
     }

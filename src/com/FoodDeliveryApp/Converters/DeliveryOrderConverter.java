@@ -10,7 +10,7 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
 public class DeliveryOrderConverter implements DataConverter<DeliveryOrder> {
-    private static final DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+    private static final DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("M/d/yyyy H:m");
 
     @Override
     public DeliveryOrder convertFromCsv(String csvLine) throws Exception {
@@ -30,7 +30,6 @@ public class DeliveryOrderConverter implements DataConverter<DeliveryOrder> {
         } catch (DateTimeParseException e) {
             throw new IllegalArgumentException("Error parsing order date", e);
         }
-        // Assuming a missing implementation for the deliveryDiscountPercent which should be obtained similarly
         int deliveryDiscountPercent = Integer.parseInt(values[6].trim());
 
         return new DeliveryOrder(orderID, customer, restaurant, cart, paymentMethod, orderDate, deliveryDiscountPercent);
