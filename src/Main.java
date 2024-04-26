@@ -21,7 +21,7 @@ public class Main {
 
         DataStorageServices.getInstance().setObjects(List.of(DataStorageServices.getInstance().getUsers()));
         DataConverter<Client> writer = new ClientConverter();
-        DataStorageServices.getInstance().appendCsv("res/CSV/Client_Data.csv",(DataConverter) writer);  // Correct use of generics
+        //DataStorageServices.getInstance().appendCsv("res/CSV/Client_Data.csv",(DataConverter) writer);  // Correct use of generics
 
 
 
