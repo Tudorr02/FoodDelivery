@@ -7,8 +7,10 @@ import org.w3c.dom.ls.LSOutput;
 
 import javax.xml.crypto.Data;
 import java.io.*;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.nio.file.StandardOpenOption;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -50,6 +52,7 @@ public class DataStorageServices<T> {
         List<Delivery> deliveries = new ArrayList<>();
         List<ShoppingCart> shoppingCarts = new ArrayList<>();
         List<Order> orders = new ArrayList<>();
+        List<Users> users = new ArrayList<>();
 
 
         objects = new ArrayList<>();
@@ -216,6 +219,21 @@ public class DataStorageServices<T> {
                 bw.newLine();
             }
         }
+    }
+
+    public void appendCsv(String filePath, DataConverter<T> converter) throws IOException {
+        try (BufferedWriter bw = Files.newBufferedWriter(Paths.get(filePath),
+                                                     StandardCharsets.UTF_8,
+                                                     StandardOpenOption.CREATE,  // Create the file if it does not exist
+                                                     StandardOpenOption.APPEND)) {  // Append to the file if it exists
+
+        for (T object : objects) {
+            bw.newLine();
+            String csvLine = converter.convertToCsv(object);
+            bw.write(csvLine);
+
+        }
+    }
     }
 
 

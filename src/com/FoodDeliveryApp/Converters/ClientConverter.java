@@ -13,9 +13,11 @@ public class ClientConverter implements DataConverter<Client> {
 
     @Override
     public String convertToCsv(Client client) {
+
+
         return String.join(",",
-                client.getFirstName(),
                 client.getLastName(),
+                client.getFirstName(),
                 client.getUserName(),
                 client.getPassword(),
                 client.getUserID(),
