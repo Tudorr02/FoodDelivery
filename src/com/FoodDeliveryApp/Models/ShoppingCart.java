@@ -26,6 +26,28 @@ public class ShoppingCart {
         updateTotal();
     }
 
+    public void incrementItemQuantity(FoodItem item) {
+        items.put(item, items.getOrDefault(item, 0) + 1);
+        updateTotal();
+        System.out.println("Increased " + item.getName() + " by 1. Total now: " + items.get(item));
+    }
+
+    public void decrementItemQuantity(FoodItem item) {
+        if (items.containsKey(item)) {
+            int currentQuantity = items.get(item);
+            if (currentQuantity > 1) {
+                items.put(item, currentQuantity - 1);
+                System.out.println("Decreased " + item.getName() + " by 1. Total now: " + items.get(item));
+            } else {
+                items.remove(item);
+                System.out.println(item.getName() + " removed from the cart.");
+            }
+            updateTotal();
+        } else {
+            System.out.println("Error: No " + item.getName() + " in the cart to decrease.");
+        }
+    }
+
     public ShoppingCart(String shoppingCartID, Map<FoodItem, Integer> items, double total) {
         this.shoppingCartID = shoppingCartID;
         this.items = items;

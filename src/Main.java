@@ -22,7 +22,6 @@ public class Main {
 
 
 
-
 //         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM/dd/yyyy HH:mm");
 //
 //        // Example usage with parsing and formatting
