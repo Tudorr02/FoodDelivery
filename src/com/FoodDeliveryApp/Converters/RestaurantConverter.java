@@ -72,4 +72,8 @@ public class RestaurantConverter implements DataConverter<Restaurant> {
                 restaurant.getPriceRange(),
                 "\"" + reviewIds + "\"");
     }
+
+     public String getFilePath(){
+        return "res/CSV/Restaurants_Data.csv";
+    }
 }

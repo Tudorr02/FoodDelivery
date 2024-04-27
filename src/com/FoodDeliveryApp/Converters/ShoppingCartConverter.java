@@ -58,4 +58,8 @@ public class ShoppingCartConverter implements DataConverter<ShoppingCart> {
 
         return new ShoppingCart(shoppingCartID, items, total);
     }
+
+     public String getFilePath(){
+        return "res/CSV/ShoppingCart_Data.csv";
+    }
 }

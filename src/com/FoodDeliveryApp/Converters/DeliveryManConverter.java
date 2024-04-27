@@ -24,4 +24,8 @@ public class DeliveryManConverter implements DataConverter<DeliveryMan> {
                 deliveryMan.getVehicle(),
                 String.valueOf(deliveryMan.getRating()));
     }
+
+     public String getFilePath(){
+        return "res/CSV/DeliveryMen_Data.csv";
+    }
 }

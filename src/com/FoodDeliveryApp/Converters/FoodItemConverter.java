@@ -35,4 +35,8 @@ public class FoodItemConverter implements DataConverter<FoodItem> {
                 String.valueOf(foodItem.getWeight()),
                 String.valueOf(foodItem.getPrice()));
     }
+
+     public String getFilePath(){
+        return "res/CSV/FoodItems_Data.csv";
+    }
 }

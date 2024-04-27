@@ -40,5 +40,9 @@ public class ReviewConverter implements DataConverter<Review>{
                 "\"" + review.getMessage() + "\"");
     }
 
+     public String getFilePath(){
+        return "res/CSV/Reviews_Data.csv";
+    }
+
 
 }

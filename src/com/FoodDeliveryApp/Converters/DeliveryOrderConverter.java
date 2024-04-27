@@ -46,4 +46,8 @@ public class DeliveryOrderConverter implements DataConverter<DeliveryOrder> {
                 dateTimeFormatter.format(deliveryOrder.getOrderDate()),
                 String.valueOf(deliveryOrder.getDeliveryDiscountPercent()));
     }
+
+     public String getFilePath(){
+        return "res/CSV/DeliveryOrders_Data.csv";
+    }
 }

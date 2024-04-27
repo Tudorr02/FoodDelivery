@@ -25,4 +25,9 @@ public class ClientConverter implements DataConverter<Client> {
                 client.getDeliveryAddress(),
                 client.getEmail());
     }
+
+    public String getFilePath(){
+        return "res/CSV/Client_Data.csv";
+    }
+
 }

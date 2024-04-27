@@ -34,70 +34,6 @@ public class DataStorageServices<T> {
         return (DataStorageServices) instance;
     }
 
-
-//    private void initializeData(){
-//         DataConverter<Client> clientConverter = new ClientConverter();
-//         DataConverter<DeliveryMan> dmConverter = new DeliveryManConverter();
-//         DataConverter<FoodItem> fiConverter = new FoodItemConverter();
-//         DataConverter<Review> reviewConverter = new ReviewConverter();
-//         DataConverter<Restaurant> restaurantConverter = new RestaurantConverter();
-//         DataConverter<ShoppingCart> shoppingCartConverter= new ShoppingCartConverter();
-//         DataConverter<PickUpOrder> puConverter = new PickUpOrdersConverter();
-//         DataConverter<DeliveryOrder> doConverter = new DeliveryOrderConverter();
-//         DataConverter<Delivery> deliveryDataConverter = new DeliveryConverter();
-//
-//
-//
-//        try {
-//
-////            this.readCsv("res/CSV/Client_Data.csv", (DataConverter<T>) clientConverter);
-////            this.cUsers= (List<Client>) new ArrayList<>(this.objects);
-////            this.objects.clear();
-////
-////            this.readCsv("res/CSV/DeliveryMen_Data.csv",(DataConverter<T>) dmConverter);
-////            this.dmUsers= (List<DeliveryMan>) new ArrayList<>(this.getObjects());
-////            objects.clear();
-////
-////            this.readCsv("res/CSV/Client_Data.csv", (DataConverter<T>) clientConverter);
-////            this.readCsv("res/CSV/DeliveryMen_Data.csv", (DataConverter<T>) dmConverter);
-////            this.users = (List<Users>) new ArrayList<>(this.objects);
-////            this.objects.clear();
-////
-////            this.readCsv("res/CSV/FoodItems_Data.csv",(DataConverter<T>) fiConverter);
-////            this.foodItems = (List<FoodItem>) new ArrayList<>(this.getObjects());
-////            objects.clear();
-////
-////            this.readCsv("res/CSV/Reviews_Data.csv",(DataConverter<T>) reviewConverter);
-////            this.reviews = (List<Review>) new ArrayList<>(this.getObjects());
-////            objects.clear();
-////
-////            this.readCsv("res/CSV/Restaurants_Data.csv",(DataConverter<T>) restaurantConverter);
-////            this.restaurants = (List<Restaurant>) new ArrayList<>(this.getObjects());
-////            objects.clear();
-////
-////            this.readCsv("res/CSV/ShoppingCart_Data.csv",(DataConverter<T>) shoppingCartConverter);
-////            this.shoppingCarts = (List<ShoppingCart>) new ArrayList<>(this.getObjects());
-////            objects.clear();
-////
-////
-////            this.readCsv("res/CSV/PickUpOrders_Data.csv",(DataConverter<T>) puConverter);
-////            this.readCsv("res/CSV/DeliveryOrders.csv",(DataConverter<T>) doConverter);
-////            this.orders = (List<Order>) new ArrayList<>(this.objects);
-////            objects.clear();
-////
-////            this.readCsv("res/CSV/Delivery_Data.csv", (DataConverter<T>) deliveryDataConverter);
-////            this.deliveries = (List<Delivery>) new ArrayList<>(this.objects);
-////            objects.clear();
-//
-//        } catch (IOException e) {
-//            System.out.println("Error reading CSV data: " + e.getMessage());
-//        } catch (Exception e) {
-//            throw new RuntimeException(e);
-//        }
-//
-//
-//    }
-
     public  void initData() throws Exception {
         DataConverter<Client> clientConverter = new ClientConverter();
         DataConverter<DeliveryMan> deliveryManConverter = new DeliveryManConverter();
@@ -110,22 +46,22 @@ public class DataStorageServices<T> {
         DataConverter<ShoppingCart> shoppingCartConverter = new ShoppingCartConverter();
 
 
-        clients= readCsv("res/CSV/Client_Data.csv",(DataConverter) clientConverter);
-        deliveryMans = readCsv("res/CSV/DeliveryMen_Data.csv",(DataConverter) deliveryManConverter);
-        foodItems=readCsv("res/CSV/FoodItems_Data.csv",(DataConverter) foodItemConverter );
-        reviews=readCsv("res/CSV/Reviews_Data.csv",(DataConverter)reviewConverter);
-        restaurants=readCsv("res/CSV/Restaurants_Data.csv",(DataConverter)restaurantConverter);
-        shoppingCarts=readCsv("res/CSV/ShoppingCart_Data.csv",(DataConverter)shoppingCartConverter);
-        puOrders=readCsv("res/CSV/PickUpOrders_Data.csv",(DataConverter)puOrderDataConverter);
-        dOrders=readCsv("res/CSV/DeliveryOrders.csv",(DataConverter)dOrderConverter);
-        deliveries=readCsv("res/CSV/Delivery_Data.csv",(DataConverter)deliveryConverter);
+        clients= readCsv((DataConverter) clientConverter);
+        deliveryMans = readCsv((DataConverter) deliveryManConverter);
+        foodItems=readCsv((DataConverter) foodItemConverter );
+        reviews=readCsv((DataConverter)reviewConverter);
+        restaurants=readCsv((DataConverter)restaurantConverter);
+        shoppingCarts=readCsv((DataConverter)shoppingCartConverter);
+        puOrders=readCsv((DataConverter)puOrderDataConverter);
+        dOrders=readCsv((DataConverter)dOrderConverter);
+        deliveries=readCsv((DataConverter)deliveryConverter);
 
     }
 
     // Method to read data from a CSV file
-    public List<T> readCsv(String filePath, DataConverter<T> converter ) throws Exception {
+    public List<T> readCsv( DataConverter<T> converter ) throws Exception {
         List<T> objects = new ArrayList<>();
-        try (BufferedReader br = Files.newBufferedReader(Paths.get(filePath))) {
+        try (BufferedReader br = Files.newBufferedReader(Paths.get(converter.getFilePath()))) {
             String line;
             int lineIndex = 0;
             while ((line = br.readLine()) != null) {
@@ -143,10 +79,10 @@ public class DataStorageServices<T> {
     }
 
     // Method to write data to a CSV file
-    public void writeCsv(String filePath, DataConverter<T> converter , List<T> items ) throws IOException {
-            BufferedReader br = Files.newBufferedReader(Paths.get(filePath));
+    public void writeCsv(DataConverter<T> converter , List<T> items ) throws IOException {
+            BufferedReader br = Files.newBufferedReader(Paths.get(converter.getFilePath()));
             String val=br.readLine();
-            try(BufferedWriter bw = Files.newBufferedWriter(Paths.get(filePath))) {
+            try(BufferedWriter bw = Files.newBufferedWriter(Paths.get(converter.getFilePath()))) {
                 bw.write(val);
                 bw.newLine();
 

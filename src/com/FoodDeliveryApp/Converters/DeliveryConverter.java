@@ -47,4 +47,8 @@ public class DeliveryConverter implements DataConverter<Delivery> {
                 "\"" + delivery.getOrder().getOrderID() + "\"",
                 delivery.getExpectedDate().format(formatter));
     }
+
+    public String getFilePath(){
+        return "res/CSV/Delivery_Data.csv";
+    }
 }
