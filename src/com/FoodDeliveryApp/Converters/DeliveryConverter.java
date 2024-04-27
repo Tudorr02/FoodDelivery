@@ -21,9 +21,9 @@ public class DeliveryConverter implements DataConverter<Delivery> {
         }
 
         String deliveryID = values[0].trim();
-        String deliveryManID = values[1].trim();
-        String orderID = values[2].trim();
-        LocalDateTime expectedDate = LocalDateTime.parse(values[3].trim(), DateTimeFormatter.ofPattern("yyyy/MM/dd HH:m"));
+        String deliveryManID = values[1].trim().replace("\"","");
+        String orderID = values[2].trim().replace("\"","");
+        LocalDateTime expectedDate = LocalDateTime.parse(values[3].trim(), DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm"));
 
         // Assuming getDeliveryManById and getOrderById methods return DeliveryMan and Order objects
         DeliveryMan deliveryMan;
@@ -40,11 +40,11 @@ public class DeliveryConverter implements DataConverter<Delivery> {
 
     @Override
     public String convertToCsv(Delivery delivery) {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:m");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm");
         return String.join(",",
                 delivery.getDeliveryID(),
-                "\"" + delivery.getDeliveryMan().getUserID() + "\"",
-                "\"" + delivery.getOrder().getOrderID() + "\"",
+                delivery.getDeliveryMan().getUserID()  ,
+                delivery.getOrder().getOrderID()  ,
                 delivery.getExpectedDate().format(formatter));
     }
 

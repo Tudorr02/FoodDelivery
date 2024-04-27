@@ -15,7 +15,10 @@ import java.util.*;
 public class Main {
     public static void main(String[] args) throws Exception {
 
-        DataStorageServices.getInstance().initData();
+       DataStorageServices.getInstance().initData();
+        DataStorageServices.getInstance().writeCsv((DataConverter) new DeliveryConverter(),(List)DataStorageServices.getInstance().getDeliveries());
+
+
        new LogIn();
 
 
