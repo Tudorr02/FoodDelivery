@@ -24,7 +24,7 @@ public class RestaurantConverter implements DataConverter<Restaurant> {
         String location = values[2].trim();
 
         // Convert menu IDs to List of FoodItem objects, parsing each ID to int before fetching
-        List<FoodItem> menu = Arrays.stream(values[3].split(";"))
+        List<FoodItem> menu = Arrays.stream(values[3].replace("\"","").split(";"))
                 .map(id -> {
                     try {
                         return DataStorageServices.getInstance().getFoodItemById(Integer.parseInt(id.trim()));
@@ -38,7 +38,7 @@ public class RestaurantConverter implements DataConverter<Restaurant> {
         String priceRange = values[5].trim();
 
         // Convert review IDs to List of Review objects, parsing each ID to int before fetching
-        List<Review> reviews = Arrays.stream(values[6].split(";"))
+        List<Review> reviews = Arrays.stream(values[6].replace("\"","").split(";"))
                 .map(id -> {
                     try {
                         return DataStorageServices.getInstance().getReviewById((id.trim()));

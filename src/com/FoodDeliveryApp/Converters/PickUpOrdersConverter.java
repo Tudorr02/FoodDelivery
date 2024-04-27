@@ -11,7 +11,7 @@ import java.time.format.DateTimeFormatter;
 
 public class PickUpOrdersConverter implements DataConverter<PickUpOrder> {
 
-    private static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("M/d/yyyy H:m");
+    private static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM/dd/yyyy HH:mm");
 
     @Override
     public PickUpOrder convertFromCsv(String csvLine) throws Exception {

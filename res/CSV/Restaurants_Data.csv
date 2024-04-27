@@ -1,4 +1,9 @@
 Name,RestaurantID,Location,Menu,Rating,PriceRange,Reviews
-Gourmet Haven,R001,Bucharest,1;2;3;4;5;6;7;8;9;10,4.5,$$$$,3;1;6
-Traditional Tastes,R002,Bucharest,11;12;13;14;15;16;17;18;19;20,4.7,$$,5;4
-Fast Feasts,R003,Bucharest,21;22;23;24;25;26;27;28;29;30,4.3,$$,1;2
+Gourmet Haven,R001,Bucharest,"1;2;3;4;5;6;7;8;9;10",4.5,$$$$,"3;1;6"
+Traditional Tastes,R002,Bucharest,"11;12;13;14;15;16;17;18;19;20",4.7,$$,"5;4"
+Fast Feasts,R003,Bucharest,"21;22;23;24;25;26;27;28;29;30",4.3,$$,"1;2"
+Gourmet Haven,R001,Bucharest,"1;2;3;4;5;6;7;8;9;10",4.5,$$$$,"3;1;6"
+Gourmet Haven,R001,Bucharest,"1;2;3;4;5;6;7;8;9;10",4.5,$$$$,"3;1;6"
+Gourmet Haven,R001,Bucharest,"1;2;3;4;5;6;7;8;9;10",4.5,$$$$,"3;1;6"
+Gourmet Haven,R001,Bucharest,"1;2;3;4;5;6;7;8;9;10",4.5,$$$$,"3;1;6"
+Gourmet Haven,R001,Bucharest,"1;2;3;4;5;6;7;8;9;10",4.5,$$$$,"3;1;6"

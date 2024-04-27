@@ -29,7 +29,6 @@ public class DataStorageServices<T> {
     public static synchronized<T>  DataStorageServices<T> getInstance() throws Exception {
         if (instance == null) {
             instance = new DataStorageServices<T>();
-
         }
         return (DataStorageServices) instance;
     }
@@ -47,14 +46,31 @@ public class DataStorageServices<T> {
 
 
         clients= readCsv((DataConverter) clientConverter);
+        System.out.println("Clients data loaded.");
+
         deliveryMans = readCsv((DataConverter) deliveryManConverter);
+        System.out.println("DeliveryMans data loaded.");
+
         foodItems=readCsv((DataConverter) foodItemConverter );
+        System.out.println("FoodItems data loaded.");
+
         reviews=readCsv((DataConverter)reviewConverter);
+        System.out.println("Reviews data loaded.");
+
         restaurants=readCsv((DataConverter)restaurantConverter);
+        System.out.println("Restaurants data loaded.");
+
         shoppingCarts=readCsv((DataConverter)shoppingCartConverter);
+        System.out.println("ShoppingCarts data loaded.");
+
         puOrders=readCsv((DataConverter)puOrderDataConverter);
+        System.out.println("PickUpOrders data loaded.");
+
         dOrders=readCsv((DataConverter)dOrderConverter);
+        System.out.println("DeliveryOrders data loaded.");
+
         deliveries=readCsv((DataConverter)deliveryConverter);
+        System.out.println("Deliveries data loaded.");
 
     }
 
@@ -66,6 +82,7 @@ public class DataStorageServices<T> {
             int lineIndex = 0;
             while ((line = br.readLine()) != null) {
                 if(lineIndex != 0){
+                    System.out.println(" - CSV Line: " + line);
                     T record = converter.convertFromCsv(line);
                     objects.add(record);
                 }else
@@ -90,6 +107,7 @@ public class DataStorageServices<T> {
 
                     String csvLine = converter.convertToCsv(object);
                     bw.write(csvLine);
+                    System.out.println("Write CSV Line : " + csvLine);
                     bw.newLine();
 
                 }
