@@ -4,6 +4,14 @@ import java.util.Date;
 import java.time.LocalDateTime;
 
 public abstract class Order {
+
+    private String orderID;
+    private Users customer;
+    private Restaurant restaurant;
+    private ShoppingCart shoppingCart; // Assuming ShoppingCart is a defined class
+    private String paymentMethod;
+    private LocalDateTime orderDate;
+
     public String getOrderID() {
         return orderID;
     }
@@ -28,36 +36,8 @@ public abstract class Order {
         return orderDate;
     }
 
-    public void setOrderID(String orderID) {
-        this.orderID = orderID;
-    }
 
-    public void setCustomer(Users customer) {
-        this.customer = customer;
-    }
 
-    public void setRestaurant(Restaurant restaurant) {
-        this.restaurant = restaurant;
-    }
-
-    public void setShoppingCart(ShoppingCart shoppingCart) {
-        this.shoppingCart = shoppingCart;
-    }
-
-    public void setPaymentMethod(String paymentMethod) {
-        this.paymentMethod = paymentMethod;
-    }
-
-    public void setOrderDate(LocalDateTime orderDate) {
-        this.orderDate = orderDate;
-    }
-
-    private String orderID;
-    private Users customer;
-    private Restaurant restaurant;
-    private ShoppingCart shoppingCart; // Assuming ShoppingCart is a defined class
-    private String paymentMethod;
-    private LocalDateTime orderDate;
 
 
     public Order(String orderID, Users customerID, Restaurant restaurantID, ShoppingCart shoppingCartID, String paymentMethod, LocalDateTime orderDate) {
