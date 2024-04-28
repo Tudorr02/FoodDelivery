@@ -4,14 +4,12 @@ import com.FoodDeliveryApp.Models.UserType;
 import com.FoodDeliveryApp.Models.Users;
 import com.FoodDeliveryApp.Services.DataStorageServices;
 import com.FoodDeliveryApp.Services.UserServices;
+import com.FoodDeliveryApp.UiForms.ClientInterface;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.ContainerAdapter;
-import java.awt.event.ContainerEvent;
-import java.util.Optional;
 
 
 public class LogIn extends JFrame {
@@ -47,7 +45,7 @@ public class LogIn extends JFrame {
                        userType = new UserServices().getUserType(user);
 
                        if( userType.equals(UserType.CLIENT)){
-                            new RestaurantForm(DataStorageServices.getInstance().getRestaurants());
+                            new ClientInterface();
 
                            System.out.println("client logged in");
                        }else if(userType.equals(UserType.ADMIN)){
@@ -57,7 +55,6 @@ public class LogIn extends JFrame {
                            // open deliveryman Panel
                            System.out.println("deliveryman logged in");
                        }
-
 
                    }
                    else{

@@ -25,7 +25,7 @@ public class ClientInterface extends javax.swing.JFrame {
     private JList Reviews;
     private DefaultListModel ReviewsModel;
 
-    private ClientInterface() throws Exception {
+    public ClientInterface() throws Exception {
 
         frame = new JFrame("Client Interface");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -66,7 +66,6 @@ public class ClientInterface extends javax.swing.JFrame {
 
 
         frame.add(MainPanel);
-
 
 
         frame.pack();

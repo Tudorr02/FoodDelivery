@@ -4,6 +4,7 @@ import com.FoodDeliveryApp.Models.DeliveryOrder;
 import com.FoodDeliveryApp.Models.Users;
 import com.FoodDeliveryApp.Models.Restaurant;
 import com.FoodDeliveryApp.Models.ShoppingCart;
+import com.FoodDeliveryApp.Models.AsignedType;
 import com.FoodDeliveryApp.Services.DataStorageServices;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -15,7 +16,7 @@ public class DeliveryOrderConverter implements DataConverter<DeliveryOrder> {
     @Override
     public DeliveryOrder convertFromCsv(String csvLine) throws Exception {
         String[] values = csvLine.split(",");
-        if (values.length < 7) {
+        if (values.length < 8) {
             throw new IllegalArgumentException("CSV line does not contain enough data for DeliveryOrder.");
         }
 
@@ -31,8 +32,9 @@ public class DeliveryOrderConverter implements DataConverter<DeliveryOrder> {
             throw new IllegalArgumentException("Error parsing order date", e);
         }
         int deliveryDiscountPercent = Integer.parseInt(values[6].trim());
+        AsignedType assignedType = AsignedType.valueOf(values[7].trim()); // Get the AsignedType from CSV
 
-        return new DeliveryOrder(orderID, customer, restaurant, cart, paymentMethod, orderDate, deliveryDiscountPercent);
+        return new DeliveryOrder(orderID, customer, restaurant, cart, paymentMethod, orderDate, deliveryDiscountPercent, assignedType);
     }
 
     @Override
@@ -44,10 +46,11 @@ public class DeliveryOrderConverter implements DataConverter<DeliveryOrder> {
                 deliveryOrder.getShoppingCart().getShoppingCartID(),
                 deliveryOrder.getPaymentMethod(),
                 dateTimeFormatter.format(deliveryOrder.getOrderDate()),
-                String.valueOf(deliveryOrder.getDeliveryDiscountPercent()));
+                String.valueOf(deliveryOrder.getDeliveryDiscountPercent()),
+                deliveryOrder.getAsigned().toString());  // Include AsignedType in CSV
     }
 
-     public String getFilePath(){
+    public String getFilePath(){
         return "res/CSV/DeliveryOrders_Data.csv";
     }
 }
