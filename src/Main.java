@@ -3,6 +3,7 @@ import com.FoodDeliveryApp.Converters.*;
 import com.FoodDeliveryApp.Models.*;
 import com.FoodDeliveryApp.Services.DataStorageServices;
 import com.FoodDeliveryApp.UiForms.LogIn;
+import com.FoodDeliveryApp.UiForms.RestaurantForm;
 import org.w3c.dom.ls.LSOutput;
 
 import javax.xml.crypto.Data;
@@ -18,11 +19,9 @@ public class Main {
        DataStorageServices.getInstance().initData();
         DataStorageServices.getInstance().writeCsv((DataConverter) new DeliveryConverter(),(List)DataStorageServices.getInstance().getDeliveries());
 
+//       new LogIn();
 
-       new LogIn();
-
-
-
+       new RestaurantForm(DataStorageServices.getInstance().getRestaurants());
     }
 
 }
