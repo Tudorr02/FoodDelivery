@@ -12,12 +12,12 @@
     <children>
       <component id="6a7be" class="javax.swing.JTable" binding="RestaurantsTabel">
         <constraints>
-          <grid row="0" column="0" row-span="5" col-span="1" vsize-policy="6" hsize-policy="6" anchor="0" fill="3" indent="0" use-parent-layout="false">
+          <grid row="0" column="0" row-span="5" col-span="1" vsize-policy="6" hsize-policy="6" anchor="8" fill="2" indent="0" use-parent-layout="false">
             <preferred-size width="150" height="50"/>
           </grid>
         </constraints>
         <properties>
-          <background color="-14497522"/>
+          <background color="-1"/>
         </properties>
       </component>
     </children>
