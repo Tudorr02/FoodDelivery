@@ -28,7 +28,7 @@ public class LogIn extends JFrame {
 
         frame = new JFrame("Food Delivery !");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setPreferredSize(new Dimension(400, 400));
+        frame.setPreferredSize(new Dimension(400, 200));
         frame.setResizable(false);
 
         LogInBtn.addActionListener(new ActionListener() {
