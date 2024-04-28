@@ -2,6 +2,7 @@ package com.FoodDeliveryApp.UiForms;
 
 import com.FoodDeliveryApp.Models.UserType;
 import com.FoodDeliveryApp.Models.Users;
+import com.FoodDeliveryApp.Services.DataStorageServices;
 import com.FoodDeliveryApp.Services.UserServices;
 
 import javax.swing.*;
@@ -41,12 +42,13 @@ public class LogIn extends JFrame {
                     Users user = new UserServices().LogInUser(UserName, Password);
 
                    if(user !=null) {
-                       System.out.println("User logged in");
 
+                       frame.setVisible(false);
                        userType = new UserServices().getUserType(user);
 
                        if( userType.equals(UserType.CLIENT)){
-                           // open client Panel
+                            new RestaurantForm(DataStorageServices.getInstance().getRestaurants());
+
                            System.out.println("client logged in");
                        }else if(userType.equals(UserType.ADMIN)){
                            // open admin Panel
