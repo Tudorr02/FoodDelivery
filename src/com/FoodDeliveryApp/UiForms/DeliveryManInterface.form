@@ -56,6 +56,16 @@
               </grid>
             </children>
           </scrollpane>
+          <grid id="7e687" binding="OrdersHistory" layout-manager="CardLayout" hgap="0" vgap="0">
+            <constraints>
+              <card name="Card2"/>
+            </constraints>
+            <properties>
+              <background color="-59833"/>
+            </properties>
+            <border type="none"/>
+            <children/>
+          </grid>
         </children>
       </grid>
     </children>

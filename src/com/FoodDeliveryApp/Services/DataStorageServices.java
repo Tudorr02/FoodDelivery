@@ -98,7 +98,7 @@ public class DataStorageServices<T> {
     }
 
     // Method to write data to a CSV file
-    public void writeCsv(DataConverter<T> converter , List<T> items ) throws IOException {
+    public <T> void writeCsv(DataConverter<T> converter , List<T> items ) throws IOException {
             BufferedReader br = Files.newBufferedReader(Paths.get(converter.getFilePath()));
             String val=br.readLine();
             try(BufferedWriter bw = Files.newBufferedWriter(Paths.get(converter.getFilePath()))) {
