@@ -8,13 +8,11 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
 import javax.swing.JScrollPane;
 
 public class ClientInterface extends javax.swing.JFrame {
 
     private JPanel MainPanel;
-    private JList ShoppingCart;
     private JPanel ParentPanel;
     private JPanel FoodItemsCard;
     private JPanel RestaurantsCard;
@@ -23,9 +21,11 @@ public class ClientInterface extends javax.swing.JFrame {
     private JPanel ReviewsPanel;
     private JTextArea DescriptionArea;
     private JList Reviews;
+    private JPanel ShoppingCartPanel;
+    private JScrollPane ShoppingCart;
     private DefaultListModel ReviewsModel;
 
-    public ClientInterface() throws Exception {
+    ClientInterface() throws Exception {
 
         frame = new JFrame("Client Interface");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -33,33 +33,9 @@ public class ClientInterface extends javax.swing.JFrame {
         frame.setResizable(false);
 
         RestaurantsCard.setLayout(new BoxLayout(RestaurantsCard, BoxLayout.Y_AXIS));
-        ArrayList<Restaurant> restaurantList = new ArrayList<>(DataStorageServices.getInstance().getRestaurants());
 
-        for(Restaurant restaurantOption : restaurantList){
-            JButton restaurantOptionButton = new JButton(restaurantOption.getName());
-            Dimension buttonSize = new Dimension(200,40);
-            restaurantOptionButton.setPreferredSize(buttonSize);
-            restaurantOptionButton.setMinimumSize(buttonSize);
-            restaurantOptionButton.setMaximumSize(buttonSize);
-            RestaurantsCard.add(restaurantOptionButton);
-            restaurantOptionButton.setAlignmentX(Component.CENTER_ALIGNMENT);
-
-            restaurantOptionButton.addActionListener(new ActionListener() {
-                public void actionPerformed(ActionEvent e) {
-                    String DescriptionMsg="Location : "+ restaurantOption.getLocation() + "\nPrice Range : " + restaurantOption.getPriceRange() +"\nRating : " +restaurantOption.getRating();
-                    DescriptionArea.setText(DescriptionMsg);
-                    ReviewsModel =new DefaultListModel<>();
-                    ReviewsModel.clear();
-                    for(Review review : restaurantOption.getReviews()){
-                        ReviewsModel.addElement("Rating :"+ review.getGivenRating()+" Review : "+ review.getMessage());
-                    }
-
-
-                    Reviews.setModel(ReviewsModel);
-
-                }
-            });
-
+        for(Restaurant restaurantOption : DataStorageServices.getInstance().getRestaurants()){
+            RestaurantsCard.add(addCustomButton(restaurantOption));
             RestaurantsCard.add(Box.createVerticalStrut(5));
 
         }
@@ -68,9 +44,37 @@ public class ClientInterface extends javax.swing.JFrame {
         frame.add(MainPanel);
 
 
+
         frame.pack();
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);
+    }
+
+    public JButton addCustomButton(Restaurant restaurantOption){
+        JButton restaurantOptionButton = new JButton(restaurantOption.getName());
+        Dimension buttonSize = new Dimension(200,40);
+        restaurantOptionButton.setPreferredSize(buttonSize);
+        restaurantOptionButton.setMinimumSize(buttonSize);
+        restaurantOptionButton.setMaximumSize(buttonSize);
+        restaurantOptionButton.setAlignmentX(Component.CENTER_ALIGNMENT);
+        restaurantOptionButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                String DescriptionMsg="Location : "+ restaurantOption.getLocation() + "\nPrice Range : " + restaurantOption.getPriceRange() +"\nRating : " +restaurantOption.getRating();
+                DescriptionArea.setText(DescriptionMsg);
+                ReviewsModel =new DefaultListModel<>();
+                ReviewsModel.clear();
+                for(Review review : restaurantOption.getReviews()){
+                    ReviewsModel.addElement("Rating :"+ review.getGivenRating()+" Review : "+ review.getMessage());
+                }
+
+
+                Reviews.setModel(ReviewsModel);
+
+            }
+        });
+
+        return restaurantOptionButton;
+
     }
 
     public static void main(String[] args) throws Exception {
