@@ -67,7 +67,7 @@ public class DeliveryManInterface  extends javax.swing.JFrame {
                             try {
                                 DataStorageServices.getInstance().writeCsv((DataConverter) new DeliveryOrderConverter(), deliveriesOrders);
                                 DeliveryServices d = new DeliveryServices();
-                                d.updateDeliveryMan(deliveryOrder.getOrderID(),deliveryManId);
+                                d.generateAndRecordDelivery(deliveryManId,deliveryOrder.getOrderID(),deliveryOrder.getOrderDate());
                                 refreshOrderPanel();
 
                             } catch (Exception ex) {
