@@ -28,6 +28,7 @@ public class DeliveryManInterface  extends javax.swing.JFrame {
     private JScrollPane ScrollPanel;
     private JPanel ParentPanel;
     private JPanel OrdersHistory;
+    private JScrollPane ScrollPanelHistory;
 
     public DeliveryManInterface(String deliveryManId) throws Exception{
 
@@ -39,7 +40,7 @@ public class DeliveryManInterface  extends javax.swing.JFrame {
         OrdersHistory.setVisible(true);
 
         TakeOrderPanel.setLayout(new BoxLayout(TakeOrderPanel, BoxLayout.Y_AXIS));
- //       OrdersHistory.setLayout(new BoxLayout(TakeOrderPanel, BoxLayout.Y_AXIS));
+        OrdersHistory.setLayout(new BoxLayout(OrdersHistory, BoxLayout.Y_AXIS));
         List<DeliveryOrder> deliveriesOrders = new ArrayList<DeliveryOrder>(DataStorageServices.getInstance().getdOrders());
         List<Delivery> deliveries = new ArrayList<Delivery>(DataStorageServices.getInstance().getDeliveries());
 
@@ -68,6 +69,7 @@ public class DeliveryManInterface  extends javax.swing.JFrame {
                                 DeliveryServices d = new DeliveryServices();
                                 d.updateDeliveryMan(deliveryOrder.getOrderID(),deliveryManId);
                                 refreshOrderPanel();
+
                             } catch (Exception ex) {
                                 throw new RuntimeException(ex);
                             }
@@ -96,45 +98,85 @@ public class DeliveryManInterface  extends javax.swing.JFrame {
 
 //        OrdersHistory.removeAll();
         DataStorageServices.getInstance().initData();
+
         List<Delivery> ordershistory = DataStorageServices.getInstance().getDeliveries();
         for (Delivery oh : ordershistory) {
-//            if (oh.getDeliveryMan().getUserID().equals(deliveryManId)) {
-//                String buttonLabel = String.format("Delivery ID: %s, Expected Time: %s",
-//                        oh.getDeliveryID(),
-//                        oh.getExpectedDate().toString());
-//
-//                JButton deliveryButton = new JButton(buttonLabel);
-//                deliveryButton.setPreferredSize(new Dimension(800, 40));
-//                deliveryButton.setMinimumSize(new Dimension(800, 40));
-//                deliveryButton.setMaximumSize(new Dimension(800, 40));
-//                deliveryButton.setAlignmentX(Component.CENTER_ALIGNMENT);
-//
-//                OrdersHistory.add(deliveryButton);
-//                OrdersHistory.add(Box.createVerticalStrut(10));  // Space between buttons
-//            }
-            JButton deliveryButton = new JButton("AAAAAA");
-            OrdersHistory.add(deliveryButton);
+            if (oh.getDeliveryMan().getUserID().equals(deliveryManId)) {
+                String buttonLabel = String.format("Delivery ID: %s, Expected Time: %s",
+                        oh.getDeliveryID(),
+                        oh.getExpectedDate().toString());
+
+                JButton deliveryButton = new JButton(buttonLabel);
+                deliveryButton.setPreferredSize(new Dimension(800, 40));
+                deliveryButton.setMinimumSize(new Dimension(800, 40));
+                deliveryButton.setMaximumSize(new Dimension(800, 40));
+                deliveryButton.setAlignmentX(Component.CENTER_ALIGNMENT);
+
+                OrdersHistory.add(deliveryButton);
+                OrdersHistory.add(Box.createVerticalStrut(10));  // Space between buttons
+
+            }
+  ;
 
         }
+
+
 //        OrdersHistory.revalidate();
 //        OrdersHistory.repaint();
 
         TakeOrderbtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                TakeOrderPanel.setVisible(true);
-                OrdersHistory.setVisible(false);
+                ParentPanel.removeAll();
+                ParentPanel.add(TakeOrderPanel);
+                ParentPanel.repaint();
+                ParentPanel.revalidate();
             }
         });
         OrderHistorybtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                TakeOrderPanel.setVisible(false);
-                OrdersHistory.setVisible(true);
+                ParentPanel.removeAll();
+                ParentPanel.add(ScrollPanelHistory);
+                ParentPanel.repaint();
+                ParentPanel.revalidate();
+                try {
+                    refreshOrderHistoryPanel(deliveryManId);
+                } catch (Exception ex) {
+                    throw new RuntimeException(ex);
+                }
+//                TakeOrderPanel.setVisible(false);
+              OrdersHistory.setVisible(true);
             }
         });
     }
 
+    public void refreshOrderHistoryPanel(String deliveryManId) throws Exception {
+       // List<Delivery> ordershistory = ;
+        OrdersHistory.removeAll();
+        for (Delivery oh : DataStorageServices.getInstance().getDeliveries()) {
+
+
+            if (oh.getDeliveryMan().getUserID().equals(deliveryManId)) {
+                String buttonLabel = String.format("Delivery ID: %s, Expected Time: %s",
+                        oh.getDeliveryID(),
+                        oh.getExpectedDate().toString());
+
+                JButton deliveryButton = new JButton(buttonLabel);
+                deliveryButton.setPreferredSize(new Dimension(800, 40));
+                deliveryButton.setMinimumSize(new Dimension(800, 40));
+                deliveryButton.setMaximumSize(new Dimension(800, 40));
+                deliveryButton.setAlignmentX(Component.CENTER_ALIGNMENT);
+
+                OrdersHistory.add(deliveryButton);
+                System.out.println("Button added");
+                OrdersHistory.add(Box.createVerticalStrut(10));  // Space between buttons
+
+            }
+            ;
+
+        }
+    }
 
     public void refreshOrderPanel() throws Exception {
         // Clear existing content
@@ -183,7 +225,7 @@ public class DeliveryManInterface  extends javax.swing.JFrame {
     public static void main(String[] args) throws Exception {
         DataStorageServices.getInstance().initData();
 
-//        new DeliveryManInterface();
+       new DeliveryManInterface("D-100001");
 
     }
 }

@@ -59,6 +59,12 @@ public class ClientInterface extends javax.swing.JFrame {
         restaurantOptionButton.setAlignmentX(Component.CENTER_ALIGNMENT);
         restaurantOptionButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
+
+                ParentPanel.removeAll();
+                ParentPanel.add(FoodItemsCard);
+                ParentPanel.repaint();
+                ParentPanel.revalidate();
+
                 String DescriptionMsg="Location : "+ restaurantOption.getLocation() + "\nPrice Range : " + restaurantOption.getPriceRange() +"\nRating : " +restaurantOption.getRating();
                 DescriptionArea.setText(DescriptionMsg);
                 ReviewsModel =new DefaultListModel<>();
