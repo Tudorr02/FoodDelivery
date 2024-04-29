@@ -1,11 +1,20 @@
 package com.FoodDeliveryApp.UiForms;
 
+import com.FoodDeliveryApp.Converters.DataConverter;
+import com.FoodDeliveryApp.Converters.DeliveryConverter;
+import com.FoodDeliveryApp.Converters.DeliveryOrderConverter;
 import com.FoodDeliveryApp.Models.*;
 import com.FoodDeliveryApp.Services.DataStorageServices;
+import com.FoodDeliveryApp.Services.DeliveryServices;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.List;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.sql.SQLOutput;
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class DeliveryManInterface  extends javax.swing.JFrame {
 
@@ -18,28 +27,62 @@ public class DeliveryManInterface  extends javax.swing.JFrame {
     private JPanel TakeOrderPanel;
     private JScrollPane ScrollPanel;
     private JPanel ParentPanel;
+    private JPanel OrdersHistory;
 
-    public DeliveryManInterface() throws Exception{
+    public DeliveryManInterface(String deliveryManId) throws Exception{
+
 
         frame = new JFrame("DeliveryMan Interface");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setPreferredSize(new Dimension(800, 600));
         frame.setResizable(false);
-        TakeOrderPanel.setVisible(true);
-        TakeOrderPanel.setLayout(new BoxLayout(TakeOrderPanel, BoxLayout.Y_AXIS));
-        ArrayList<DeliveryOrder> deliveries = new ArrayList<>(DataStorageServices.getInstance().getdOrders());
+        OrdersHistory.setVisible(true);
 
-        for (DeliveryOrder delivery : deliveries) {
-            if(delivery.getAsigned().equals(AsignedType.NEPRELUAT)){
-                Restaurant res = delivery.getRestaurant();
-                Client c = (Client) delivery.getCustomer();
-                String buttonLabel = String.format("Restaurant: %s - Location: %s DeliveryAdress: %s - PaymentMethod: %s",  res.getName(),res.getLocation(),c.getDeliveryAddress(),delivery.getPaymentMethod());
+        TakeOrderPanel.setLayout(new BoxLayout(TakeOrderPanel, BoxLayout.Y_AXIS));
+ //       OrdersHistory.setLayout(new BoxLayout(TakeOrderPanel, BoxLayout.Y_AXIS));
+        List<DeliveryOrder> deliveriesOrders = new ArrayList<DeliveryOrder>(DataStorageServices.getInstance().getdOrders());
+        List<Delivery> deliveries = new ArrayList<Delivery>(DataStorageServices.getInstance().getDeliveries());
+
+        for (DeliveryOrder deliveryOrder : deliveriesOrders) {
+            if(deliveryOrder.getAsigned().equals(AsignedType.NEPRELUAT)){
+                Restaurant res = deliveryOrder.getRestaurant();
+                Client c = (Client) deliveryOrder.getCustomer();
+                String buttonLabel = String.format("Restaurant: %s - Location: %s DeliveryAdress: %s - PaymentMethod: %s",  res.getName(),res.getLocation(),c.getDeliveryAddress(),deliveryOrder.getPaymentMethod());
                 JButton deliveryButton = new JButton(buttonLabel);
                 Dimension buttonSize = new Dimension(800, 40);
                 deliveryButton.setPreferredSize(buttonSize);
                 deliveryButton.setMinimumSize(buttonSize);
                 deliveryButton.setMaximumSize(buttonSize);
                 deliveryButton.setAlignmentX(Component.CENTER_ALIGNMENT);
+
+                deliveryButton.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        // Show confirmation dialog
+                        int response = JOptionPane.showConfirmDialog(frame, "Take this order?", "Confirm", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+                        if (response == JOptionPane.YES_OPTION) {
+
+                            deliveryOrder.setAsigned(AsignedType.PRELUAT);
+                            try {
+                                DataStorageServices.getInstance().writeCsv((DataConverter) new DeliveryOrderConverter(), deliveriesOrders);
+                                DeliveryServices d = new DeliveryServices();
+                                d.updateDeliveryMan(deliveryOrder.getOrderID(),deliveryManId);
+                                refreshOrderPanel();
+                            } catch (Exception ex) {
+                                throw new RuntimeException(ex);
+                            }
+
+                            // Optionally update the data storage to reflect this change
+                            try {
+                                DataStorageServices.getInstance().initData();
+                            } catch (Exception ex) {
+                                throw new RuntimeException(ex);
+                            }
+
+                        }
+                    }
+                });
+
                 TakeOrderPanel.add(deliveryButton);
                 TakeOrderPanel.add(Box.createVerticalStrut(10));
 
@@ -49,11 +92,98 @@ public class DeliveryManInterface  extends javax.swing.JFrame {
         frame.pack();
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);
+
+
+//        OrdersHistory.removeAll();
+        DataStorageServices.getInstance().initData();
+        List<Delivery> ordershistory = DataStorageServices.getInstance().getDeliveries();
+        for (Delivery oh : ordershistory) {
+//            if (oh.getDeliveryMan().getUserID().equals(deliveryManId)) {
+//                String buttonLabel = String.format("Delivery ID: %s, Expected Time: %s",
+//                        oh.getDeliveryID(),
+//                        oh.getExpectedDate().toString());
+//
+//                JButton deliveryButton = new JButton(buttonLabel);
+//                deliveryButton.setPreferredSize(new Dimension(800, 40));
+//                deliveryButton.setMinimumSize(new Dimension(800, 40));
+//                deliveryButton.setMaximumSize(new Dimension(800, 40));
+//                deliveryButton.setAlignmentX(Component.CENTER_ALIGNMENT);
+//
+//                OrdersHistory.add(deliveryButton);
+//                OrdersHistory.add(Box.createVerticalStrut(10));  // Space between buttons
+//            }
+            JButton deliveryButton = new JButton("AAAAAA");
+            OrdersHistory.add(deliveryButton);
+
+        }
+//        OrdersHistory.revalidate();
+//        OrdersHistory.repaint();
+
+        TakeOrderbtn.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                TakeOrderPanel.setVisible(true);
+                OrdersHistory.setVisible(false);
+            }
+        });
+        OrderHistorybtn.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                TakeOrderPanel.setVisible(false);
+                OrdersHistory.setVisible(true);
+            }
+        });
     }
+
+
+    public void refreshOrderPanel() throws Exception {
+        // Clear existing content
+        TakeOrderPanel.removeAll();
+
+        // Get updated list of orders
+        List<DeliveryOrder> deliveries = new ArrayList<>(DataStorageServices.getInstance().getdOrders());
+
+        for (DeliveryOrder delivery : deliveries) {
+            if (delivery.getAsigned().equals(AsignedType.NEPRELUAT)) {
+                Restaurant res = delivery.getRestaurant();
+                Client c = (Client) delivery.getCustomer();
+                String buttonLabel = String.format("Restaurant: %s - Location: %s DeliveryAddress: %s - PaymentMethod: %s", res.getName(), res.getLocation(), c.getDeliveryAddress(), delivery.getPaymentMethod());
+                JButton deliveryButton = new JButton(buttonLabel);
+                deliveryButton.setPreferredSize(new Dimension(800, 40));
+                deliveryButton.setMinimumSize(new Dimension(800, 40));
+                deliveryButton.setMaximumSize(new Dimension(800, 40));
+                deliveryButton.setAlignmentX(Component.CENTER_ALIGNMENT);
+
+                deliveryButton.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        int response = JOptionPane.showConfirmDialog(frame, "Take this order?", "Confirm", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+                        if (response == JOptionPane.YES_OPTION) {
+                            delivery.setAsigned(AsignedType.PRELUAT);
+                            try {
+                                DataStorageServices.getInstance().writeCsv((DataConverter) new DeliveryOrderConverter(), deliveries);
+                                refreshOrderPanel();  // Refresh the panel to show updates
+                            } catch (Exception ex) {
+                                JOptionPane.showMessageDialog(frame, "Error updating data: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+                            }
+                        }
+                    }
+                });
+
+                TakeOrderPanel.add(deliveryButton);
+                TakeOrderPanel.add(Box.createVerticalStrut(10));
+            }
+        }
+        TakeOrderPanel.revalidate();
+        TakeOrderPanel.repaint();
+    }
+
+
 
     public static void main(String[] args) throws Exception {
         DataStorageServices.getInstance().initData();
-        new DeliveryManInterface();
+
+//        new DeliveryManInterface();
 
     }
 }

@@ -53,6 +53,7 @@ public class LogIn extends JFrame {
                            System.out.println("admin logged in");
                        } else if (userType.equals(UserType.DELIVERYMAN)) {
                            // open deliveryman Panel
+                           new DeliveryManInterface(user.getUserID());
                            System.out.println("deliveryman logged in");
                        }
 

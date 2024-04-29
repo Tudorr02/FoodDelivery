@@ -33,4 +33,12 @@ public class DeliveryOrder extends Order{
                 ", asigned=" + asigned +
                 '}';
     }
+
+    public void setDeliveryDiscountPercent(int deliveryDiscountPercent) {
+        this.deliveryDiscountPercent = deliveryDiscountPercent;
+    }
+
+    public void setAsigned(AsignedType asigned) {
+        this.asigned = asigned;
+    }
 }
