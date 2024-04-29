@@ -41,4 +41,15 @@ public class Delivery {
     }
 
 
+    public void setDeliveryID(String deliveryID) {
+        this.deliveryID = deliveryID;
+    }
+
+    public void setDeliveryMan(DeliveryMan deliveryMan) {
+        this.deliveryMan = deliveryMan;
+    }
+
+    public void setOrder(DeliveryOrder order) {
+        this.order = order;
+    }
 }
