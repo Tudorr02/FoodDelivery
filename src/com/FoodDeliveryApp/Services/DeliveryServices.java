@@ -28,6 +28,7 @@ public class DeliveryServices {
             LocalDateTime expectedDate = orderDate.plusHours(randomHour);
 
             Delivery newDelivery = new Delivery(newDeliveryId, deliveryMan, order, expectedDate);
+            System.out.println("IMI INTRA AICICIAAAAAAAAAAAAAAAAAAAAAAAAAA");
             deliveries.add(newDelivery);
             writeDeliveriesToCsv(deliveries);
             return true;
@@ -52,7 +53,6 @@ public class DeliveryServices {
             boolean found = false;
             for (Delivery delivery : deliveries) {
                 if (delivery.getOrder().getOrderID().equals(deliveryId)) {
-                    System.out.println("IMI INTRA AICICIAAAAAAAAAAAAAAAAAAAAAAAAAA");
                     delivery.setDeliveryMan(DataStorageServices.getInstance().getDeliveryManById(deliveryManId)); // Assume constructor exists
                     found = true;
                     break;
