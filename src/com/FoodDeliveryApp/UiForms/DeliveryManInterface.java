@@ -227,7 +227,6 @@ private void displayOrderDetails(JButton button,Delivery delivery) {
             button.setBackground(Color.GREEN);
             button.setVisible(true);
             markDeliveryAsFinished(delivery);
-
         }
     }
 }
