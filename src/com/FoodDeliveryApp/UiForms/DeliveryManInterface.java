@@ -9,12 +9,14 @@ import com.FoodDeliveryApp.Services.DeliveryServices;
 
 import javax.swing.*;
 import java.awt.*;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.SQLOutput;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Map;
 
 public class DeliveryManInterface  extends javax.swing.JFrame {
 
@@ -48,9 +50,17 @@ public class DeliveryManInterface  extends javax.swing.JFrame {
             if(deliveryOrder.getAsigned().equals(AsignedType.NEPRELUAT)){
                 Restaurant res = deliveryOrder.getRestaurant();
                 Client c = (Client) deliveryOrder.getCustomer();
-                String buttonLabel = String.format("Restaurant: %s - Location: %s DeliveryAdress: %s - PaymentMethod: %s",  res.getName(),res.getLocation(),c.getDeliveryAddress(),deliveryOrder.getPaymentMethod());
+                ShoppingCart sc = deliveryOrder.getShoppingCart();
+                String buttonLabel = String.format(
+                        "<html>Restaurant: %s<br>Location: %s<br>Delivery Address: %s<br>Payment Method: %s<br>Total: %.2f</html>",
+                        res.getName(),
+                        res.getLocation(),
+                        c.getDeliveryAddress(),
+                        deliveryOrder.getPaymentMethod(),
+                        sc.getTotal()
+                );
                 JButton deliveryButton = new JButton(buttonLabel);
-                Dimension buttonSize = new Dimension(800, 40);
+                Dimension buttonSize = new Dimension(800, 100);
                 deliveryButton.setPreferredSize(buttonSize);
                 deliveryButton.setMinimumSize(buttonSize);
                 deliveryButton.setMaximumSize(buttonSize);
@@ -60,6 +70,15 @@ public class DeliveryManInterface  extends javax.swing.JFrame {
                     @Override
                     public void actionPerformed(ActionEvent e) {
                         System.out.println("fabi e tare");
+                        ShoppingCart sc = deliveryOrder.getShoppingCart(); // Assuming getShoppingCart() method exists
+                        StringBuilder details = new StringBuilder("<html>");
+                        details.append("<h3>Shopping Cart Details:</h3>");
+                        for (Map.Entry<FoodItem, Integer> entry : sc.getItems().entrySet()) {
+                            details.append(String.format("%s - Quantity: %d<br>", entry.getKey().getName(), entry.getValue()));
+                        }
+                        details.append(String.format("Total: %.2f</html>", sc.getTotal()));
+                        JOptionPane.showMessageDialog(frame, details.toString(), "Shopping Cart Contents", JOptionPane.INFORMATION_MESSAGE);
+
                         // Show confirmation dialog
                         int response = JOptionPane.showConfirmDialog(frame, "Take this order?", "Confirm", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
                         if (response == JOptionPane.YES_OPTION) {
@@ -131,26 +150,102 @@ public class DeliveryManInterface  extends javax.swing.JFrame {
     }
 
     public void LoadHistoryButton(String deliveryManId) throws Exception {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm");
         List<Delivery> ordershistory = DataStorageServices.getInstance().getDeliveries();
         for (Delivery oh : ordershistory) {
+            Client c = (Client) oh.getOrder().getCustomer();
             if (oh.getDeliveryMan().getUserID().equals(deliveryManId)) {
-                String buttonLabel = String.format("Delivery ID: %s, Expected Time: %s",
+                String buttonLabel = String.format("<html><h1>Delivery ID: %s</h1>" +
+                                "<br>Restaurant: %s</br>" +
+                                "<br>Location: %s</br>" +
+                                "<br>Expected Time: %s</br>" +
+                                "<br>Delivery Address: %s<br></html>",
                         oh.getDeliveryID(),
-                        oh.getExpectedDate().toString());
+                        oh.getOrder().getRestaurant().getName(),
+                        oh.getOrder().getRestaurant().getLocation(),
+                        oh.getExpectedDate().format(formatter),
+                        c.getDeliveryAddress());
 
-                JButton deliveryButton = new JButton(buttonLabel);
-                deliveryButton.setPreferredSize(new Dimension(800, 40));
-                deliveryButton.setMinimumSize(new Dimension(800, 40));
-                deliveryButton.setMaximumSize(new Dimension(800, 40));
-                deliveryButton.setAlignmentX(Component.CENTER_ALIGNMENT);
+                JButton orderHistoryButton = new JButton(buttonLabel);
+                orderHistoryButton.setPreferredSize(new Dimension(800, 150));
+                orderHistoryButton.setMinimumSize(new Dimension(800, 150));
+                orderHistoryButton.setMaximumSize(new Dimension(800, 150));
+                orderHistoryButton.setAlignmentX(Component.CENTER_ALIGNMENT);
 
-                OrdersHistory.add(deliveryButton);
+                if (oh.getStatus() == DeliveryStatus.FINISHED) {
+                    orderHistoryButton.setVisible(false);
+                    orderHistoryButton.setBackground(Color.GREEN);
+                    orderHistoryButton.setVisible(true);
+                } else {
+                    orderHistoryButton.setVisible(false);
+                    orderHistoryButton.setBackground(Color.RED);
+                    orderHistoryButton.setVisible(true);
+                }
+
+                orderHistoryButton.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        displayOrderDetails(orderHistoryButton,oh);
+                    }
+                });
+
+                OrdersHistory.add(orderHistoryButton);
                 OrdersHistory.add(Box.createVerticalStrut(10));  // Space between buttons
 
             }
             ;
         }
     }
+
+//    private void displayOrderDetails(Delivery delivery) {
+//        ShoppingCart sc = delivery.getOrder().getShoppingCart(); // Ensure Delivery has a method to access ShoppingCart
+//        StringBuilder details = new StringBuilder("<html><body style='width: 200px;'>");
+//        details.append(String.format("<h3>Details for Delivery ID: %s</h3>", delivery.getDeliveryID()));
+//        for (Map.Entry<FoodItem, Integer> entry : sc.getItems().entrySet()) {
+//            details.append(String.format("%s - Quantity: %d<br>", entry.getKey().getName(), entry.getValue()));
+//        }
+//        details.append(String.format("Total: %.2f", sc.getTotal()));
+//        details.append("</body></html>");
+//        JOptionPane.showMessageDialog(frame, details.toString(), "Order Details", JOptionPane.INFORMATION_MESSAGE);
+//    }
+private void displayOrderDetails(JButton button,Delivery delivery) {
+    ShoppingCart sc = delivery.getOrder().getShoppingCart(); // Ensure Delivery has a method to access ShoppingCart
+    StringBuilder details = new StringBuilder("<html>");
+    details.append(String.format("<h3>Details for Delivery ID: %s</h3>", delivery.getDeliveryID()));
+    for (Map.Entry<FoodItem, Integer> entry : sc.getItems().entrySet()) {
+        details.append(String.format("%s - Quantity: %d<br>", entry.getKey().getName(), entry.getValue()));
+    }
+    details.append(String.format("Total: %.2f", sc.getTotal()));
+    details.append("</body></html>");
+
+    JOptionPane.showMessageDialog(frame, details.toString(), "Order Details", JOptionPane.INFORMATION_MESSAGE);
+    if (delivery.getStatus() == DeliveryStatus.UNFINISHED) {
+        // If the delivery is not finished, ask if they want to mark it as finished
+        int response = JOptionPane.showConfirmDialog(frame,"<html><h3>Mark this order as finished?</h3></html>", "Finish Order?", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+        if (response == JOptionPane.YES_OPTION) {
+            button.setVisible(false);
+            button.setBackground(Color.GREEN);
+            button.setVisible(true);
+            markDeliveryAsFinished(delivery);
+
+        }
+    }
+}
+
+    private void markDeliveryAsFinished(Delivery delivery) {
+        delivery.setStatus(DeliveryStatus.FINISHED);
+        try {
+            DeliveryServices d = new DeliveryServices();
+            d.updateDeliveryStatus(delivery);
+            JOptionPane.showMessageDialog(frame, "Order marked as finished.", "Update Successful", JOptionPane.INFORMATION_MESSAGE);
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(frame, "Failed to update the order status.", "Error", JOptionPane.ERROR_MESSAGE);
+            e.printStackTrace();
+        }
+    }
+
+
+
 
     public static void main(String[] args) throws Exception {
         DataStorageServices.getInstance().initData();

@@ -8,12 +8,25 @@ public class Delivery {
     private DeliveryMan deliveryMan;
     private DeliveryOrder order;
     private LocalDateTime expectedDate;
+    private DeliveryStatus status;
 
-    public Delivery(String deliveryID, DeliveryMan deliveryMan, DeliveryOrder order, LocalDateTime expectedDate) {
+    @Override
+    public String toString() {
+        return "Delivery{" +
+                "deliveryID='" + deliveryID + '\'' +
+                ", deliveryMan=" + deliveryMan +
+                ", order=" + order +
+                ", expectedDate=" + expectedDate +
+                ", status=" + status +
+                '}';
+    }
+
+    public Delivery(String deliveryID, DeliveryMan deliveryMan, DeliveryOrder order, LocalDateTime expectedDate, DeliveryStatus status) {
         this.deliveryID = deliveryID;
         this.deliveryMan = deliveryMan;
         this.order = order;
         this.expectedDate = expectedDate;
+        this.status = status;
     }
 
 
@@ -30,15 +43,7 @@ public class Delivery {
     }
     public LocalDateTime getExpectedDate() { return expectedDate; }
 
-     @Override
-    public String toString() {
-        return "Delivery{" +
-                "deliveryID='" + deliveryID + '\'' +
-                ", deliveryManID='" + deliveryMan + '\'' +
-                ", orderID='" + order + '\'' +
-                ", expectedDate=" + expectedDate +
-                '}';
-    }
+
 
 
     public void setDeliveryID(String deliveryID) {
@@ -51,5 +56,17 @@ public class Delivery {
 
     public void setOrder(DeliveryOrder order) {
         this.order = order;
+    }
+
+    public void setExpectedDate(LocalDateTime expectedDate) {
+        this.expectedDate = expectedDate;
+    }
+
+    public DeliveryStatus getStatus() {
+        return status;
+    }
+
+    public void setStatus(DeliveryStatus status) {
+        this.status = status;
     }
 }
