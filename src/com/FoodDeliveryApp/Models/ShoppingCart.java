@@ -26,6 +26,14 @@ public class ShoppingCart {
         updateTotal();
     }
 
+     public void updateQuantity(FoodItem item, int quantity) {
+        // Check if the item already exists in the cart
+        if (items.containsKey(item)) {
+            items.put(item, quantity);
+        }
+        updateTotal();
+    }
+
     public void incrementItemQuantity(FoodItem item) {
         items.put(item, items.getOrDefault(item, 0) + 1);
         updateTotal();
@@ -67,7 +75,7 @@ public class ShoppingCart {
     }
 
     // Method to update the total cost of the cart
-    private void updateTotal() {
+    public void updateTotal() {
         total = 0.0;
         for (Map.Entry<FoodItem, Integer> entry : items.entrySet()) {
             total += entry.getKey().getPrice() * entry.getValue(); // Multiply item price by its quantity
@@ -90,4 +98,6 @@ public class ShoppingCart {
                 ", total=" + total +
                 '}';
     }
+
+
 }

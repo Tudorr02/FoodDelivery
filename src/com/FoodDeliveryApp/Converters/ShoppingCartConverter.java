@@ -18,7 +18,7 @@ public class ShoppingCartConverter implements DataConverter<ShoppingCart> {
 
         for ( Map.Entry<FoodItem, Integer> entry : cart.getItems().entrySet()){
             ShoppingCartBuilder.append('(')
-                    .append(entry.getKey().getName())
+                    .append(entry.getKey().getFoodID())
                     .append(',')
                     .append(entry.getValue())
                     .append(')');

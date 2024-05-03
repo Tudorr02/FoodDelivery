@@ -4,11 +4,17 @@ import com.FoodDeliveryApp.Models.FoodItem;
 import com.FoodDeliveryApp.Models.Restaurant;
 import com.FoodDeliveryApp.Models.Review;
 import com.FoodDeliveryApp.Services.DataStorageServices;
+import com.FoodDeliveryApp.Models.ShoppingCart;
+import com.FoodDeliveryApp.Services.ShoppingCartServices;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.FocusAdapter;
+import java.awt.event.FocusEvent;
+import java.text.MessageFormat;
+import java.util.Map;
 import javax.swing.JScrollPane;
 
 public class ClientInterface extends javax.swing.JFrame {
@@ -22,12 +28,17 @@ public class ClientInterface extends javax.swing.JFrame {
     private JPanel ReviewsPanel;
     private JTextArea DescriptionArea;
     private JList Reviews;
-    private JPanel ShoppingCartPanel;
-    private JScrollPane ShoppingCart;
+    private JPanel ShoppingPanel;
+    private JScrollPane ShoppingCartScroll;
     private JScrollPane ReviewsScrollPanel;
     private JScrollPane FoodItemsScrollPanel;
     private JButton BackToRestaurantsBtn;
+    private JButton orderButton;
+    private JPanel ShoppingCartPanel;
     private DefaultListModel ReviewsModel;
+    private ShoppingCartServices shoppingCart;
+    boolean restaurantLock;
+    String restaurantName;
 
     ClientInterface() throws Exception {
 
@@ -37,92 +48,222 @@ public class ClientInterface extends javax.swing.JFrame {
         frame.setMinimumSize(new Dimension(800, 600));
         frame.setMaximumSize(new Dimension(800, 600));
 
-        ParentPanel.setMinimumSize(new Dimension(250, 400));
-        ParentPanel.setMaximumSize(new Dimension(250, 400));
-        ParentPanel.setPreferredSize(new Dimension(250, 400));
+        ParentPanel.setMinimumSize(new Dimension(400, 400));
+        ParentPanel.setMaximumSize(new Dimension(400, 400));
+        ParentPanel.setPreferredSize(new Dimension(400, 400));
 
-        frame.setResizable(false);
+        ShoppingPanel.setMinimumSize(new Dimension(300, 400));
+        ShoppingPanel.setMaximumSize(new Dimension(300, 400));
+        ShoppingPanel.setPreferredSize(new Dimension(300, 400));
+
+
+
+        // other settings
+
+        ReviewsPanel.setVisible(false);
+        shoppingCart = new ShoppingCartServices(new ShoppingCart());
+        restaurantLock=false;
 
         showRestaurants();
-        BackToRestaurantsBtn.setVisible(false);
 
-
+        frame.setResizable(false);
         frame.add(MainPanel);
         frame.pack();
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);
 
-    }
-
-    public JButton addCustomRestaurantButton(Restaurant restaurantOption){
-        JButton restaurantOptionButton = new JButton(restaurantOption.getName());
-        Dimension buttonSize = new Dimension(200,40);
-        restaurantOptionButton.setPreferredSize(buttonSize);
-        restaurantOptionButton.setMinimumSize(buttonSize);
-        restaurantOptionButton.setMaximumSize(buttonSize);
-        restaurantOptionButton.setAlignmentX(Component.CENTER_ALIGNMENT);
-        restaurantOptionButton.addActionListener(new ActionListener() {
+        orderButton.addActionListener(new ActionListener() {
+            @Override
             public void actionPerformed(ActionEvent e) {
 
-                ParentPanel.removeAll();
-                ParentPanel.add(FoodItemsScrollPanel);
-                ParentPanel.repaint();
-                ParentPanel.revalidate();
-
-                showReviewsPanel(restaurantOption);
-                showMenu(restaurantOption);
-                BackToRestaurantsBtn.setVisible(true);
+                JPanel panel = new JPanel(new GridLayout(3, 1));
 
 
+                // Create radio buttons
+                JRadioButton option1 = new JRadioButton("Delivery ( payment methods : card ) + 10% ");
+                JRadioButton option2 = new JRadioButton("Pick up ( available payment methods : card , cash )");
 
+                // Group the radio buttons to ensure only one can be selected
+                ButtonGroup group = new ButtonGroup();
+                group.add(option1);
+                group.add(option2);
+
+                // Add the radio buttons to the panel
+
+                JTextField deliveryDiscountField = new JTextField(8);
+                String placeholder = "Promo Code";
+                deliveryDiscountField.setText(placeholder);
+                deliveryDiscountField.addFocusListener(new FocusAdapter() {
+            @Override
+            public void focusGained(FocusEvent e) {
+                // Remove placeholder text when field gains focus
+                if (deliveryDiscountField.getText().equals(placeholder)) {
+                    deliveryDiscountField.setText("");
+                    deliveryDiscountField.setForeground(Color.BLACK); // Set text color to black
+                }
+            }
+
+            @Override
+            public void focusLost(FocusEvent e) {
+                // Restore placeholder text if the field is empty when focus is lost
+                if (deliveryDiscountField.getText().isEmpty()) {
+                    deliveryDiscountField.setForeground(Color.GRAY); // Set text color back to gray
+                    deliveryDiscountField.setText(placeholder);
+                }
             }
         });
 
-        return restaurantOptionButton;
 
+                panel.add(option1);
+                panel.add(deliveryDiscountField);
+                panel.add(option2);
+
+                option1.addActionListener( new ActionListener() {
+
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        deliveryDiscountField.setEnabled(true);
+                    }
+                });
+
+                  option2.addActionListener( new ActionListener() {
+
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        deliveryDiscountField.setEnabled(false);
+                    }
+                });
+
+                // Show the JOptionPane with the custom panel and OK/Cancel buttons
+                int result = JOptionPane.showOptionDialog(null, panel, "Order Type", JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, null,  new String[]{"Order", "Cancel"}, "Order");
+
+                // Check the user's selection
+                if (result == JOptionPane.OK_OPTION) {
+
+                    double price=shoppingCart.calculateTotalPrice();
+                    String discount = deliveryDiscountField.getText();
+                    if(!discount.isEmpty()){
+                        //do smth
+                    }
+
+                    if (option1.isSelected()) {
+
+                    } else if (option2.isSelected()) {
+                        System.out.println("Option 2 selected");
+                    } else {
+                        System.out.println("No option selected");
+                    }
+                } else {
+                    System.out.println("Operation cancelled");
+                }
+
+                    }
+                });
     }
+
 
     public void showRestaurants() throws Exception {
 
+
+        ParentPanel.removeAll();
+                ParentPanel.add(ScrollCard);
+                ParentPanel.repaint();
+                ParentPanel.revalidate();
+
+
+        orderButton.setEnabled(shoppingCart.getCartSize() != 0);
+
         RestaurantsCard.setLayout(new BoxLayout(RestaurantsCard, BoxLayout.Y_AXIS));
+
+        RestaurantsCard.removeAll();// clear the last buttons
         for(Restaurant restaurantOption : DataStorageServices.getInstance().getRestaurants()){
-            RestaurantsCard.add(addCustomRestaurantButton(restaurantOption));
+            JButton restaurantOptionButton = new JButton(restaurantOption.getName());
+            Dimension buttonSize = new Dimension(200,40);
+            restaurantOptionButton.setPreferredSize(buttonSize);
+            restaurantOptionButton.setMinimumSize(buttonSize);
+            restaurantOptionButton.setMaximumSize(buttonSize);
+            restaurantOptionButton.setAlignmentX(Component.CENTER_ALIGNMENT);
+            restaurantOptionButton.addActionListener(new ActionListener() {
+                public void actionPerformed(ActionEvent e) {
+
+                    if(restaurantLock && !restaurantOption.getName().equals(restaurantName)){
+                        int result = JOptionPane.showConfirmDialog(null,"You are unable to order from multiple restaurants .\nWould you like to remove the actual order ?","Restaurants",JOptionPane.YES_NO_OPTION,JOptionPane.QUESTION_MESSAGE);
+
+                        // Handle the user's response
+                        if (result == JOptionPane.OK_OPTION) {
+                            shoppingCart = new ShoppingCartServices(new ShoppingCart());
+                            updateShoppingCart();
+                        } else if (result == JOptionPane.CANCEL_OPTION) {
+                            System.out.println("User clicked Cancel");
+                        } else {
+                            System.out.println("Dialog was closed");
+                        }
+                    }
+                    else {
+                        restaurantName=restaurantOption.getName();
+                        showReviewsPanel(restaurantOption);
+                        showMenu(restaurantOption);
+                        ReviewsPanel.setVisible(true);
+                    }
+
+                }
+            });
+            RestaurantsCard.add(restaurantOptionButton);
             RestaurantsCard.add(Box.createVerticalStrut(5));
 
         }
     }
 
     public void showMenu(Restaurant restaurant){
+
+         ParentPanel.removeAll();
+                    ParentPanel.add(FoodItemsScrollPanel);
+                    ParentPanel.repaint();
+                    ParentPanel.revalidate();
+
+        orderButton.setEnabled(shoppingCart.getCartSize() != 0);
+
         BackToRestaurantsBtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                ParentPanel.removeAll();
-                ParentPanel.add(ScrollCard);
-                ParentPanel.repaint();
-                ParentPanel.revalidate();
+
+                ReviewsPanel.setVisible(false);
+                try {
+                    showRestaurants();
+                } catch (Exception ex) {
+                    throw new RuntimeException(ex);
+                }
+
+
             }
         });
         FoodItemsCard.setLayout(new BoxLayout(FoodItemsCard, BoxLayout.Y_AXIS));
-
+        FoodItemsCard.removeAll(); // clear the last generated buttons
         for(FoodItem foodItem : restaurant.getMenu()){
             JPanel foodItemPanel = new JPanel();
-            foodItemPanel.setBackground(Color.BLUE);
-
-            foodItemPanel.setLayout(new BorderLayout());
-
-            //FoodItemsCard.add(addFoodItemButton(foodItem));
-
            foodItemPanel.setLayout(new BoxLayout(foodItemPanel, BoxLayout.Y_AXIS));
            foodItemPanel.setPreferredSize(new Dimension(400, 100));
            foodItemPanel.setMaximumSize(new Dimension(400, 100));
            foodItemPanel.setMinimumSize(new Dimension(400, 100));
 
-
-           foodItemPanel.add(addFoodItemButton(foodItem));
-
            JTextArea itemDescriptionArea = new JTextArea(" "+foodItem.getDescription()+"\n Weight : "+ foodItem.getWeight()+"\n Price : "+foodItem.getPrice());
+            String buttonLabel = foodItem.getName();
+            JButton foodItemBtn = new JButton(buttonLabel);
+            Dimension buttonSize = new Dimension(400, 40);
+            foodItemBtn.setPreferredSize(buttonSize);
+            foodItemBtn.setMinimumSize(buttonSize);
+            foodItemBtn.setMaximumSize(buttonSize);
+            foodItemBtn.setAlignmentX(Component.CENTER_ALIGNMENT);
+            foodItemPanel.add(foodItemBtn);
+            foodItemPanel.add(itemDescriptionArea);
+            foodItemPanel.setBorder(BorderFactory.createLineBorder(Color.BLACK));
 
-           foodItemPanel.add(itemDescriptionArea);
+            foodItemBtn.addActionListener(new ActionListener() {
+                public void actionPerformed(ActionEvent e) {
+                    shoppingCart.addFoodItem(foodItem,1);
+                    updateShoppingCart();
+                }
+            });
 
            FoodItemsCard.add(foodItemPanel);
            FoodItemsCard.add(Box.createVerticalStrut(5));
@@ -131,18 +272,6 @@ public class ClientInterface extends javax.swing.JFrame {
 
 
 
-    }
-    
-    public JButton addFoodItemButton(FoodItem foodItem) {
-        String buttonLabel = foodItem.getName();
-        JButton foodItemBtn = new JButton(buttonLabel);
-        Dimension buttonSize = new Dimension(400, 40);
-        foodItemBtn.setPreferredSize(buttonSize);
-        foodItemBtn.setMinimumSize(buttonSize);
-        foodItemBtn.setMaximumSize(buttonSize);
-        foodItemBtn.setAlignmentX(Component.CENTER_ALIGNMENT);
-
-        return foodItemBtn;
     }
 
     public void showReviewsPanel(Restaurant restaurantOption) {
@@ -157,9 +286,125 @@ public class ClientInterface extends javax.swing.JFrame {
         Reviews.setModel(ReviewsModel);
     }
 
+    public void updateShoppingCart(){
+
+        Map<FoodItem,Integer> items = shoppingCart.getCartItems();
+        ShoppingCartPanel.setLayout(new BoxLayout(ShoppingCartPanel, BoxLayout.Y_AXIS));
+        ShoppingCartPanel.removeAll();
+
+        orderButton.setEnabled(!items.isEmpty());
+        restaurantLock=!items.isEmpty();
+
+
+
+        for(Map.Entry<FoodItem,Integer> entry : items.entrySet()){
+            JPanel orderedItemPanel = new JPanel();
+            orderedItemPanel.setLayout(new BoxLayout(orderedItemPanel, BoxLayout.X_AXIS));
+            Dimension pannelSize = new Dimension(300, 50);
+            orderedItemPanel.setPreferredSize(pannelSize);
+            orderedItemPanel.setMaximumSize(pannelSize);
+            orderedItemPanel.setMinimumSize(pannelSize);
+
+            JButton editButton = new JButton("Edit");
+            Dimension editBtnSize = new Dimension(70, 50);
+            editButton.setPreferredSize(editBtnSize);
+            editButton.setMaximumSize(editBtnSize);
+            editButton.setMinimumSize(editBtnSize);
+
+            editButton.addActionListener(new ActionListener() {
+                public void actionPerformed(ActionEvent e) {
+                    updateOrderedItem(entry.getKey());
+                }
+            });
+
+            double itemPrice = shoppingCart.getTotalItemPrice(entry);
+            String itemLabel = MessageFormat.format("<html><b>{0}</b><br>Quantity : {1}  | Total Price : {2}</html>",entry.getKey().getName(),entry.getValue(),itemPrice);
+            JButton itemBtn = new JButton(itemLabel);
+            itemBtn.setEnabled(true);
+            Dimension buttonSize = new Dimension(230, 50);
+            itemBtn.setPreferredSize(buttonSize);
+            itemBtn.setMinimumSize(buttonSize);
+            itemBtn.setMaximumSize(buttonSize);
+
+
+            orderedItemPanel.add(itemBtn);
+            orderedItemPanel.add(editButton);
+            ShoppingCartPanel.add(orderedItemPanel);
+            ShoppingCartPanel.add(Box.createVerticalStrut(5));
+
+        }
+
+
+        orderButton.setText("Order | Total : "+ shoppingCart.calculateTotalPrice() );
+        ShoppingPanel.repaint();
+        ShoppingPanel.revalidate();
+
+    }
+
+    public void updateOrderedItem(FoodItem foodItem){
+
+         JPanel panel = new JPanel(new GridLayout(3, 1));
+
+        // Create radio buttons
+        JRadioButton removeItemOption = new JRadioButton("Remove Item");
+        JRadioButton modifyQuantityOption = new JRadioButton("Modify Quantity");
+        JTextField quantityField = new JTextField();
+        quantityField.setEnabled(false); // Initially disabled
+
+        // Group the radio buttons so that only one can be selected
+        ButtonGroup group = new ButtonGroup();
+        group.add(removeItemOption);
+        group.add(modifyQuantityOption);
+
+        // Add action listener to enable the quantity input only if "Modify Quantity" is selected
+        modifyQuantityOption.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                quantityField.setEnabled(true); // Enable the text field
+            }
+        });
+
+        removeItemOption.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                quantityField.setEnabled(false); // Disable the text field
+            }
+        });
+
+        // Add the components to the panel
+        panel.add(removeItemOption);
+        panel.add(modifyQuantityOption);
+        panel.add(quantityField);
+
+        // Display the custom JOptionPane
+        int result = JOptionPane.showConfirmDialog(null, panel, "Edit Item", JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
+
+        // Handle the user's selection
+        if (result == JOptionPane.OK_OPTION) {
+            if (removeItemOption.isSelected()) {
+                shoppingCart.removeFoodItem(foodItem);
+            } else if (modifyQuantityOption.isSelected()) {
+                String newQuantity = quantityField.getText();
+                shoppingCart.modifyQuantity(foodItem,Integer.parseInt(newQuantity));
+                if (!newQuantity.isEmpty()) {
+                    System.out.println("Modify Quantity selected with new quantity: " + newQuantity);
+                } else {
+                    System.out.println("Invalid quantity entered");
+                }
+            }
+
+            updateShoppingCart();
+        } else {
+            System.out.println("Edit cancelled");
+        }
+
+    }
     public static void main(String[] args) throws Exception {
         DataStorageServices.getInstance().initData();
         new ClientInterface();
+
+
+
     }
 
 }
