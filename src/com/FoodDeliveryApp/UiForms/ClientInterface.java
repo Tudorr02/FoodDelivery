@@ -40,7 +40,7 @@ public class ClientInterface extends javax.swing.JFrame {
     boolean restaurantLock;
     String restaurantName;
 
-    ClientInterface() throws Exception {
+    ClientInterface(String clientID) throws Exception {
 
         frame = new JFrame("Client Interface");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -75,90 +75,157 @@ public class ClientInterface extends javax.swing.JFrame {
         orderButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                JDialog dialog = new JDialog(frame, "Order Type", true);
+                dialog.setSize(300, 200);
+                dialog.setLayout(new BorderLayout());
+                dialog.setResizable(false);
 
-                JPanel panel = new JPanel(new GridLayout(3, 1));
 
+                // Create a panel to hold radio buttons and text field
+                JPanel panel = new JPanel(new GridLayout(4, 0));
 
                 // Create radio buttons
-                JRadioButton option1 = new JRadioButton("Delivery ( payment methods : card ) + 10% ");
-                JRadioButton option2 = new JRadioButton("Pick up ( available payment methods : card , cash )");
+                JRadioButton option1 = new JRadioButton("Delivery (payment methods: card) + 10%");
+                JRadioButton option2 = new JRadioButton("Pick up (available payment methods: card, cash)");
 
                 // Group the radio buttons to ensure only one can be selected
                 ButtonGroup group = new ButtonGroup();
                 group.add(option1);
                 group.add(option2);
 
-                // Add the radio buttons to the panel
-
+                // Create the JTextField with a placeholder
                 JTextField deliveryDiscountField = new JTextField(8);
-                String placeholder = "Promo Code";
-                deliveryDiscountField.setText(placeholder);
-                deliveryDiscountField.addFocusListener(new FocusAdapter() {
-            @Override
-            public void focusGained(FocusEvent e) {
-                // Remove placeholder text when field gains focus
-                if (deliveryDiscountField.getText().equals(placeholder)) {
-                    deliveryDiscountField.setText("");
-                    deliveryDiscountField.setForeground(Color.BLACK); // Set text color to black
-                }
-            }
+                JButton checkDiscountBtn = new JButton("OK");
 
-            @Override
-            public void focusLost(FocusEvent e) {
-                // Restore placeholder text if the field is empty when focus is lost
-                if (deliveryDiscountField.getText().isEmpty()) {
-                    deliveryDiscountField.setForeground(Color.GRAY); // Set text color back to gray
-                    deliveryDiscountField.setText(placeholder);
-                }
+                deliveryDiscountField.setEnabled(false);
+                checkDiscountBtn.setEnabled(false);
+                deliveryDiscountField.setMaximumSize(new Dimension(100, 20));
+                deliveryDiscountField.setPreferredSize(new Dimension(100, 20));
+                deliveryDiscountField.setPreferredSize(new Dimension(100, 20));
+                String placeholder = "Delivey Discount Code";
+                deliveryDiscountField.setText(placeholder);
+                deliveryDiscountField.setForeground(Color.GRAY); // Set text color to gray
+
+                final double[] price = {shoppingCart.calculateTotalPrice()};
+                String orderBtnLabel= "Order | Total : ";
+                JButton orderBtn = new JButton(orderBtnLabel+ price[0]);
+
+
+
+                // Add ActionListeners to radio buttons to enable or disable the promo code field
+
+
+
+                orderBtn.setBackground(Color.GREEN);
+                orderBtn.setForeground(Color.WHITE);
+
+                option1.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+
+                        if(!deliveryDiscountField.isEnabled()){
+                            price[0] += price[0] *0.1;
+                            orderBtn.setText(orderBtnLabel+ price[0]);
+                        }
+                        deliveryDiscountField.setEnabled(true);
+                        checkDiscountBtn.setEnabled(true);
+
+                    }
+                });
+
+                option2.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+
+                        deliveryDiscountField.setEnabled(false);
+                        checkDiscountBtn.setEnabled(false);
+                        price[0]=shoppingCart.calculateTotalPrice();
+                        orderBtn.setText(orderBtnLabel+ price[0]);
+
+                    }
+                });
+
+
+                deliveryDiscountField.addFocusListener(new java.awt.event.FocusAdapter() {
+                    @Override
+                    public void focusGained(java.awt.event.FocusEvent e) {
+                        // Remove placeholder text when field gains focus
+                        if (deliveryDiscountField.getText().equals(placeholder)) {
+                            deliveryDiscountField.setText("");
+                            deliveryDiscountField.setForeground(Color.BLACK); // Set text color to black
+
+                        }
+
+                    }
+
+                    @Override
+                    public void focusLost(java.awt.event.FocusEvent e) {
+                        // Restore placeholder text if the field is empty when focus is lost
+                        if (deliveryDiscountField.getText().isEmpty()) {
+                            deliveryDiscountField.setForeground(Color.GRAY); // Set text color back to gray
+                            deliveryDiscountField.setText(placeholder);
+                        }
+
+
+                    }
+                });
+
+                checkDiscountBtn.addActionListener(new ActionListener() {
+                    public void actionPerformed(ActionEvent e) {
+                        if(deliveryDiscountField.getText().equals("342")){
+                            price[0] -= price[0] *0.05;
+                            orderBtn.setText(orderBtnLabel+ price[0]);
+                        }
+                    }
+                });
+
+                // Add components to the panel
+                panel.add(option1);
+               // panel.add(new JLabel());
+                panel.add(deliveryDiscountField);
+                panel.add(checkDiscountBtn);
+                panel.add(option2);
+
+
+                orderBtn.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+
+                        String orderID = clientID;
+
+                        // Handle order button click
+                        if (option1.isSelected()) {
+                            System.out.println("Option 1 selected");
+                        } else if (option2.isSelected()) {
+                            System.out.println("Option 2 selected");
+                        } else {
+                            System.out.println("No option selected");
+                        }
+                        String discount = deliveryDiscountField.getText();
+                        System.out.println("Discount: " + discount);
+                        dialog.dispose();
+                    }
+                });
+
+                // Create the "Cancel" button
+                JButton cancelBtn = new JButton("Cancel");
+                cancelBtn.addActionListener(ev -> dialog.dispose());
+
+                // Add the buttons to a separate panel
+                JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT));
+                buttonPanel.add(orderBtn);
+                buttonPanel.add(cancelBtn);
+
+                // Add components to the dialog
+                dialog.add(panel, BorderLayout.CENTER);
+                dialog.add(buttonPanel, BorderLayout.SOUTH);
+
+                // Show the dialog
+                dialog.setLocationRelativeTo(frame);
+                dialog.setVisible(true);
             }
         });
 
-
-                panel.add(option1);
-                panel.add(deliveryDiscountField);
-                panel.add(option2);
-
-                option1.addActionListener( new ActionListener() {
-
-                    @Override
-                    public void actionPerformed(ActionEvent e) {
-                        deliveryDiscountField.setEnabled(true);
-                    }
-                });
-
-                  option2.addActionListener( new ActionListener() {
-
-                    @Override
-                    public void actionPerformed(ActionEvent e) {
-                        deliveryDiscountField.setEnabled(false);
-                    }
-                });
-
-                // Show the JOptionPane with the custom panel and OK/Cancel buttons
-                int result = JOptionPane.showOptionDialog(null, panel, "Order Type", JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, null,  new String[]{"Order", "Cancel"}, "Order");
-
-                // Check the user's selection
-                if (result == JOptionPane.OK_OPTION) {
-
-                    double price=shoppingCart.calculateTotalPrice();
-                    String discount = deliveryDiscountField.getText();
-                    if(!discount.isEmpty()){
-                        //do smth
-                    }
-
-                    if (option1.isSelected()) {
-
-                    } else if (option2.isSelected()) {
-                        System.out.println("Option 2 selected");
-                    } else {
-                        System.out.println("No option selected");
-                    }
-                } else {
-                    System.out.println("Operation cancelled");
-                }
-
-                    }
-                });
     }
 
 
@@ -401,7 +468,7 @@ public class ClientInterface extends javax.swing.JFrame {
     }
     public static void main(String[] args) throws Exception {
         DataStorageServices.getInstance().initData();
-        new ClientInterface();
+        new ClientInterface("4524");
 
 
 
