@@ -18,6 +18,9 @@ public class ShoppingCartServices {
         System.out.println("Added " + quantity + " " + foodItem.getName() + "(s) to the cart.");
     }
 
+    public ShoppingCart getCart() {
+        return cart;
+    }
 
     public void increaseItemQuantity(FoodItem foodItem) {
         cart.incrementItemQuantity(foodItem);

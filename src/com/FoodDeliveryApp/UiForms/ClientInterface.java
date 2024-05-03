@@ -1,10 +1,9 @@
 package com.FoodDeliveryApp.UiForms;
 
-import com.FoodDeliveryApp.Models.FoodItem;
-import com.FoodDeliveryApp.Models.Restaurant;
-import com.FoodDeliveryApp.Models.Review;
+import com.FoodDeliveryApp.Models.*;
 import com.FoodDeliveryApp.Services.DataStorageServices;
-import com.FoodDeliveryApp.Models.ShoppingCart;
+import com.FoodDeliveryApp.Services.DeliveryServices;
+import com.FoodDeliveryApp.Services.OrderServices;
 import com.FoodDeliveryApp.Services.ShoppingCartServices;
 
 import javax.swing.*;
@@ -38,7 +37,7 @@ public class ClientInterface extends javax.swing.JFrame {
     private DefaultListModel ReviewsModel;
     private ShoppingCartServices shoppingCart;
     boolean restaurantLock;
-    String restaurantName;
+    Restaurant orderRestaurant;
 
     ClientInterface(String clientID) throws Exception {
 
@@ -76,22 +75,30 @@ public class ClientInterface extends javax.swing.JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 JDialog dialog = new JDialog(frame, "Order Type", true);
-                dialog.setSize(300, 200);
+                dialog.setSize(400, 200);
                 dialog.setLayout(new BorderLayout());
                 dialog.setResizable(false);
 
 
                 // Create a panel to hold radio buttons and text field
-                JPanel panel = new JPanel(new GridLayout(4, 0));
+                JPanel panel = new JPanel(new GridLayout(5, 2));
 
                 // Create radio buttons
-                JRadioButton option1 = new JRadioButton("Delivery (payment methods: card) + 10%");
-                JRadioButton option2 = new JRadioButton("Pick up (available payment methods: card, cash)");
+                JRadioButton optionDelivery = new JRadioButton("Delivery + 10%");
+                JRadioButton optionPickUp = new JRadioButton("Pick up ");
 
                 // Group the radio buttons to ensure only one can be selected
                 ButtonGroup group = new ButtonGroup();
-                group.add(option1);
-                group.add(option2);
+                group.add(optionDelivery);
+                group.add(optionPickUp);
+
+                JLabel paymentLabel = new JLabel("Select Payment Method");
+                JRadioButton paymentCard = new JRadioButton("Card");
+                JRadioButton paymentCash = new JRadioButton("Cash");
+
+                ButtonGroup group2 = new ButtonGroup();
+                group2.add(paymentCard);
+                group2.add(paymentCash);
 
                 // Create the JTextField with a placeholder
                 JTextField deliveryDiscountField = new JTextField(8);
@@ -99,9 +106,11 @@ public class ClientInterface extends javax.swing.JFrame {
 
                 deliveryDiscountField.setEnabled(false);
                 checkDiscountBtn.setEnabled(false);
-                deliveryDiscountField.setMaximumSize(new Dimension(100, 20));
-                deliveryDiscountField.setPreferredSize(new Dimension(100, 20));
-                deliveryDiscountField.setPreferredSize(new Dimension(100, 20));
+
+                deliveryDiscountField.setMaximumSize(new Dimension(100, 40));
+                deliveryDiscountField.setPreferredSize(new Dimension(100, 40));
+                deliveryDiscountField.setPreferredSize(new Dimension(100, 40));
+
                 String placeholder = "Delivey Discount Code";
                 deliveryDiscountField.setText(placeholder);
                 deliveryDiscountField.setForeground(Color.GRAY); // Set text color to gray
@@ -109,17 +118,15 @@ public class ClientInterface extends javax.swing.JFrame {
                 final double[] price = {shoppingCart.calculateTotalPrice()};
                 String orderBtnLabel= "Order | Total : ";
                 JButton orderBtn = new JButton(orderBtnLabel+ price[0]);
-
-
-
-                // Add ActionListeners to radio buttons to enable or disable the promo code field
-
+                orderBtn.setEnabled(false);
+                final OrderType[] oType = {null};
+                final PaymentMethod[] pMethod={null};
 
 
                 orderBtn.setBackground(Color.GREEN);
                 orderBtn.setForeground(Color.WHITE);
 
-                option1.addActionListener(new ActionListener() {
+                optionDelivery.addActionListener(new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent e) {
 
@@ -129,11 +136,14 @@ public class ClientInterface extends javax.swing.JFrame {
                         }
                         deliveryDiscountField.setEnabled(true);
                         checkDiscountBtn.setEnabled(true);
+                        oType[0] =OrderType.DELIVERY_ORDER;
+                        if(group2.getSelection()!=null)
+                            orderBtn.setEnabled(true);
 
                     }
                 });
 
-                option2.addActionListener(new ActionListener() {
+                optionPickUp.addActionListener(new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent e) {
 
@@ -141,7 +151,29 @@ public class ClientInterface extends javax.swing.JFrame {
                         checkDiscountBtn.setEnabled(false);
                         price[0]=shoppingCart.calculateTotalPrice();
                         orderBtn.setText(orderBtnLabel+ price[0]);
+                        oType[0]=OrderType.PICKUP_ORDER;
 
+                        if(group2.getSelection()!=null)
+                            orderBtn.setEnabled(true);
+
+                    }
+                });
+
+                paymentCash.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        pMethod[0]=PaymentMethod.CASH;
+                        if(group.getSelection()!=null)
+                            orderBtn.setEnabled(true);
+                    }
+                });
+
+                paymentCard.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        pMethod[0] = PaymentMethod.CARD;
+                        if(group.getSelection()!=null)
+                            orderBtn.setEnabled(true);
                     }
                 });
 
@@ -172,31 +204,43 @@ public class ClientInterface extends javax.swing.JFrame {
 
                 checkDiscountBtn.addActionListener(new ActionListener() {
                     public void actionPerformed(ActionEvent e) {
-                        if(deliveryDiscountField.getText().equals("342")){
-                            price[0] -= price[0] *0.05;
+                        if(!deliveryDiscountField.getText().isEmpty()){
+                            int discountPercentage = new DeliveryServices().getPromoCodePercentage(deliveryDiscountField.getText());
+                            price[0] -= price[0] * ((double)discountPercentage/100);
                             orderBtn.setText(orderBtnLabel+ price[0]);
+                        }else{
+                            deliveryDiscountField.setForeground(Color.RED);
                         }
                     }
                 });
 
                 // Add components to the panel
-                panel.add(option1);
-               // panel.add(new JLabel());
+                panel.add(optionDelivery);
+                panel.add(new JLabel());
                 panel.add(deliveryDiscountField);
                 panel.add(checkDiscountBtn);
-                panel.add(option2);
+                panel.add(optionPickUp);
+                panel.add(new JLabel());
+                panel.add(paymentLabel);
+                panel.add(new JLabel());
+                panel.add(paymentCash);
+                panel.add(paymentCard);
 
 
                 orderBtn.addActionListener(new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent e) {
-
-                        String orderID = clientID;
-
                         // Handle order button click
-                        if (option1.isSelected()) {
-                            System.out.println("Option 1 selected");
-                        } else if (option2.isSelected()) {
+                        if (optionDelivery.isSelected()) {
+
+                            int deliveryDiscountP =new DeliveryServices().getPromoCodePercentage(deliveryDiscountField.getText());
+                            try {
+                                new OrderServices().generateDeliveryOrder(clientID,oType[0],orderRestaurant,shoppingCart.getCart(),pMethod[0],deliveryDiscountP);
+                            } catch (Exception ex) {
+                                throw new RuntimeException(ex);
+                            }
+
+                        } else if (optionPickUp.isSelected()) {
                             System.out.println("Option 2 selected");
                         } else {
                             System.out.println("No option selected");
@@ -253,13 +297,14 @@ public class ClientInterface extends javax.swing.JFrame {
             restaurantOptionButton.addActionListener(new ActionListener() {
                 public void actionPerformed(ActionEvent e) {
 
-                    if(restaurantLock && !restaurantOption.getName().equals(restaurantName)){
+                    if(restaurantLock && !restaurantOption.getName().equals(orderRestaurant.getName())){
                         int result = JOptionPane.showConfirmDialog(null,"You are unable to order from multiple restaurants .\nWould you like to remove the actual order ?","Restaurants",JOptionPane.YES_NO_OPTION,JOptionPane.QUESTION_MESSAGE);
 
                         // Handle the user's response
                         if (result == JOptionPane.OK_OPTION) {
                             shoppingCart = new ShoppingCartServices(new ShoppingCart());
                             updateShoppingCart();
+                            orderRestaurant=null;
                         } else if (result == JOptionPane.CANCEL_OPTION) {
                             System.out.println("User clicked Cancel");
                         } else {
@@ -267,9 +312,9 @@ public class ClientInterface extends javax.swing.JFrame {
                         }
                     }
                     else {
-                        restaurantName=restaurantOption.getName();
                         showReviewsPanel(restaurantOption);
                         showMenu(restaurantOption);
+                        orderRestaurant = restaurantOption;
                         ReviewsPanel.setVisible(true);
                     }
 
@@ -468,7 +513,7 @@ public class ClientInterface extends javax.swing.JFrame {
     }
     public static void main(String[] args) throws Exception {
         DataStorageServices.getInstance().initData();
-        new ClientInterface("4524");
+        //new ClientInterface("C-100001");
 
 
 

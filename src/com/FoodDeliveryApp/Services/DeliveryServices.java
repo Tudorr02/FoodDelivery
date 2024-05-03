@@ -7,14 +7,22 @@ import com.FoodDeliveryApp.Converters.DeliveryConverter;
 import com.FoodDeliveryApp.Models.DeliveryOrder;
 import com.FoodDeliveryApp.Models.DeliveryStatus;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
 import java.io.IOException;
-import java.sql.SQLOutput;
 import java.time.LocalDateTime;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Random;
 
 public class DeliveryServices {
 
+
+    public static void main(String[] args) {
+
+
+    }
 
     public boolean generateAndRecordDelivery(String deliveryManId, String orderId, LocalDateTime orderDate) {
         try {
@@ -89,7 +97,32 @@ public class DeliveryServices {
         }
     }
 
+    public int getPromoCodePercentage(String promoCode){
+         String csvFile = "res/CSV/DeliveryDiscount_Data.csv"; // The path to your CSV file
 
+        try (BufferedReader br = new BufferedReader(new FileReader(csvFile))) {
+            String line;
+            br.readLine();
+            while ((line = br.readLine()) != null) {
+                // Split each line by comma
+                String[] columns = line.split(",", 2);
+
+                if (columns.length == 2) { // Ensure there are two columns
+                    String key = columns[0].trim();
+                    String value = columns[1].trim();
+                    if(key.equals(promoCode))
+                        return Integer.parseInt(value);
+                     // Add the pair to the map
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        // Print the map to verify the contents
+
+        return 0;
+    }
 
     private void writeDeliveriesToCsv(List<Delivery> deliveries) throws Exception {
         DataConverter<Delivery> converter = new DeliveryConverter();
@@ -98,3 +131,4 @@ public class DeliveryServices {
         DataStorageServices.getInstance().initData();
     }
 }
+

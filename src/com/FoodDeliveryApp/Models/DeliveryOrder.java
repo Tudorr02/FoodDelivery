@@ -6,7 +6,6 @@ import java.util.Date;
 
 public class DeliveryOrder extends Order{
     private int deliveryDiscountPercent;
-
     private AsignedType asigned;
 
 
