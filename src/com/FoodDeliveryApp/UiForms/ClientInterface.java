@@ -34,6 +34,7 @@ public class ClientInterface extends javax.swing.JFrame {
     private JButton BackToRestaurantsBtn;
     private JButton orderButton;
     private JPanel ShoppingCartPanel;
+    private JPanel UserPanel;
     private DefaultListModel ReviewsModel;
     private ShoppingCartServices shoppingCart;
     boolean restaurantLock;
@@ -43,9 +44,9 @@ public class ClientInterface extends javax.swing.JFrame {
 
         frame = new JFrame("Client Interface");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setPreferredSize(new Dimension(800, 600));
-        frame.setMinimumSize(new Dimension(800, 600));
-        frame.setMaximumSize(new Dimension(800, 600));
+        frame.setPreferredSize(new Dimension(800, 700));
+        frame.setMinimumSize(new Dimension(800, 700));
+        frame.setMaximumSize(new Dimension(800, 700));
 
         ParentPanel.setMinimumSize(new Dimension(400, 400));
         ParentPanel.setMaximumSize(new Dimension(400, 400));
@@ -71,204 +72,387 @@ public class ClientInterface extends javax.swing.JFrame {
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);
 
+//        orderButton.addActionListener(new ActionListener() {
+//            @Override
+//            public void actionPerformed(ActionEvent e) {
+//                JDialog dialog = new JDialog(frame, "Order Type", true);
+//                dialog.setSize(400, 200);
+//                dialog.setLayout(new BorderLayout());
+//                dialog.setResizable(false);
+//
+//
+//                // Create a panel to hold radio buttons and text field
+//                JPanel panel = new JPanel(new GridLayout(5, 2));
+//
+//                // Create radio buttons
+//                JRadioButton optionDelivery = new JRadioButton("Delivery + 10%");
+//                JRadioButton optionPickUp = new JRadioButton("Pick up ");
+//
+//                // Group the radio buttons to ensure only one can be selected
+//                ButtonGroup group = new ButtonGroup();
+//                group.add(optionDelivery);
+//                group.add(optionPickUp);
+//
+//                JLabel paymentLabel = new JLabel("Select Payment Method");
+//                JRadioButton paymentCard = new JRadioButton("Card");
+//                JRadioButton paymentCash = new JRadioButton("Cash");
+//
+//                ButtonGroup group2 = new ButtonGroup();
+//                group2.add(paymentCard);
+//                group2.add(paymentCash);
+//
+//                // Create the JTextField with a placeholder
+//                JTextField deliveryDiscountField = new JTextField(8);
+//                JButton checkDiscountBtn = new JButton("OK");
+//
+//                deliveryDiscountField.setEnabled(false);
+//                checkDiscountBtn.setEnabled(false);
+//
+//                deliveryDiscountField.setMaximumSize(new Dimension(100, 40));
+//                deliveryDiscountField.setPreferredSize(new Dimension(100, 40));
+//                deliveryDiscountField.setPreferredSize(new Dimension(100, 40));
+//
+//                String placeholder = "Delivey Discount Code";
+//                deliveryDiscountField.setText(placeholder);
+//                deliveryDiscountField.setForeground(Color.GRAY); // Set text color to gray
+//
+//                final double[] price = {shoppingCart.calculateTotalPrice()};
+//                String orderBtnLabel= "Order | Total : ";
+//                JButton orderBtn = new JButton(orderBtnLabel+ price[0]);
+//                orderBtn.setEnabled(false);
+//                final OrderType[] oType = {null};
+//                final PaymentMethod[] pMethod={null};
+//
+//
+//                orderBtn.setBackground(Color.GREEN);
+//                orderBtn.setForeground(Color.WHITE);
+//
+//                optionDelivery.addActionListener(new ActionListener() {
+//                    @Override
+//                    public void actionPerformed(ActionEvent e) {
+//
+//                        if(!deliveryDiscountField.isEnabled()){
+//                            price[0] += price[0] *0.1;
+//                            orderBtn.setText(orderBtnLabel+ price[0]);
+//                        }
+//                        deliveryDiscountField.setEnabled(true);
+//                        checkDiscountBtn.setEnabled(true);
+//                        oType[0] =OrderType.DELIVERY_ORDER;
+//                        if(group2.getSelection()!=null)
+//                            orderBtn.setEnabled(true);
+//
+//                    }
+//                });
+//
+//                optionPickUp.addActionListener(new ActionListener() {
+//                    @Override
+//                    public void actionPerformed(ActionEvent e) {
+//
+//                        deliveryDiscountField.setEnabled(false);
+//                        checkDiscountBtn.setEnabled(false);
+//                        price[0]=shoppingCart.calculateTotalPrice();
+//                        orderBtn.setText(orderBtnLabel+ price[0]);
+//                        oType[0]=OrderType.PICKUP_ORDER;
+//
+//                        if(group2.getSelection()!=null)
+//                            orderBtn.setEnabled(true);
+//
+//                    }
+//                });
+//
+//                paymentCash.addActionListener(new ActionListener() {
+//                    @Override
+//                    public void actionPerformed(ActionEvent e) {
+//                        pMethod[0]=PaymentMethod.CASH;
+//                        if(group.getSelection()!=null)
+//                            orderBtn.setEnabled(true);
+//                    }
+//                });
+//
+//                paymentCard.addActionListener(new ActionListener() {
+//                    @Override
+//                    public void actionPerformed(ActionEvent e) {
+//                        pMethod[0] = PaymentMethod.CARD;
+//                        if(group.getSelection()!=null)
+//                            orderBtn.setEnabled(true);
+//                    }
+//                });
+//
+//
+//                deliveryDiscountField.addFocusListener(new java.awt.event.FocusAdapter() {
+//                    @Override
+//                    public void focusGained(java.awt.event.FocusEvent e) {
+//                        // Remove placeholder text when field gains focus
+//                        if (deliveryDiscountField.getText().equals(placeholder)) {
+//                            deliveryDiscountField.setText("");
+//                            deliveryDiscountField.setForeground(Color.BLACK); // Set text color to black
+//
+//                        }
+//
+//                    }
+//
+//                    @Override
+//                    public void focusLost(java.awt.event.FocusEvent e) {
+//                        // Restore placeholder text if the field is empty when focus is lost
+//                        if (deliveryDiscountField.getText().isEmpty()) {
+//                            deliveryDiscountField.setForeground(Color.GRAY); // Set text color back to gray
+//                            deliveryDiscountField.setText(placeholder);
+//                        }
+//
+//
+//                    }
+//                });
+//
+//                checkDiscountBtn.addActionListener(new ActionListener() {
+//                    public void actionPerformed(ActionEvent e) {
+//                        if(!deliveryDiscountField.getText().isEmpty()){
+//                            int discountPercentage = new DeliveryServices().getPromoCodePercentage(deliveryDiscountField.getText());
+//                            price[0] -= price[0] * ((double)discountPercentage/100);
+//                            orderBtn.setText(orderBtnLabel+ price[0]);
+//                        }else{
+//                            deliveryDiscountField.setForeground(Color.RED);
+//                        }
+//                    }
+//                });
+//
+//                // Add components to the panel
+//                panel.add(optionDelivery);
+//                panel.add(new JLabel());
+//                panel.add(deliveryDiscountField);
+//                panel.add(checkDiscountBtn);
+//                panel.add(optionPickUp);
+//                panel.add(new JLabel());
+//                panel.add(paymentLabel);
+//                panel.add(new JLabel());
+//                panel.add(paymentCash);
+//                panel.add(paymentCard);
+//
+//
+//                orderBtn.addActionListener(new ActionListener() {
+//                    @Override
+//                    public void actionPerformed(ActionEvent e) {
+//                        // Handle order button click
+//                        if (optionDelivery.isSelected()) {
+//
+//                            int deliveryDiscountP =new DeliveryServices().getPromoCodePercentage(deliveryDiscountField.getText());
+//                            try {
+//                                new OrderServices().generateDeliveryOrder(clientID,orderRestaurant,shoppingCart.getCart(),pMethod[0],deliveryDiscountP);
+//                            } catch (Exception ex) {
+//                                throw new RuntimeException(ex);
+//                            }
+//
+//                        } else if (optionPickUp.isSelected()) {
+//                            try {
+//                                new OrderServices().generatePickUpOrder(clientID,orderRestaurant,shoppingCart.getCart(),pMethod[0]);
+//                            } catch (Exception ex) {
+//                                throw new RuntimeException(ex);
+//                            }
+//                        }
+//
+//                        String discount = deliveryDiscountField.getText();
+//                        System.out.println("Discount: " + discount);
+//                        dialog.dispose();
+//                        shoppingCart=new ShoppingCartServices(new ShoppingCart());
+//                        updateShoppingCart();
+//                        try {
+//                            showRestaurants();
+//                            ReviewsPanel.setVisible(false);
+//                        } catch (Exception ex) {
+//                            throw new RuntimeException(ex);
+//                        }
+//                    }
+//                });
+//
+//                // Create the "Cancel" button
+//                JButton cancelBtn = new JButton("Cancel");
+//                cancelBtn.addActionListener(ev -> dialog.dispose());
+//
+//                // Add the buttons to a separate panel
+//                JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT));
+//                buttonPanel.add(orderBtn);
+//                buttonPanel.add(cancelBtn);
+//
+//                // Add components to the dialog
+//                dialog.add(panel, BorderLayout.CENTER);
+//                dialog.add(buttonPanel, BorderLayout.SOUTH);
+//
+//                // Show the dialog
+//                dialog.setLocationRelativeTo(frame);
+//                dialog.setVisible(true);
+//            }
+//        });
+
         orderButton.addActionListener(new ActionListener() {
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        // Create and configure the dialog
+        JDialog dialog = new JDialog(frame, "Order Type", true);
+        dialog.setSize(400, 200);
+        dialog.setLayout(new BorderLayout());
+        dialog.setResizable(false);
+
+        // Create a panel for radio buttons and text field
+        JPanel panel = new JPanel(new GridLayout(5, 2));
+
+        // Create and add radio buttons for order type
+        JRadioButton optionDelivery = new JRadioButton("Delivery + 10%");
+        JRadioButton optionPickUp = new JRadioButton("Pick up");
+        ButtonGroup orderGroup = new ButtonGroup();
+        orderGroup.add(optionDelivery);
+        orderGroup.add(optionPickUp);
+
+        // Create and add radio buttons for payment method
+        JLabel paymentLabel = new JLabel("Select Payment Method");
+        JRadioButton paymentCard = new JRadioButton("Card");
+        JRadioButton paymentCash = new JRadioButton("Cash");
+        ButtonGroup paymentGroup = new ButtonGroup();
+        paymentGroup.add(paymentCard);
+        paymentGroup.add(paymentCash);
+
+        // Create the delivery discount text field and button
+        JTextField deliveryDiscountField = new JTextField("Delivery Discount Code", 8);
+        deliveryDiscountField.setForeground(Color.GRAY);
+        JButton checkDiscountBtn = new JButton("OK");
+        deliveryDiscountField.setEnabled(false);
+        checkDiscountBtn.setEnabled(false);
+
+        // Create the order button
+        double[] price = {shoppingCart.calculateTotalPrice()};
+        JButton orderBtn = new JButton(updateOrderPriceLabel(price[0]));
+        orderBtn.setEnabled(false);
+        orderBtn.setBackground(Color.GREEN);
+        orderBtn.setForeground(Color.WHITE);
+
+        // Initialize order type and payment method
+        final OrderType[] oType = {null};
+        final PaymentMethod[] pMethod = {null};
+
+        // Add action listeners for order type buttons
+        optionDelivery.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                JDialog dialog = new JDialog(frame, "Order Type", true);
-                dialog.setSize(400, 200);
-                dialog.setLayout(new BorderLayout());
-                dialog.setResizable(false);
-
-
-                // Create a panel to hold radio buttons and text field
-                JPanel panel = new JPanel(new GridLayout(5, 2));
-
-                // Create radio buttons
-                JRadioButton optionDelivery = new JRadioButton("Delivery + 10%");
-                JRadioButton optionPickUp = new JRadioButton("Pick up ");
-
-                // Group the radio buttons to ensure only one can be selected
-                ButtonGroup group = new ButtonGroup();
-                group.add(optionDelivery);
-                group.add(optionPickUp);
-
-                JLabel paymentLabel = new JLabel("Select Payment Method");
-                JRadioButton paymentCard = new JRadioButton("Card");
-                JRadioButton paymentCash = new JRadioButton("Cash");
-
-                ButtonGroup group2 = new ButtonGroup();
-                group2.add(paymentCard);
-                group2.add(paymentCash);
-
-                // Create the JTextField with a placeholder
-                JTextField deliveryDiscountField = new JTextField(8);
-                JButton checkDiscountBtn = new JButton("OK");
-
-                deliveryDiscountField.setEnabled(false);
-                checkDiscountBtn.setEnabled(false);
-
-                deliveryDiscountField.setMaximumSize(new Dimension(100, 40));
-                deliveryDiscountField.setPreferredSize(new Dimension(100, 40));
-                deliveryDiscountField.setPreferredSize(new Dimension(100, 40));
-
-                String placeholder = "Delivey Discount Code";
-                deliveryDiscountField.setText(placeholder);
-                deliveryDiscountField.setForeground(Color.GRAY); // Set text color to gray
-
-                final double[] price = {shoppingCart.calculateTotalPrice()};
-                String orderBtnLabel= "Order | Total : ";
-                JButton orderBtn = new JButton(orderBtnLabel+ price[0]);
-                orderBtn.setEnabled(false);
-                final OrderType[] oType = {null};
-                final PaymentMethod[] pMethod={null};
-
-
-                orderBtn.setBackground(Color.GREEN);
-                orderBtn.setForeground(Color.WHITE);
-
-                optionDelivery.addActionListener(new ActionListener() {
-                    @Override
-                    public void actionPerformed(ActionEvent e) {
-
-                        if(!deliveryDiscountField.isEnabled()){
-                            price[0] += price[0] *0.1;
-                            orderBtn.setText(orderBtnLabel+ price[0]);
-                        }
-                        deliveryDiscountField.setEnabled(true);
-                        checkDiscountBtn.setEnabled(true);
-                        oType[0] =OrderType.DELIVERY_ORDER;
-                        if(group2.getSelection()!=null)
-                            orderBtn.setEnabled(true);
-
-                    }
-                });
-
-                optionPickUp.addActionListener(new ActionListener() {
-                    @Override
-                    public void actionPerformed(ActionEvent e) {
-
-                        deliveryDiscountField.setEnabled(false);
-                        checkDiscountBtn.setEnabled(false);
-                        price[0]=shoppingCart.calculateTotalPrice();
-                        orderBtn.setText(orderBtnLabel+ price[0]);
-                        oType[0]=OrderType.PICKUP_ORDER;
-
-                        if(group2.getSelection()!=null)
-                            orderBtn.setEnabled(true);
-
-                    }
-                });
-
-                paymentCash.addActionListener(new ActionListener() {
-                    @Override
-                    public void actionPerformed(ActionEvent e) {
-                        pMethod[0]=PaymentMethod.CASH;
-                        if(group.getSelection()!=null)
-                            orderBtn.setEnabled(true);
-                    }
-                });
-
-                paymentCard.addActionListener(new ActionListener() {
-                    @Override
-                    public void actionPerformed(ActionEvent e) {
-                        pMethod[0] = PaymentMethod.CARD;
-                        if(group.getSelection()!=null)
-                            orderBtn.setEnabled(true);
-                    }
-                });
-
-
-                deliveryDiscountField.addFocusListener(new java.awt.event.FocusAdapter() {
-                    @Override
-                    public void focusGained(java.awt.event.FocusEvent e) {
-                        // Remove placeholder text when field gains focus
-                        if (deliveryDiscountField.getText().equals(placeholder)) {
-                            deliveryDiscountField.setText("");
-                            deliveryDiscountField.setForeground(Color.BLACK); // Set text color to black
-
-                        }
-
-                    }
-
-                    @Override
-                    public void focusLost(java.awt.event.FocusEvent e) {
-                        // Restore placeholder text if the field is empty when focus is lost
-                        if (deliveryDiscountField.getText().isEmpty()) {
-                            deliveryDiscountField.setForeground(Color.GRAY); // Set text color back to gray
-                            deliveryDiscountField.setText(placeholder);
-                        }
-
-
-                    }
-                });
-
-                checkDiscountBtn.addActionListener(new ActionListener() {
-                    public void actionPerformed(ActionEvent e) {
-                        if(!deliveryDiscountField.getText().isEmpty()){
-                            int discountPercentage = new DeliveryServices().getPromoCodePercentage(deliveryDiscountField.getText());
-                            price[0] -= price[0] * ((double)discountPercentage/100);
-                            orderBtn.setText(orderBtnLabel+ price[0]);
-                        }else{
-                            deliveryDiscountField.setForeground(Color.RED);
-                        }
-                    }
-                });
-
-                // Add components to the panel
-                panel.add(optionDelivery);
-                panel.add(new JLabel());
-                panel.add(deliveryDiscountField);
-                panel.add(checkDiscountBtn);
-                panel.add(optionPickUp);
-                panel.add(new JLabel());
-                panel.add(paymentLabel);
-                panel.add(new JLabel());
-                panel.add(paymentCash);
-                panel.add(paymentCard);
-
-
-                orderBtn.addActionListener(new ActionListener() {
-                    @Override
-                    public void actionPerformed(ActionEvent e) {
-                        // Handle order button click
-                        if (optionDelivery.isSelected()) {
-
-                            int deliveryDiscountP =new DeliveryServices().getPromoCodePercentage(deliveryDiscountField.getText());
-                            try {
-                                new OrderServices().generateDeliveryOrder(clientID,oType[0],orderRestaurant,shoppingCart.getCart(),pMethod[0],deliveryDiscountP);
-                            } catch (Exception ex) {
-                                throw new RuntimeException(ex);
-                            }
-
-                        } else if (optionPickUp.isSelected()) {
-                            System.out.println("Option 2 selected");
-                        } else {
-                            System.out.println("No option selected");
-                        }
-                        String discount = deliveryDiscountField.getText();
-                        System.out.println("Discount: " + discount);
-                        dialog.dispose();
-                    }
-                });
-
-                // Create the "Cancel" button
-                JButton cancelBtn = new JButton("Cancel");
-                cancelBtn.addActionListener(ev -> dialog.dispose());
-
-                // Add the buttons to a separate panel
-                JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT));
-                buttonPanel.add(orderBtn);
-                buttonPanel.add(cancelBtn);
-
-                // Add components to the dialog
-                dialog.add(panel, BorderLayout.CENTER);
-                dialog.add(buttonPanel, BorderLayout.SOUTH);
-
-                // Show the dialog
-                dialog.setLocationRelativeTo(frame);
-                dialog.setVisible(true);
+                price[0] = shoppingCart.calculateTotalPrice() * 1.1; // Add 10% for delivery
+                orderBtn.setText(updateOrderPriceLabel(price[0]));
+                deliveryDiscountField.setEnabled(true);
+                checkDiscountBtn.setEnabled(true);
+                oType[0] = OrderType.DELIVERY_ORDER;
+                if (paymentGroup.getSelection() != null) {
+                    orderBtn.setEnabled(true);
+                }
             }
         });
+
+        optionPickUp.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                deliveryDiscountField.setEnabled(false);
+                checkDiscountBtn.setEnabled(false);
+                price[0] = shoppingCart.calculateTotalPrice();
+                orderBtn.setText(updateOrderPriceLabel(price[0]));
+                oType[0] = OrderType.PICKUP_ORDER;
+                if (paymentGroup.getSelection() != null) {
+                    orderBtn.setEnabled(true);
+                }
+            }
+        });
+
+        // Add action listeners for payment method buttons
+        paymentCash.addActionListener(e1 -> {
+            pMethod[0] = PaymentMethod.CASH;
+            if (orderGroup.getSelection() != null) {
+                orderBtn.setEnabled(true);
+            }
+        });
+
+        paymentCard.addActionListener(e1 -> {
+            pMethod[0] = PaymentMethod.CARD;
+            if (orderGroup.getSelection() != null) {
+                orderBtn.setEnabled(true);
+            }
+        });
+
+        // Manage placeholder text behavior for the discount field
+        deliveryDiscountField.addFocusListener(new java.awt.event.FocusAdapter() {
+            @Override
+            public void focusGained(java.awt.event.FocusEvent e) {
+                if (deliveryDiscountField.getText().equals("Delivery Discount Code")) {
+                    deliveryDiscountField.setText("");
+                    deliveryDiscountField.setForeground(Color.BLACK);
+                }
+            }
+
+            @Override
+            public void focusLost(java.awt.event.FocusEvent e) {
+                if (deliveryDiscountField.getText().isEmpty()) {
+                    deliveryDiscountField.setForeground(Color.GRAY);
+                    deliveryDiscountField.setText("Delivery Discount Code");
+                }
+            }
+        });
+
+        // Add action listener for the discount button
+        checkDiscountBtn.addActionListener(e1 -> {
+            int discountPercentage = new DeliveryServices().getPromoCodePercentage(deliveryDiscountField.getText());
+            if (!deliveryDiscountField.getText().isEmpty() && discountPercentage!=0 ) {
+                price[0] = shoppingCart.calculateTotalPrice() * 1.1;
+                price[0] -= price[0] * ((double) discountPercentage / 100);
+                orderBtn.setText(updateOrderPriceLabel(price[0]));
+                deliveryDiscountField.setForeground(Color.BLACK);
+            } else {
+                deliveryDiscountField.setForeground(Color.RED);
+            }
+        });
+
+        // Add components to the panel
+        panel.add(optionDelivery);
+        panel.add(new JLabel());
+        panel.add(deliveryDiscountField);
+        panel.add(checkDiscountBtn);
+        panel.add(optionPickUp);
+        panel.add(new JLabel());
+        panel.add(paymentLabel);
+        panel.add(new JLabel());
+        panel.add(paymentCash);
+        panel.add(paymentCard);
+
+        // Add action listener for the order button
+        orderBtn.addActionListener(e1 -> {
+            try {
+                if (optionDelivery.isSelected()) {
+                    int deliveryDiscountP = new DeliveryServices().getPromoCodePercentage(deliveryDiscountField.getText());
+                    new OrderServices().generateDeliveryOrder(clientID, orderRestaurant, shoppingCart.getCart(), pMethod[0], deliveryDiscountP);
+                } else if (optionPickUp.isSelected()) {
+                    new OrderServices().generatePickUpOrder(clientID, orderRestaurant, shoppingCart.getCart(), pMethod[0]);
+                }
+                shoppingCart = new ShoppingCartServices(new ShoppingCart());
+                updateShoppingCart();
+                showRestaurants();
+                ReviewsPanel.setVisible(false);
+                dialog.dispose();
+            } catch (Exception ex) {
+                throw new RuntimeException(ex);
+            }
+        });
+
+        // Create and add the Cancel button
+        JButton cancelBtn = new JButton("Cancel");
+        cancelBtn.addActionListener(ev -> dialog.dispose());
+
+        // Add the order and cancel buttons to a separate panel
+        JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT));
+        buttonPanel.add(orderBtn);
+        buttonPanel.add(cancelBtn);
+
+        // Add panels to the dialog
+        dialog.add(panel, BorderLayout.CENTER);
+        dialog.add(buttonPanel, BorderLayout.SOUTH);
+
+        // Show the dialog
+        dialog.setLocationRelativeTo(frame);
+        dialog.setVisible(true);
+    }
+});
+
 
     }
 
@@ -417,8 +601,10 @@ public class ClientInterface extends javax.swing.JFrame {
             orderedItemPanel.setMaximumSize(pannelSize);
             orderedItemPanel.setMinimumSize(pannelSize);
 
-            JButton editButton = new JButton("Edit");
-            Dimension editBtnSize = new Dimension(70, 50);
+            JButton editButton = new JButton("...");
+            Dimension editBtnSize = new Dimension(60, 50);
+
+
             editButton.setPreferredSize(editBtnSize);
             editButton.setMaximumSize(editBtnSize);
             editButton.setMinimumSize(editBtnSize);
@@ -432,8 +618,9 @@ public class ClientInterface extends javax.swing.JFrame {
             double itemPrice = shoppingCart.getTotalItemPrice(entry);
             String itemLabel = MessageFormat.format("<html><b>{0}</b><br>Quantity : {1}  | Total Price : {2}</html>",entry.getKey().getName(),entry.getValue(),itemPrice);
             JButton itemBtn = new JButton(itemLabel);
+
             itemBtn.setEnabled(true);
-            Dimension buttonSize = new Dimension(230, 50);
+            Dimension buttonSize = new Dimension(240, 50);
             itemBtn.setPreferredSize(buttonSize);
             itemBtn.setMinimumSize(buttonSize);
             itemBtn.setMaximumSize(buttonSize);
@@ -511,9 +698,14 @@ public class ClientInterface extends javax.swing.JFrame {
         }
 
     }
+
+    public String updateOrderPriceLabel(double price){
+
+        return String.format("Order | Total : %.2f",price);
+    }
     public static void main(String[] args) throws Exception {
         DataStorageServices.getInstance().initData();
-        //new ClientInterface("C-100001");
+        new ClientInterface("C-100001");
 
 
 

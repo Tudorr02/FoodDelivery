@@ -1,6 +1,5 @@
 package com.FoodDeliveryApp.Services;
-import com.FoodDeliveryApp.Converters.DataConverter;
-import com.FoodDeliveryApp.Converters.DeliveryOrderConverter;
+import com.FoodDeliveryApp.Converters.*;
 import com.FoodDeliveryApp.Models.*;
 
 import javax.xml.crypto.Data;
@@ -9,40 +8,71 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.OptionalInt;
+import java.util.Random;
 
 
 public class OrderServices {
 
     Order order;
 
-    public void generateDeliveryOrder(String userID, OrderType oType, Restaurant restaurant, ShoppingCart shoppingCart,PaymentMethod pMethod,int deliveryDiscount) throws Exception {
+    public void generateDeliveryOrder(String userID, Restaurant restaurant, ShoppingCart shoppingCart,PaymentMethod pMethod,int deliveryDiscount) throws Exception {
 
-        String prefix;
+        String prefix="DO-";
         int orderNumber;
         String method;
 
-        if(oType.equals(OrderType.PICKUP_ORDER)){
-            prefix = "P-";
-        }
-        else{
-            prefix = "DO-";
-        }
 
         if(pMethod.equals(PaymentMethod.CARD))
             method="card";
         else
             method="cash";
 
-        orderNumber=getMaxOrderNumberId(oType);
+        orderNumber=getMaxOrderNumberId(OrderType.DELIVERY_ORDER);
 
         String orderID = prefix + orderNumber;
+        shoppingCart.generateCartID();
+        List<ShoppingCart> carts= DataStorageServices.getInstance().getShoppingCarts();
+        carts.add(shoppingCart);
+        DataStorageServices.getInstance().writeCsv((DataConverter)new ShoppingCartConverter(),carts);
 
         Users user = DataStorageServices.getInstance().getUserById(userID);
-        //String orderDateStr = LocalDateTime.now().format(DateTimeFormatter.ofPattern("MM/dd/yyyy HH:mm"));
         LocalDateTime orderDate = LocalDateTime.now();
         List<DeliveryOrder> deliveryOrders =DataStorageServices.getInstance().getdOrders();
         deliveryOrders.add(new DeliveryOrder(orderID,user,restaurant,shoppingCart,method,orderDate,deliveryDiscount,AsignedType.NEPRELUAT));
         DataStorageServices.getInstance().writeCsv((DataConverter)new DeliveryOrderConverter(),deliveryOrders );
+
+    }
+
+    public void generatePickUpOrder(String userID, Restaurant restaurant, ShoppingCart shoppingCart,PaymentMethod pMethod) throws Exception {
+
+        String prefix="P-";
+        int orderNumber;
+        String method;
+
+
+        if(pMethod.equals(PaymentMethod.CARD))
+            method="card";
+        else
+            method="cash";
+
+        orderNumber=getMaxOrderNumberId(OrderType.PICKUP_ORDER);
+
+        String orderID = prefix + orderNumber;
+        shoppingCart.generateCartID();
+        List<ShoppingCart> carts= DataStorageServices.getInstance().getShoppingCarts();
+        carts.add(shoppingCart);
+        DataStorageServices.getInstance().writeCsv((DataConverter)new ShoppingCartConverter(),carts);
+
+        Users user = DataStorageServices.getInstance().getUserById(userID);
+        LocalDateTime orderDate = LocalDateTime.now();
+
+        int randomNumber = new Random().nextInt(60)+20;
+
+        LocalDateTime pickUpDate = orderDate.plusMinutes(randomNumber);
+        List<PickUpOrder> puOrders =DataStorageServices.getInstance().getPuOrders();
+        puOrders.add(new PickUpOrder(orderID,user,restaurant,shoppingCart,method,orderDate,pickUpDate));
+        DataStorageServices.getInstance().writeCsv((DataConverter)new PickUpOrdersConverter(),puOrders );
+
     }
 
 

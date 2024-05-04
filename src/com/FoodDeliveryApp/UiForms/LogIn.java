@@ -43,9 +43,10 @@ public class LogIn extends JFrame {
 
                        frame.setVisible(false);
                        userType = new UserServices().getUserType(user);
+                       String userID= user.getUserID();
 
                        if( userType.equals(UserType.CLIENT)){
-                            //new ClientInterface();
+                            new ClientInterface(userID);
 
                            System.out.println("client logged in");
                        }else if(userType.equals(UserType.ADMIN)){

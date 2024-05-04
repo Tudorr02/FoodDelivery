@@ -1,5 +1,7 @@
 package com.FoodDeliveryApp.Models;
 
+import com.FoodDeliveryApp.Services.DataStorageServices;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -13,6 +15,21 @@ public class ShoppingCart {
     public ShoppingCart() {
         this.items = new HashMap<>();
         this.total = 0.0;
+    }
+
+    public void generateCartID() throws Exception {
+        String prefix = "SC-";
+
+        int max=0;
+        for(ShoppingCart sc : DataStorageServices.getInstance().getShoppingCarts()){
+            int cartNumber =Integer.parseInt(sc.getShoppingCartID().split("-")[1]) ;
+
+            if(cartNumber > max){
+                max=cartNumber;
+            }
+        }
+        max=max+1;
+        this.shoppingCartID=prefix+Integer.toString(max);
     }
 
     // Method to add an item to the cart
