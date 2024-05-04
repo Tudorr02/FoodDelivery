@@ -8,6 +8,8 @@ import com.FoodDeliveryApp.Models.DeliveryOrder;
 import com.FoodDeliveryApp.Models.DeliveryStatus;
 import com.FoodDeliveryApp.Services.AuditServices.AuditingService;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
 import java.io.IOException;
 import java.sql.SQLOutput;
 import java.time.LocalDateTime;
@@ -72,7 +74,13 @@ public class DeliveryServices extends AuditingService {
             return false;
         }
     }
+    public DeliveryOrder getDeliveryOrderByOrderID(String orderID) throws Exception {
+        logAction(String.format("getDeliveryOrderByOrderID: Order ID=%s", orderID));
 
+        List<DeliveryOrder> orders = DataStorageServices.getInstance().getdOrders();
+
+        return orders.stream().filter(order -> order.getOrderID().equals(orderID)).findFirst().orElseThrow(() -> new Exception("Order not found: " + orderID));
+    }
     public void updateDeliveryStatus(Delivery delivery) throws Exception {
         logAction(String.format("updateDeliveryStatus: Delivery ID=%s, Status=%s", delivery.getDeliveryID(), delivery.getStatus()));
         List<Delivery> deliveries = DataStorageServices.getInstance().getDeliveries();
@@ -118,5 +126,32 @@ public class DeliveryServices extends AuditingService {
         DataStorageServices.getInstance().writeCsv(converter, deliveries);
         System.out.println("imi scrie in csv!!!!!!!!!!!!!!!!!!");
         DataStorageServices.getInstance().initData();
+    }
+
+    public int getPromoCodePercentage(String promoCode){
+         String csvFile = "res/CSV/DeliveryDiscount_Data.csv"; // The path to your CSV file
+
+        try (BufferedReader br = new BufferedReader(new FileReader(csvFile))) {
+            String line;
+            br.readLine();
+            while ((line = br.readLine()) != null) {
+                // Split each line by comma
+                String[] columns = line.split(",", 2);
+
+                if (columns.length == 2) { // Ensure there are two columns
+                    String key = columns[0].trim();
+                    String value = columns[1].trim();
+                    if(key.equals(promoCode))
+                        return Integer.parseInt(value);
+                     // Add the pair to the map
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        // Print the map to verify the contents
+
+        return 0;
     }
 }

@@ -59,7 +59,7 @@ public class LogIn extends JFrame {
                     frame.setVisible(false);
                     switch (userType) {
                         case CLIENT:
-                            // new ClientInterface();
+                            new ClientInterface(user.getUserID());
                             System.out.println("Client logged in");
                             break;
                         case ADMIN:

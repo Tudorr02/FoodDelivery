@@ -6,9 +6,11 @@ import com.FoodDeliveryApp.Models.*;
 import com.FoodDeliveryApp.Services.DataStorageServices;
 import com.FoodDeliveryApp.Services.DeliveryManServices;
 import com.FoodDeliveryApp.Services.DeliveryServices;
+import com.FoodDeliveryApp.Services.OrderServices;
 import com.FoodDeliveryApp.UiForms.FrameUtils.FrameUtils;
 
 import javax.swing.*;
+import javax.xml.crypto.Data;
 import java.awt.*;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
@@ -97,97 +99,30 @@ public class DeliveryManInterface  extends javax.swing.JFrame {
 
         CompletedOrdersText.setText(String.valueOf(d.getNumberOfCompletedOrders(deliveryManId)));
 
+
         TakeOrderPanel.setLayout(new BoxLayout(TakeOrderPanel, BoxLayout.Y_AXIS));
         OrdersHistory.setLayout(new BoxLayout(OrdersHistory, BoxLayout.Y_AXIS));
-        List<DeliveryOrder> deliveriesOrders = new ArrayList<DeliveryOrder>(DataStorageServices.getInstance().getdOrders());
-        List<Delivery> deliveries = new ArrayList<Delivery>(DataStorageServices.getInstance().getDeliveries());
 
-        for (DeliveryOrder deliveryOrder : deliveriesOrders) {
-            if(deliveryOrder.getAsigned().equals(AsignedType.NEPRELUAT)){
-                Restaurant res = deliveryOrder.getRestaurant();
-                Client c = (Client) deliveryOrder.getCustomer();
-                ShoppingCart sc = deliveryOrder.getShoppingCart();
-                String buttonLabel = String.format(
-                        "<html>Restaurant: %s<br>Location: %s<br>Delivery Address: %s<br>Payment Method: %s<br>Total: %.2f</html>",
-                        res.getName(),
-                        res.getLocation(),
-                        c.getDeliveryAddress(),
-                        deliveryOrder.getPaymentMethod(),
-                        sc.getTotal()
-                );
-                JButton deliveryButton = new JButton(buttonLabel);
-                Dimension buttonSize = new Dimension(800, 100);
-                deliveryButton.setPreferredSize(buttonSize);
-                deliveryButton.setMinimumSize(buttonSize);
-                deliveryButton.setMaximumSize(buttonSize);
-                deliveryButton.setAlignmentX(Component.CENTER_ALIGNMENT);
-
-                deliveryButton.addActionListener(new ActionListener() {
-                    @Override
-                    public void actionPerformed(ActionEvent e) {
-                        ShoppingCart sc = deliveryOrder.getShoppingCart(); // Assuming getShoppingCart() method exists
-                        StringBuilder details = new StringBuilder("<html>");
-                        details.append("<h3>Shopping Cart Details:</h3>");
-                        for (Map.Entry<FoodItem, Integer> entry : sc.getItems().entrySet()) {
-                            details.append(String.format("%s - Quantity: %d<br>", entry.getKey().getName(), entry.getValue()));
-                        }
-                        details.append(String.format("Total: %.2f</html>", sc.getTotal()));
-                        JOptionPane.showMessageDialog(frame, details.toString(), "Shopping Cart Contents", JOptionPane.INFORMATION_MESSAGE);
-
-                        // Show confirmation dialog
-                        int response = JOptionPane.showConfirmDialog(frame, "Take this order?", "Confirm", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
-                        if (response == JOptionPane.YES_OPTION) {
-
-                            deliveryOrder.setAsigned(AsignedType.PRELUAT);
-
-                            try {
-                                DataStorageServices.getInstance().writeCsv((DataConverter) new DeliveryOrderConverter(), deliveriesOrders);
-                            } catch (Exception ex) {
-                                throw new RuntimeException(ex);
-                            }
-                            DeliveryServices d = new DeliveryServices();
-
-                                d.generateAndRecordDelivery(deliveryManId,deliveryOrder.getOrderID(),deliveryOrder.getOrderDate());
-                                deliveryButton.setVisible(false);
-
-                                OrdersHistory.removeAll();
-                            try {
-                                LoadHistoryButton(deliveryManId);
-                            } catch (Exception ex) {
-                                throw new RuntimeException(ex);
-                            }
-
-
-                            // Optionally update the data storage to reflect this change
-                            try {
-                                DataStorageServices.getInstance().initData();
-                            } catch (Exception ex) {
-                                throw new RuntimeException(ex);
-                            }
-
-                        }
-                    }
-                });
-
-                TakeOrderPanel.add(deliveryButton);
-                TakeOrderPanel.add(Box.createVerticalStrut(10));
-
-            }
-        }
         frame.add(MainPanel);
         frame.pack();
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);
-
+        LoadTakeOrders(deliveryManId);
         LoadHistoryButton(deliveryManId);
 
         TakeOrderbtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+
                 ParentPanel.removeAll();
                 ParentPanel.add(ScrollPanel);
                 ParentPanel.repaint();
                 ParentPanel.revalidate();
+                 try {
+                    LoadTakeOrders(deliveryManId);
+                } catch (Exception ex) {
+                    throw new RuntimeException(ex);
+                }
             }
         });
         OrderHistorybtn.addActionListener(new ActionListener() {
@@ -198,6 +133,7 @@ public class DeliveryManInterface  extends javax.swing.JFrame {
                 ParentPanel.repaint();
                 ParentPanel.revalidate();
                 try {
+                    LoadHistoryButton(deliveryManId);
                     OrdersHistory.setVisible(false);
                 } catch (Exception ex) {
                     throw new RuntimeException(ex);
@@ -246,9 +182,91 @@ public class DeliveryManInterface  extends javax.swing.JFrame {
         });
     }
 
+    public void LoadTakeOrders(String deliveryManId) throws Exception {
+        DataStorageServices.getInstance().initData();
+        List<DeliveryOrder> deliveriesOrders = DataStorageServices.getInstance().getdOrders();
+        List<Delivery> deliveries = DataStorageServices.getInstance().getDeliveries();
+
+        TakeOrderPanel.removeAll();
+        for (DeliveryOrder deliveryOrder : deliveriesOrders) {
+            if(deliveryOrder.getAsigned().equals(AsignedType.NEPRELUAT)){
+                Restaurant res = deliveryOrder.getRestaurant();
+                Client c = (Client) deliveryOrder.getCustomer();
+                ShoppingCart sc = deliveryOrder.getShoppingCart();
+                String buttonLabel = String.format(
+                        "<html>Restaurant: %s<br>Location: %s<br>Delivery Address: %s<br>Payment Method: %s<br>Total: %.2f</html>",
+                        deliveryOrder.getOrderID(),
+                        res.getLocation(),
+                        c.getDeliveryAddress(),
+                        deliveryOrder.getPaymentMethod(),
+                        sc.getTotal()
+                );
+                JButton deliveryButton = new JButton(buttonLabel);
+                Dimension buttonSize = new Dimension(800, 100);
+                deliveryButton.setPreferredSize(buttonSize);
+                deliveryButton.setMinimumSize(buttonSize);
+                deliveryButton.setMaximumSize(buttonSize);
+                deliveryButton.setAlignmentX(Component.CENTER_ALIGNMENT);
+                TakeOrderPanel.add(deliveryButton);
+                deliveryButton.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        ShoppingCart sc = deliveryOrder.getShoppingCart(); // Assuming getShoppingCart() method exists
+                        StringBuilder details = new StringBuilder("<html>");
+                        details.append("<h3>Shopping Cart Details:</h3>");
+                        for (Map.Entry<FoodItem, Integer> entry : sc.getItems().entrySet()) {
+                            details.append(String.format("%s - Quantity: %d<br>", entry.getKey().getName(), entry.getValue()));
+                        }
+                        details.append(String.format("Total: %.2f</html>", sc.getTotal()));
+                        JOptionPane.showMessageDialog(frame, details.toString(), "Shopping Cart Contents", JOptionPane.INFORMATION_MESSAGE);
+
+                        // Show confirmation dialog
+                        int response = JOptionPane.showConfirmDialog(frame, "Take this order?", "Confirm", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+                        if (response == JOptionPane.YES_OPTION) {
+
+                            deliveryOrder.setAsigned(AsignedType.PRELUAT);
+
+                            try {
+                                DataStorageServices.getInstance().writeCsv((DataConverter) new DeliveryOrderConverter(), deliveriesOrders);
+                            } catch (Exception ex) {
+                                throw new RuntimeException(ex);
+                            }
+                            DeliveryServices d = new DeliveryServices();
+
+                                d.generateAndRecordDelivery(deliveryManId,deliveryOrder.getOrderID(),deliveryOrder.getOrderDate());
+                                deliveryButton.setVisible(false);
+
+                                OrdersHistory.removeAll();
+                            try {
+                                LoadHistoryButton(deliveryManId);
+                            } catch (Exception ex) {
+                                throw new RuntimeException(ex);
+                            }
+
+
+                            // Optionally update the data storage to reflect this change
+                            try {
+                                DataStorageServices.getInstance().initData();
+                            } catch (Exception ex) {
+                                throw new RuntimeException(ex);
+                            }
+
+                        }
+                    }
+                });
+
+
+                TakeOrderPanel.add(Box.createVerticalStrut(10));
+
+            }
+        }
+    }
     public void LoadHistoryButton(String deliveryManId) throws Exception {
+
+        DataStorageServices.getInstance().initData();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm");
         List<Delivery> ordershistory = DataStorageServices.getInstance().getDeliveries();
+        OrdersHistory.removeAll();
         for (Delivery oh : ordershistory) {
             Client c = (Client) oh.getOrder().getCustomer();
             if (oh.getDeliveryMan().getUserID().equals(deliveryManId)) {
@@ -282,7 +300,11 @@ public class DeliveryManInterface  extends javax.swing.JFrame {
                 orderHistoryButton.addActionListener(new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent e) {
-                        displayOrderDetails(orderHistoryButton,oh);
+                        try {
+                            displayOrderDetails(orderHistoryButton,oh);
+                        } catch (Exception ex) {
+                            throw new RuntimeException(ex);
+                        }
                     }
                 });
 
@@ -305,7 +327,7 @@ public class DeliveryManInterface  extends javax.swing.JFrame {
 //        details.append("</body></html>");
 //        JOptionPane.showMessageDialog(frame, details.toString(), "Order Details", JOptionPane.INFORMATION_MESSAGE);
 //    }
-private void displayOrderDetails(JButton button,Delivery delivery) {
+private void displayOrderDetails(JButton button,Delivery delivery) throws Exception {
     ShoppingCart sc = delivery.getOrder().getShoppingCart(); // Ensure Delivery has a method to access ShoppingCart
     StringBuilder details = new StringBuilder("<html>");
     details.append(String.format("<h3>Details for Delivery ID: %s</h3>", delivery.getDeliveryID()));
@@ -317,13 +339,17 @@ private void displayOrderDetails(JButton button,Delivery delivery) {
 
     JOptionPane.showMessageDialog(frame, details.toString(), "Order Details", JOptionPane.INFORMATION_MESSAGE);
     if (delivery.getStatus() == DeliveryStatus.UNFINISHED) {
+
         // If the delivery is not finished, ask if they want to mark it as finished
         int response = JOptionPane.showConfirmDialog(frame,"<html><h3>Mark this order as finished?</h3></html>", "Finish Order?", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
         if (response == JOptionPane.YES_OPTION) {
+
             button.setVisible(false);
             button.setBackground(Color.GREEN);
             button.setVisible(true);
             markDeliveryAsFinished(delivery);
+            new OrderServices().markDeliveryOrderAsCompleted((DeliveryOrder) delivery.getOrder());
+
         }
     }
 }

@@ -1,3 +1,3 @@
 package com.FoodDeliveryApp.Models;
 
-public enum AsignedType {NEPRELUAT,PRELUAT}
+public enum AsignedType {NEPRELUAT,PRELUAT,PREDAT}

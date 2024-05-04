@@ -10,9 +10,9 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.FocusAdapter;
-import java.awt.event.FocusEvent;
 import java.text.MessageFormat;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.Map;
 import javax.swing.JScrollPane;
 
@@ -35,10 +35,17 @@ public class ClientInterface extends javax.swing.JFrame {
     private JButton orderButton;
     private JPanel ShoppingCartPanel;
     private JPanel UserPanel;
+    private JPanel SuperParentPanel;
+    private JPanel ShoppingCartTitlePanel;
+    private JLabel TitleLabel;
+    private JButton OrderHistoryButton;
+    private JButton ProfileButton;
     private DefaultListModel ReviewsModel;
     private ShoppingCartServices shoppingCart;
     boolean restaurantLock;
     Restaurant orderRestaurant;
+    JPanel parentTitlePanel;
+    JLabel titleParent;
 
     ClientInterface(String clientID) throws Exception {
 
@@ -48,6 +55,20 @@ public class ClientInterface extends javax.swing.JFrame {
         frame.setMinimumSize(new Dimension(800, 700));
         frame.setMaximumSize(new Dimension(800, 700));
 
+        parentTitlePanel = new JPanel();
+        parentTitlePanel.setMinimumSize(new Dimension(400, 30));
+        parentTitlePanel.setPreferredSize(new Dimension(400, 30));
+        parentTitlePanel.setMaximumSize(new Dimension(400, 30));
+        parentTitlePanel.setBackground(new Color(114,212,255));
+
+        titleParent = new JLabel("Restaurants");
+        titleParent.setFont(new Font("Arial", Font.BOLD, 20));
+        titleParent.setForeground(Color.WHITE);
+        parentTitlePanel.add(titleParent);
+
+        SuperParentPanel.add(parentTitlePanel, BorderLayout.NORTH);
+        SuperParentPanel.add(ParentPanel, BorderLayout.CENTER);
+
         ParentPanel.setMinimumSize(new Dimension(400, 400));
         ParentPanel.setMaximumSize(new Dimension(400, 400));
         ParentPanel.setPreferredSize(new Dimension(400, 400));
@@ -56,10 +77,35 @@ public class ClientInterface extends javax.swing.JFrame {
         ShoppingPanel.setMaximumSize(new Dimension(300, 400));
         ShoppingPanel.setPreferredSize(new Dimension(300, 400));
 
+//        ImageIcon profileIcon= new ImageIcon("res/img/account_icon1.png");
+//        ProfileButton.setIcon(new ImageIcon(profileIcon.getImage().getScaledInstance(80, 80, Image.SCALE_SMOOTH)));
 
+        ImageIcon profileIcon = new ImageIcon("res/img/account_icon.png");
+
+        // Resize the image to 40x40 using SCALE_AREA_AVERAGING
+        Image scaledImage = profileIcon.getImage().getScaledInstance(40, 40, Image.SCALE_SMOOTH);
+        ImageIcon resizedIcon = new ImageIcon(scaledImage);
+        ProfileButton.setIcon(resizedIcon);
+
+        ProfileButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+            }
+        });
+
+        OrderHistoryButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                try {
+                    openOrderHistoryTab(clientID);
+                } catch (Exception ex) {
+                    throw new RuntimeException(ex);
+                }
+            }
+        });
 
         // other settings
-
         ReviewsPanel.setVisible(false);
         shoppingCart = new ShoppingCartServices(new ShoppingCart());
         restaurantLock=false;
@@ -72,220 +118,151 @@ public class ClientInterface extends javax.swing.JFrame {
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);
 
-//        orderButton.addActionListener(new ActionListener() {
-//            @Override
-//            public void actionPerformed(ActionEvent e) {
-//                JDialog dialog = new JDialog(frame, "Order Type", true);
-//                dialog.setSize(400, 200);
-//                dialog.setLayout(new BorderLayout());
-//                dialog.setResizable(false);
-//
-//
-//                // Create a panel to hold radio buttons and text field
-//                JPanel panel = new JPanel(new GridLayout(5, 2));
-//
-//                // Create radio buttons
-//                JRadioButton optionDelivery = new JRadioButton("Delivery + 10%");
-//                JRadioButton optionPickUp = new JRadioButton("Pick up ");
-//
-//                // Group the radio buttons to ensure only one can be selected
-//                ButtonGroup group = new ButtonGroup();
-//                group.add(optionDelivery);
-//                group.add(optionPickUp);
-//
-//                JLabel paymentLabel = new JLabel("Select Payment Method");
-//                JRadioButton paymentCard = new JRadioButton("Card");
-//                JRadioButton paymentCash = new JRadioButton("Cash");
-//
-//                ButtonGroup group2 = new ButtonGroup();
-//                group2.add(paymentCard);
-//                group2.add(paymentCash);
-//
-//                // Create the JTextField with a placeholder
-//                JTextField deliveryDiscountField = new JTextField(8);
-//                JButton checkDiscountBtn = new JButton("OK");
-//
-//                deliveryDiscountField.setEnabled(false);
-//                checkDiscountBtn.setEnabled(false);
-//
-//                deliveryDiscountField.setMaximumSize(new Dimension(100, 40));
-//                deliveryDiscountField.setPreferredSize(new Dimension(100, 40));
-//                deliveryDiscountField.setPreferredSize(new Dimension(100, 40));
-//
-//                String placeholder = "Delivey Discount Code";
-//                deliveryDiscountField.setText(placeholder);
-//                deliveryDiscountField.setForeground(Color.GRAY); // Set text color to gray
-//
-//                final double[] price = {shoppingCart.calculateTotalPrice()};
-//                String orderBtnLabel= "Order | Total : ";
-//                JButton orderBtn = new JButton(orderBtnLabel+ price[0]);
-//                orderBtn.setEnabled(false);
-//                final OrderType[] oType = {null};
-//                final PaymentMethod[] pMethod={null};
-//
-//
-//                orderBtn.setBackground(Color.GREEN);
-//                orderBtn.setForeground(Color.WHITE);
-//
-//                optionDelivery.addActionListener(new ActionListener() {
-//                    @Override
-//                    public void actionPerformed(ActionEvent e) {
-//
-//                        if(!deliveryDiscountField.isEnabled()){
-//                            price[0] += price[0] *0.1;
-//                            orderBtn.setText(orderBtnLabel+ price[0]);
-//                        }
-//                        deliveryDiscountField.setEnabled(true);
-//                        checkDiscountBtn.setEnabled(true);
-//                        oType[0] =OrderType.DELIVERY_ORDER;
-//                        if(group2.getSelection()!=null)
-//                            orderBtn.setEnabled(true);
-//
-//                    }
-//                });
-//
-//                optionPickUp.addActionListener(new ActionListener() {
-//                    @Override
-//                    public void actionPerformed(ActionEvent e) {
-//
-//                        deliveryDiscountField.setEnabled(false);
-//                        checkDiscountBtn.setEnabled(false);
-//                        price[0]=shoppingCart.calculateTotalPrice();
-//                        orderBtn.setText(orderBtnLabel+ price[0]);
-//                        oType[0]=OrderType.PICKUP_ORDER;
-//
-//                        if(group2.getSelection()!=null)
-//                            orderBtn.setEnabled(true);
-//
-//                    }
-//                });
-//
-//                paymentCash.addActionListener(new ActionListener() {
-//                    @Override
-//                    public void actionPerformed(ActionEvent e) {
-//                        pMethod[0]=PaymentMethod.CASH;
-//                        if(group.getSelection()!=null)
-//                            orderBtn.setEnabled(true);
-//                    }
-//                });
-//
-//                paymentCard.addActionListener(new ActionListener() {
-//                    @Override
-//                    public void actionPerformed(ActionEvent e) {
-//                        pMethod[0] = PaymentMethod.CARD;
-//                        if(group.getSelection()!=null)
-//                            orderBtn.setEnabled(true);
-//                    }
-//                });
-//
-//
-//                deliveryDiscountField.addFocusListener(new java.awt.event.FocusAdapter() {
-//                    @Override
-//                    public void focusGained(java.awt.event.FocusEvent e) {
-//                        // Remove placeholder text when field gains focus
-//                        if (deliveryDiscountField.getText().equals(placeholder)) {
-//                            deliveryDiscountField.setText("");
-//                            deliveryDiscountField.setForeground(Color.BLACK); // Set text color to black
-//
-//                        }
-//
-//                    }
-//
-//                    @Override
-//                    public void focusLost(java.awt.event.FocusEvent e) {
-//                        // Restore placeholder text if the field is empty when focus is lost
-//                        if (deliveryDiscountField.getText().isEmpty()) {
-//                            deliveryDiscountField.setForeground(Color.GRAY); // Set text color back to gray
-//                            deliveryDiscountField.setText(placeholder);
-//                        }
-//
-//
-//                    }
-//                });
-//
-//                checkDiscountBtn.addActionListener(new ActionListener() {
-//                    public void actionPerformed(ActionEvent e) {
-//                        if(!deliveryDiscountField.getText().isEmpty()){
-//                            int discountPercentage = new DeliveryServices().getPromoCodePercentage(deliveryDiscountField.getText());
-//                            price[0] -= price[0] * ((double)discountPercentage/100);
-//                            orderBtn.setText(orderBtnLabel+ price[0]);
-//                        }else{
-//                            deliveryDiscountField.setForeground(Color.RED);
-//                        }
-//                    }
-//                });
-//
-//                // Add components to the panel
-//                panel.add(optionDelivery);
-//                panel.add(new JLabel());
-//                panel.add(deliveryDiscountField);
-//                panel.add(checkDiscountBtn);
-//                panel.add(optionPickUp);
-//                panel.add(new JLabel());
-//                panel.add(paymentLabel);
-//                panel.add(new JLabel());
-//                panel.add(paymentCash);
-//                panel.add(paymentCard);
-//
-//
-//                orderBtn.addActionListener(new ActionListener() {
-//                    @Override
-//                    public void actionPerformed(ActionEvent e) {
-//                        // Handle order button click
-//                        if (optionDelivery.isSelected()) {
-//
-//                            int deliveryDiscountP =new DeliveryServices().getPromoCodePercentage(deliveryDiscountField.getText());
-//                            try {
-//                                new OrderServices().generateDeliveryOrder(clientID,orderRestaurant,shoppingCart.getCart(),pMethod[0],deliveryDiscountP);
-//                            } catch (Exception ex) {
-//                                throw new RuntimeException(ex);
-//                            }
-//
-//                        } else if (optionPickUp.isSelected()) {
-//                            try {
-//                                new OrderServices().generatePickUpOrder(clientID,orderRestaurant,shoppingCart.getCart(),pMethod[0]);
-//                            } catch (Exception ex) {
-//                                throw new RuntimeException(ex);
-//                            }
-//                        }
-//
-//                        String discount = deliveryDiscountField.getText();
-//                        System.out.println("Discount: " + discount);
-//                        dialog.dispose();
-//                        shoppingCart=new ShoppingCartServices(new ShoppingCart());
-//                        updateShoppingCart();
-//                        try {
-//                            showRestaurants();
-//                            ReviewsPanel.setVisible(false);
-//                        } catch (Exception ex) {
-//                            throw new RuntimeException(ex);
-//                        }
-//                    }
-//                });
-//
-//                // Create the "Cancel" button
-//                JButton cancelBtn = new JButton("Cancel");
-//                cancelBtn.addActionListener(ev -> dialog.dispose());
-//
-//                // Add the buttons to a separate panel
-//                JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT));
-//                buttonPanel.add(orderBtn);
-//                buttonPanel.add(cancelBtn);
-//
-//                // Add components to the dialog
-//                dialog.add(panel, BorderLayout.CENTER);
-//                dialog.add(buttonPanel, BorderLayout.SOUTH);
-//
-//                // Show the dialog
-//                dialog.setLocationRelativeTo(frame);
-//                dialog.setVisible(true);
-//            }
-//        });
+
 
         orderButton.addActionListener(new ActionListener() {
-    @Override
-    public void actionPerformed(ActionEvent e) {
-        // Create and configure the dialog
+            @Override
+            public void actionPerformed(ActionEvent e) {
+         makeOrder(clientID);
+
+        }});
+
+
+    }
+
+    public void openOrderHistoryTab(String clientID) throws Exception {
+        // Hide the main panel
+        MainPanel.setVisible(false);
+
+        JPanel orderHistoryMainPanel = new JPanel();
+        orderHistoryMainPanel.setLayout(new BoxLayout(orderHistoryMainPanel, BoxLayout.Y_AXIS));
+
+        frame.add(orderHistoryMainPanel);
+        frame.repaint();
+        frame.validate();
+
+
+        // Create the back button
+        JButton backBtn = new JButton("Back");
+        backBtn.setPreferredSize(new Dimension(100, 50));
+
+
+        backBtn.setAlignmentX(Component.CENTER_ALIGNMENT);
+
+        // Add an ActionListener to the back button
+        backBtn.addActionListener(e -> {
+            // Show the main panel and hide the order history panel
+            MainPanel.setVisible(true);
+            orderHistoryMainPanel.setVisible(false);
+        });
+
+        // Create the order history panel and set its layout
+        JPanel orderHistoryPanel = new JPanel();
+        orderHistoryPanel.setLayout(new BoxLayout(orderHistoryPanel, BoxLayout.Y_AXIS));
+
+        // Create a JScrollPane to hold the order history panel
+        JScrollPane orderHistoryScroll = new JScrollPane(orderHistoryPanel);
+
+        // Align the scroll pane to the left and expand it horizontally
+        orderHistoryScroll.setAlignmentX(Component.CENTER_ALIGNMENT);
+        orderHistoryPanel.setAlignmentX(Component.CENTER_ALIGNMENT);
+
+
+        orderHistoryPanel.add(Box.createVerticalStrut(10));
+        ArrayList<Order> orderList = (ArrayList<Order>) new OrderServices().getClientOrders(clientID);
+
+        for( Order order : orderList){
+
+            JButton orderBtn= new JButton(generateOrderHistoryLabel(order));
+
+            orderBtn.setMinimumSize(new Dimension(300,80));
+            orderBtn.setPreferredSize(new Dimension(300,80));
+            orderBtn.setMaximumSize(new Dimension(300, 80));
+            orderBtn.setAlignmentX(Component.CENTER_ALIGNMENT);
+            orderHistoryPanel.add(orderBtn);
+            orderBtn.addActionListener(e -> showOrderDetailsDialog(order));
+            orderHistoryPanel.add(Box.createVerticalStrut(10));
+        }
+
+
+        orderHistoryMainPanel.add(Box.createVerticalStrut(10));
+        orderHistoryMainPanel.add(backBtn);
+        orderHistoryMainPanel.add(Box.createVerticalStrut(10));
+        orderHistoryMainPanel.setAlignmentX(Component.CENTER_ALIGNMENT);
+
+        //Add the scroll pane to the order history main panel
+        orderHistoryMainPanel.add(orderHistoryScroll);
+
+        // Make the order history main panel visible
+        orderHistoryMainPanel.setVisible(true);
+}
+
+    private void showOrderDetailsDialog(Order order) {
+    // Building the shopping cart details as HTML for better formatting
+    StringBuilder details = new StringBuilder("<html><body style='width: 200px;'>"); // Set width to manage text wrapping
+    String type = order.getOrderID().split("-")[0].equals("P") ? "Pick Up Order" : " Delivery Order";
+    // Loop through the shopping cart items to add them to the details message
+        details.append("<strong>Order Type:</strong> ").append(type).append("<br><br>");
+        for (Map.Entry<FoodItem, Integer> entry : order.getShoppingCart().getItems().entrySet()) {
+        details.append("<strong>Item:</strong> ").append(entry.getKey().getName()).append("<br>");
+        details.append("<strong>Quantity:</strong> ").append(entry.getValue()).append("<br>");
+        details.append("<strong>Price:</strong> ").append(entry.getKey().getPrice()).append("<br><br>");
+    }
+    details.append("<strong>Total Price:</strong> ").append(order.getShoppingCart().getTotal()).append("<br><br>");
+    details.append("</body></html>");
+
+    // Display the details using JOptionPane
+    JOptionPane.showMessageDialog(frame, details.toString(), "Order Items", JOptionPane.INFORMATION_MESSAGE);
+}
+
+    private String generateOrderHistoryLabel(Order order ) throws Exception {
+
+        OrderStatus status = new OrderServices().getOrderStatus(order);
+        String orderStatus;
+        String statusColor;
+
+        switch (status){
+            case PickUp_InProgress, Delivery_InProgress:{
+                orderStatus= "In Progress";
+                statusColor="red";
+            }break;
+
+            case PickUp_READY:{
+                orderStatus= "Ready";
+                statusColor="green";
+            }break;
+
+            case Delivery_InDelivery:{
+                orderStatus= "In Delivery";
+                statusColor="orange";
+            }break;
+
+            case Delivery_Completed:{
+                orderStatus= "Completed";
+                statusColor="green";
+            }break;
+
+            default:{
+                orderStatus= "Unknown";
+                statusColor="black";
+            }
+
+        }
+
+
+
+
+        String btnLabel = new OrderServices().getOrderLabel(order.getOrderID());
+        // Create a formatted label with colored status
+
+        return String.format(
+                "<html>%s | Status : <span style='color:%s;'>%s</span></html>",
+                btnLabel,
+                statusColor,
+                orderStatus
+        );
+    }
+    public void makeOrder(String clientID){
         JDialog dialog = new JDialog(frame, "Order Type", true);
         dialog.setSize(400, 200);
         dialog.setLayout(new BorderLayout());
@@ -451,12 +428,6 @@ public class ClientInterface extends javax.swing.JFrame {
         dialog.setLocationRelativeTo(frame);
         dialog.setVisible(true);
     }
-});
-
-
-    }
-
-
     public void showRestaurants() throws Exception {
 
 
@@ -465,12 +436,15 @@ public class ClientInterface extends javax.swing.JFrame {
                 ParentPanel.repaint();
                 ParentPanel.revalidate();
 
-
+        titleParent.setText("Restaurants");
+         SuperParentPanel.repaint();
+         SuperParentPanel.revalidate();
         orderButton.setEnabled(shoppingCart.getCartSize() != 0);
 
         RestaurantsCard.setLayout(new BoxLayout(RestaurantsCard, BoxLayout.Y_AXIS));
 
         RestaurantsCard.removeAll();// clear the last buttons
+
         for(Restaurant restaurantOption : DataStorageServices.getInstance().getRestaurants()){
             JButton restaurantOptionButton = new JButton(restaurantOption.getName());
             Dimension buttonSize = new Dimension(200,40);
@@ -517,6 +491,9 @@ public class ClientInterface extends javax.swing.JFrame {
                     ParentPanel.repaint();
                     ParentPanel.revalidate();
 
+         titleParent.setText(restaurant.getName()+ " - Menu" );
+         SuperParentPanel.repaint();
+         SuperParentPanel.revalidate();
         orderButton.setEnabled(shoppingCart.getCartSize() != 0);
 
         BackToRestaurantsBtn.addActionListener(new ActionListener() {
@@ -543,6 +520,10 @@ public class ClientInterface extends javax.swing.JFrame {
            foodItemPanel.setMinimumSize(new Dimension(400, 100));
 
            JTextArea itemDescriptionArea = new JTextArea(" "+foodItem.getDescription()+"\n Weight : "+ foodItem.getWeight()+"\n Price : "+foodItem.getPrice());
+           itemDescriptionArea.setEditable(false);
+
+           itemDescriptionArea.setForeground(Color.BLACK);
+           itemDescriptionArea.setOpaque(false);
             String buttonLabel = foodItem.getName();
             JButton foodItemBtn = new JButton(buttonLabel);
             Dimension buttonSize = new Dimension(400, 40);
@@ -634,7 +615,7 @@ public class ClientInterface extends javax.swing.JFrame {
         }
 
 
-        orderButton.setText("Order | Total : "+ shoppingCart.calculateTotalPrice() );
+        orderButton.setText(updateOrderPriceLabel(shoppingCart.calculateTotalPrice()) );
         ShoppingPanel.repaint();
         ShoppingPanel.revalidate();
 

@@ -1,8 +1,6 @@
 package com.FoodDeliveryApp.Models;
 
-import com.FoodDeliveryApp.Models.AsignedType;
 import java.time.LocalDateTime;
-import java.util.Date;
 
 public class DeliveryOrder extends Order{
     private int deliveryDiscountPercent;
@@ -24,6 +22,10 @@ public class DeliveryOrder extends Order{
     public AsignedType getAsigned() {
         return asigned;
     }
+    public void setStatus(AsignedType status){
+        this.asigned = status;
+    }
+
 
     @Override
     public String toString() {
