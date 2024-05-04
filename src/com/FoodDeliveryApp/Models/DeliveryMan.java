@@ -3,6 +3,18 @@ import java.util.Arrays;
 import java.util.List;
 
 public class DeliveryMan extends Users {
+    public void setNationality(String nationality) {
+        this.nationality = nationality;
+    }
+
+    public void setVehicle(String vehicle) {
+        this.vehicle = vehicle;
+    }
+
+    public void setRating(double rating) {
+        this.rating = rating;
+    }
+
     private String nationality;
     private String vehicle;
     private double rating;

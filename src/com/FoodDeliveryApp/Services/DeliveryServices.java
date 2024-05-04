@@ -92,6 +92,24 @@ public class DeliveryServices extends AuditingService {
         }
     }
 
+    public int getNumberOfCompletedOrders(String deliveryManId) {
+        logAction(String.format("getNumberOfCompletedOrders: DeliveryMan ID=%s", deliveryManId));
+        try {
+            List<Delivery> deliveries = DataStorageServices.getInstance().getDeliveries();
+            int completedOrdersCount = 0;
+
+            for (Delivery delivery : deliveries) {
+                if (delivery.getDeliveryMan().getUserID().equals(deliveryManId) && delivery.getStatus() == DeliveryStatus.FINISHED) {
+                    completedOrdersCount++;
+                }
+            }
+            return completedOrdersCount;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return 0; // Return 0 if there's an error
+        }
+    }
+
 
 
     private void writeDeliveriesToCsv(List<Delivery> deliveries) throws Exception {
