@@ -17,7 +17,6 @@ public class Main {
 
     }
 
-
     public static void setUIFont(Font font) {
     java.util.Enumeration<Object> keys = UIManager.getDefaults().keys();
     while (keys.hasMoreElements()) {

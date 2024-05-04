@@ -4,11 +4,12 @@ package com.FoodDeliveryApp.Services;
 import com.FoodDeliveryApp.Models.DeliveryMan;
 import com.FoodDeliveryApp.Converters.DataConverter;
 import com.FoodDeliveryApp.Converters.DeliveryManConverter;
+import com.FoodDeliveryApp.Services.AuditServices.AuditingService;
 
 import java.util.Comparator;
 import java.util.List;
 
-public class DeliveryManServices {
+public class DeliveryManServices extends AuditingService{
 
     public boolean updateDeliveryManDetails(String deliveryManId, String newUsername, String newPhoneNumber, String newVehicle, String newPasword) {
         try {
@@ -22,6 +23,7 @@ public class DeliveryManServices {
                     deliveryMan.setVehicle(newVehicle);
                     deliveryMan.setPassword(newPasword);
                     found = true;
+                    logAction("Updated delivery man details for ID: " + deliveryManId);
                     break;
                 }
             }
@@ -30,9 +32,11 @@ public class DeliveryManServices {
                 writeDeliveryMenToCsv(deliveryMen);
                 return true;
             }
+            logAction("Failed to find delivery man for update with ID: " + deliveryManId);
             return false;
         } catch (Exception e) {
             e.printStackTrace();
+            logAction("Exception occurred while updating delivery man with ID: " + deliveryManId);
             return false;
         }
     }
@@ -52,10 +56,11 @@ public class DeliveryManServices {
             // Add to the list and write to CSV
             deliveryMen.add(newDeliveryMan);
             writeDeliveryMenToCsv(deliveryMen);
-
+            logAction("Added new delivery man with ID: " + newUserId);
             return true;
         } catch (Exception e) {
             e.printStackTrace();
+            logAction("Exception occurred while adding new delivery man");
             return false;
         }
     }

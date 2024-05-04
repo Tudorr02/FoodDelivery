@@ -3,11 +3,12 @@ package com.FoodDeliveryApp.Services;
 import com.FoodDeliveryApp.Models.Client;
 import com.FoodDeliveryApp.Converters.DataConverter;
 import com.FoodDeliveryApp.Converters.ClientConverter;
+import com.FoodDeliveryApp.Services.AuditServices.AuditingService;
 
 import java.util.List;
 import java.util.Comparator;
 
-public class ClientServices {
+public class ClientServices extends AuditingService {
 
     public boolean addNewClient(String firstName, String lastName, String userName, String password, String phoneNumber, String deliveryAddress, String email) {
         try {
@@ -24,9 +25,12 @@ public class ClientServices {
             clients.add(newClient);
             writeClientsToCsv(clients);
 
+            logAction("Added new client with UserID: " + newUserId);
+
             return true;
         } catch (Exception e) {
             e.printStackTrace();
+            logAction("Failed to add new client");
             return false;
         }
     }

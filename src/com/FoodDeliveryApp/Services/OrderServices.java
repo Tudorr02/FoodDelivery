@@ -1,6 +1,7 @@
 package com.FoodDeliveryApp.Services;
 import com.FoodDeliveryApp.Converters.*;
 import com.FoodDeliveryApp.Models.*;
+import com.FoodDeliveryApp.Services.AuditServices.AuditingService;
 
 import javax.xml.crypto.Data;
 import java.text.MessageFormat;
@@ -13,7 +14,7 @@ import java.util.Random;
 import java.util.stream.Collectors;
 
 
-public class OrderServices {
+public class OrderServices extends AuditingService {
 
     Order order;
 
@@ -43,6 +44,7 @@ public class OrderServices {
         deliveryOrders.add(new DeliveryOrder(orderID,user,restaurant,shoppingCart,method,orderDate,deliveryDiscount,AsignedType.NEPRELUAT));
         DataStorageServices.getInstance().writeCsv((DataConverter)new DeliveryOrderConverter(),deliveryOrders );
 
+        logAction("Generated delivery order with ID: " + orderID);
     }
 
     public void generatePickUpOrder(String userID, Restaurant restaurant, ShoppingCart shoppingCart,PaymentMethod pMethod) throws Exception {
@@ -75,6 +77,8 @@ public class OrderServices {
         puOrders.add(new PickUpOrder(orderID,user,restaurant,shoppingCart,method,orderDate,pickUpDate));
         DataStorageServices.getInstance().writeCsv((DataConverter)new PickUpOrdersConverter(),puOrders );
 
+        logAction("Generated pick-up order with ID: " + orderID);
+
     }
 
     public ArrayList<?> getClientOrders(String clientID) throws Exception {
@@ -89,6 +93,7 @@ public class OrderServices {
         orders.addAll(duOrders);
         orders.addAll(puOrders);
 
+        logAction("Fetched orders for client with ID: " + clientID);
         return (ArrayList<?>) orders.stream()
                 .filter(order->clientID.equals(order.getCustomer().getUserID()))
                 .collect(Collectors.toList());
@@ -117,6 +122,7 @@ public class OrderServices {
 
         }
 
+        logAction("Generated max order number ID: " + maxNumber+1 + " for order type: " + orderType);
         return maxNumber+1;
     }
 
@@ -140,6 +146,7 @@ public class OrderServices {
                                         paymentMethod,
                                         sc.getTotal());
 
+        logAction("Fetched order label for order ID: " + orderID);
         return orderLabel;
 
     }
@@ -150,8 +157,10 @@ public class OrderServices {
              LocalDateTime pickupTime = ((PickUpOrder) order).getPickUpTime();
 
             if (now.isAfter(pickupTime)) {
+                logAction("Fetched order status for order ID: " + order.getOrderID() + " - Status: " + OrderStatus.PickUp_READY);
                 return OrderStatus.PickUp_READY;
             } else {
+                logAction("Fetched order status for order ID: " + order.getOrderID() + " - Status: " + OrderStatus.PickUp_InProgress);
                 return OrderStatus.PickUp_InProgress;
             }
         }else if (order instanceof DeliveryOrder){
@@ -166,6 +175,7 @@ public class OrderServices {
 
 
         }
+        logAction("Fetched order status for order ID: " + order.getOrderID() + " - Status: " + OrderStatus.UNKNOWN);
         return OrderStatus.UNKNOWN;
     }
 
@@ -177,6 +187,7 @@ public class OrderServices {
         List<DeliveryOrder>dOrders = DataStorageServices.getInstance().getdOrders();
         DataStorageServices.getInstance().writeCsv((DataConverter)new DeliveryOrderConverter(),dOrders);
 
+        logAction("Marked delivery order as completed for order ID: " + order.getOrderID());
 
     }
     public static void main(String[] args) throws Exception {
