@@ -6,6 +6,7 @@ import com.FoodDeliveryApp.Models.*;
 import com.FoodDeliveryApp.Services.DataStorageServices;
 import com.FoodDeliveryApp.Services.DeliveryManServices;
 import com.FoodDeliveryApp.Services.DeliveryServices;
+import com.FoodDeliveryApp.UiForms.FrameUtils.FrameUtils;
 
 import javax.swing.*;
 import java.awt.*;
@@ -44,12 +45,14 @@ public class DeliveryManInterface  extends javax.swing.JFrame {
     private JLabel CompletedOrdersLabel;
     private JLabel RatingLabel;
     private JProgressBar RatingProgressBar;
+    private JButton SignOutbtn;
 
     public DeliveryManInterface(String deliveryManId) throws Exception{
 
 
         frame = new JFrame("DeliveryMan Interface");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        FrameUtils.setGlobalIcon(frame, "res/img/app_icon.jpg");
         frame.setPreferredSize(new Dimension(800, 600));
         frame.setResizable(false);
         OrdersHistory.setVisible(true);
@@ -60,6 +63,17 @@ public class DeliveryManInterface  extends javax.swing.JFrame {
         Image img = icon.getImage().getScaledInstance(50, 50, Image.SCALE_SMOOTH);
         icon = new ImageIcon(img);
         Accountbtn.setIcon(icon);
+
+
+        ImageIcon signOutIcon = new ImageIcon("res/img/sign_out.png");
+        Image signOutImg = signOutIcon.getImage().getScaledInstance(50, 50, Image.SCALE_SMOOTH);
+        signOutIcon = new ImageIcon(signOutImg);
+        SignOutbtn.setIcon(signOutIcon);
+        SignOutbtn.setBorderPainted(false);
+        SignOutbtn.setFocusPainted(false);
+        SignOutbtn.setContentAreaFilled(false);
+        SignOutbtn.setMargin(new Insets(0, 0, 0, 0));
+        SignOutbtn.setToolTipText("Sign Out");
 
         Accountbtn.setBorderPainted(false);
         Accountbtn.setFocusPainted(false);
@@ -222,6 +236,15 @@ public class DeliveryManInterface  extends javax.swing.JFrame {
                 }
             }
         });
+        SignOutbtn.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                frame.dispose();
+                new LogIn();
+
+
+            }
+        });
     }
 
     public void LoadHistoryButton(String deliveryManId) throws Exception {
@@ -311,6 +334,7 @@ private void displayOrderDetails(JButton button,Delivery delivery) {
         try {
             DeliveryServices d = new DeliveryServices();
             d.updateDeliveryStatus(delivery);
+            CompletedOrdersText.setText(String.valueOf(d.getNumberOfCompletedOrders(delivery.getDeliveryMan().getUserID())));
             JOptionPane.showMessageDialog(frame, "Order marked as finished.", "Update Successful", JOptionPane.INFORMATION_MESSAGE);
         } catch (Exception e) {
             JOptionPane.showMessageDialog(frame, "Failed to update the order status.", "Error", JOptionPane.ERROR_MESSAGE);
