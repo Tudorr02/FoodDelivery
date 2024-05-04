@@ -1,10 +1,10 @@
 package com.FoodDeliveryApp.UiForms;
 
 import com.FoodDeliveryApp.Converters.DataConverter;
-import com.FoodDeliveryApp.Converters.DeliveryConverter;
 import com.FoodDeliveryApp.Converters.DeliveryOrderConverter;
 import com.FoodDeliveryApp.Models.*;
 import com.FoodDeliveryApp.Services.DataStorageServices;
+import com.FoodDeliveryApp.Services.DeliveryManServices;
 import com.FoodDeliveryApp.Services.DeliveryServices;
 
 import javax.swing.*;
@@ -13,9 +13,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.sql.SQLOutput;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Map;
 
 public class DeliveryManInterface  extends javax.swing.JFrame {
@@ -31,6 +29,21 @@ public class DeliveryManInterface  extends javax.swing.JFrame {
     private JPanel ParentPanel;
     private JPanel OrdersHistory;
     private JScrollPane ScrollPanelHistory;
+    private JButton Accountbtn;
+    private JPanel AcoountPanel;
+    private JLabel PhoneNumberlabel;
+    private JLabel UserNameLabel;
+    private JTextField PhoneNumberText;
+    private JTextField UserNameText;
+    private JButton Modifybtn;
+    private JLabel VehicleLabel;
+    private JTextField VehicleText;
+    private JLabel PasswordLabel;
+    private JTextField PasswordText;
+    private JTextField CompletedOrdersText;
+    private JLabel CompletedOrdersLabel;
+    private JLabel RatingLabel;
+    private JProgressBar RatingProgressBar;
 
     public DeliveryManInterface(String deliveryManId) throws Exception{
 
@@ -40,6 +53,35 @@ public class DeliveryManInterface  extends javax.swing.JFrame {
         frame.setPreferredSize(new Dimension(800, 600));
         frame.setResizable(false);
         OrdersHistory.setVisible(true);
+
+        ImageIcon icon = new ImageIcon("res/img/account_icon1.png");
+        DeliveryServices d = new DeliveryServices();
+
+        Image img = icon.getImage().getScaledInstance(50, 50, Image.SCALE_SMOOTH);
+        icon = new ImageIcon(img);
+        Accountbtn.setIcon(icon);
+
+        Accountbtn.setBorderPainted(false);
+        Accountbtn.setFocusPainted(false);
+        Accountbtn.setContentAreaFilled(false);
+        Accountbtn.setMargin(new Insets(0, 0, 0, 0));
+        Accountbtn.setToolTipText("Account Settings");
+        Accountbtn.setText(DataStorageServices.getInstance().getDeliveryManById(deliveryManId).getUserName());
+
+        float rating = (float) DataStorageServices.getInstance().getDeliveryManById(deliveryManId).getRating();
+        RatingProgressBar.setMinimum(0);
+        RatingProgressBar.setMaximum(5);
+        RatingProgressBar.setValue((int) rating);
+        RatingProgressBar.setStringPainted(true);
+        RatingProgressBar.setString(String.format("%.1f", rating));
+        updateProgressBarColor(RatingProgressBar, rating);
+
+        UserNameText.setText(DataStorageServices.getInstance().getDeliveryManById(deliveryManId).getUserName());
+        PhoneNumberText.setText(DataStorageServices.getInstance().getDeliveryManById(deliveryManId).getPhoneNumber());
+        VehicleText.setText(DataStorageServices.getInstance().getDeliveryManById(deliveryManId).getVehicle());
+        PasswordText.setText(DataStorageServices.getInstance().getDeliveryManById(deliveryManId).getPassword());
+
+        CompletedOrdersText.setText(String.valueOf(d.getNumberOfCompletedOrders(deliveryManId)));
 
         TakeOrderPanel.setLayout(new BoxLayout(TakeOrderPanel, BoxLayout.Y_AXIS));
         OrdersHistory.setLayout(new BoxLayout(OrdersHistory, BoxLayout.Y_AXIS));
@@ -84,20 +126,24 @@ public class DeliveryManInterface  extends javax.swing.JFrame {
                         if (response == JOptionPane.YES_OPTION) {
 
                             deliveryOrder.setAsigned(AsignedType.PRELUAT);
+
                             try {
                                 DataStorageServices.getInstance().writeCsv((DataConverter) new DeliveryOrderConverter(), deliveriesOrders);
-                                DeliveryServices d = new DeliveryServices();
+                            } catch (Exception ex) {
+                                throw new RuntimeException(ex);
+                            }
+                            DeliveryServices d = new DeliveryServices();
 
                                 d.generateAndRecordDelivery(deliveryManId,deliveryOrder.getOrderID(),deliveryOrder.getOrderDate());
                                 deliveryButton.setVisible(false);
 
                                 OrdersHistory.removeAll();
+                            try {
                                 LoadHistoryButton(deliveryManId);
-
-
                             } catch (Exception ex) {
                                 throw new RuntimeException(ex);
                             }
+
 
                             // Optionally update the data storage to reflect this change
                             try {
@@ -145,6 +191,35 @@ public class DeliveryManInterface  extends javax.swing.JFrame {
                 }
 //                TakeOrderPanel.setVisible(false);
                 OrdersHistory.setVisible(true);
+            }
+        });
+
+        Accountbtn.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                ParentPanel.removeAll();
+                ParentPanel.add(AcoountPanel);
+                ParentPanel.repaint();
+                ParentPanel.revalidate();
+            }
+        });
+
+        Modifybtn.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String updatedUsername = UserNameText.getText();
+                String updatedPhoneNumber = PhoneNumberText.getText();
+                String updatedVehicle = VehicleText.getText();
+                String updatedPassword = PasswordText.getText();
+
+                DeliveryManServices deliveryManServices = new DeliveryManServices();
+                boolean isUpdated = deliveryManServices.updateDeliveryManDetails(deliveryManId, updatedUsername, updatedPhoneNumber, updatedVehicle,updatedPassword);
+
+                if (isUpdated) {
+                    JOptionPane.showMessageDialog(frame, "Information updated successfully!", "Success", JOptionPane.INFORMATION_MESSAGE);
+                } else {
+                    JOptionPane.showMessageDialog(frame, "Failed to update information.", "Error", JOptionPane.ERROR_MESSAGE);
+                }
             }
         });
     }
@@ -243,7 +318,15 @@ private void displayOrderDetails(JButton button,Delivery delivery) {
         }
     }
 
-
+    private void updateProgressBarColor(JProgressBar progressBar, float rating) {
+        if (rating < 2) {
+            progressBar.setForeground(Color.RED);
+        } else if (rating ==1.3) {
+            progressBar.setForeground(Color.YELLOW);
+        } else {
+            progressBar.setForeground(Color.GREEN);
+        }
+    }
 
 
     public static void main(String[] args) throws Exception {

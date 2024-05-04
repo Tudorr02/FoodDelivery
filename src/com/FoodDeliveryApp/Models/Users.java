@@ -3,6 +3,22 @@ package com.FoodDeliveryApp.Models;
 
 public abstract class Users{
 
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public void setUserID(String userID) {
+        this.userID = userID;
+    }
+
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
+    }
+
     private String lastName;
     private String firstName;
     private String userName;

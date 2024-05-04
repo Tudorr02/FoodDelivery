@@ -6,26 +6,20 @@ import com.FoodDeliveryApp.Converters.DataConverter;
 import com.FoodDeliveryApp.Converters.DeliveryConverter;
 import com.FoodDeliveryApp.Models.DeliveryOrder;
 import com.FoodDeliveryApp.Models.DeliveryStatus;
+import com.FoodDeliveryApp.Services.AuditServices.AuditingService;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
 import java.io.IOException;
+import java.sql.SQLOutput;
 import java.time.LocalDateTime;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.Random;
 
-public class DeliveryServices {
+public class DeliveryServices extends AuditingService {
 
-
-    public static void main(String[] args) {
-
-
-    }
 
     public boolean generateAndRecordDelivery(String deliveryManId, String orderId, LocalDateTime orderDate) {
         try {
+            logAction(String.format("generateAndRecordDelivery: DeliveryMan ID=%s, Order ID=%s, Order Date=%s", deliveryManId, orderId, orderDate.toString()));
             List<Delivery> deliveries = DataStorageServices.getInstance().getDeliveries();
             String lastDeliveryId = deliveries.isEmpty() ? "DEL-1000000" : deliveries.get(deliveries.size() - 1).getDeliveryID();
             String newDeliveryId = incrementDeliveryId(lastDeliveryId);
@@ -38,7 +32,6 @@ public class DeliveryServices {
             LocalDateTime expectedDate = orderDate.plusHours(randomHour);
 
             Delivery newDelivery = new Delivery(newDeliveryId, deliveryMan, order, expectedDate, DeliveryStatus.UNFINISHED);
-            System.out.println("IMI INTRA AICICIAAAAAAAAAAAAAAAAAAAAAAAAAA");
             deliveries.add(newDelivery);
             writeDeliveriesToCsv(deliveries);
             return true;
@@ -50,13 +43,14 @@ public class DeliveryServices {
 
     // Helper method to increment the last delivery ID
     private String incrementDeliveryId(String lastId) {
+        logAction("incrementDeliveryId: last ID=" + lastId);
         int num = Integer.parseInt(lastId.substring(4)) + 1;
         return "DEL-" + num;
     }
 
 
     public boolean updateDeliveryMan(String deliveryId, String deliveryManId) {
-
+        logAction(String.format("updateDeliveryMan: Delivery ID=%s, DeliveryMan ID=%s", deliveryId, deliveryManId));
         try {
             List<Delivery> deliveries = DataStorageServices.getInstance().getDeliveries();
 
@@ -80,6 +74,7 @@ public class DeliveryServices {
     }
 
     public void updateDeliveryStatus(Delivery delivery) throws Exception {
+        logAction(String.format("updateDeliveryStatus: Delivery ID=%s, Status=%s", delivery.getDeliveryID(), delivery.getStatus()));
         List<Delivery> deliveries = DataStorageServices.getInstance().getDeliveries();
         boolean isUpdated = false; // Flag to check if any delivery was updated
 
@@ -97,38 +92,31 @@ public class DeliveryServices {
         }
     }
 
-    public int getPromoCodePercentage(String promoCode){
-         String csvFile = "res/CSV/DeliveryDiscount_Data.csv"; // The path to your CSV file
+    public int getNumberOfCompletedOrders(String deliveryManId) {
+        logAction(String.format("getNumberOfCompletedOrders: DeliveryMan ID=%s", deliveryManId));
+        try {
+            List<Delivery> deliveries = DataStorageServices.getInstance().getDeliveries();
+            int completedOrdersCount = 0;
 
-        try (BufferedReader br = new BufferedReader(new FileReader(csvFile))) {
-            String line;
-            br.readLine();
-            while ((line = br.readLine()) != null) {
-                // Split each line by comma
-                String[] columns = line.split(",", 2);
-
-                if (columns.length == 2) { // Ensure there are two columns
-                    String key = columns[0].trim();
-                    String value = columns[1].trim();
-                    if(key.equals(promoCode))
-                        return Integer.parseInt(value);
-                     // Add the pair to the map
+            for (Delivery delivery : deliveries) {
+                if (delivery.getDeliveryMan().getUserID().equals(deliveryManId) && delivery.getStatus() == DeliveryStatus.FINISHED) {
+                    completedOrdersCount++;
                 }
             }
-        } catch (IOException e) {
+            return completedOrdersCount;
+        } catch (Exception e) {
             e.printStackTrace();
+            return 0; // Return 0 if there's an error
         }
-
-        // Print the map to verify the contents
-
-        return 0;
     }
 
+
+
     private void writeDeliveriesToCsv(List<Delivery> deliveries) throws Exception {
+        logAction(String.format("writeDeliveriesToCsv: Number of deliveries=%d", deliveries.size()));
         DataConverter<Delivery> converter = new DeliveryConverter();
         DataStorageServices.getInstance().writeCsv(converter, deliveries);
         System.out.println("imi scrie in csv!!!!!!!!!!!!!!!!!!");
         DataStorageServices.getInstance().initData();
     }
 }
-
