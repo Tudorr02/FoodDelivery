@@ -51,6 +51,7 @@ public class SignUp extends JFrame {
     private JButton SignUpbtn;
     private JPanel SelectPanel;
     private JLabel SelectLabel;
+    private JButton BackToLoginbtn;
     private ButtonGroup buttonGroup;
 
     public SignUp() {
@@ -71,6 +72,16 @@ public class SignUp extends JFrame {
         buttonGroup = new ButtonGroup();
         buttonGroup.add(DeliveryManbtn);
         buttonGroup.add(Clientbtn);
+
+        ImageIcon goBackIcon = new ImageIcon("res/img/back_icon.jpg");
+        Image goBackImg = goBackIcon.getImage().getScaledInstance(50, 50, Image.SCALE_SMOOTH);
+        goBackIcon = new ImageIcon(goBackImg);
+        BackToLoginbtn.setIcon(goBackIcon);
+        BackToLoginbtn.setBorderPainted(false);
+        BackToLoginbtn.setFocusPainted(false);
+        BackToLoginbtn.setContentAreaFilled(false);
+        BackToLoginbtn.setMargin(new Insets(0, 0, 0, 0));
+        BackToLoginbtn.setToolTipText("Go back to login");
 
         DeliveryManbtn.addActionListener(new ActionListener() {
             @Override
@@ -151,6 +162,13 @@ public class SignUp extends JFrame {
                         JOptionPane.showMessageDialog(frame, "Failed to add client.", "Error", JOptionPane.ERROR_MESSAGE);
                     }
                 }
+            }
+        });
+        BackToLoginbtn.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                frame.dispose();
+                new LogIn();
             }
         });
     }

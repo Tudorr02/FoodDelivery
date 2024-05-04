@@ -125,7 +125,6 @@ public class DeliveryManInterface  extends javax.swing.JFrame {
                 deliveryButton.addActionListener(new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent e) {
-                        System.out.println("fabi e tare");
                         ShoppingCart sc = deliveryOrder.getShoppingCart(); // Assuming getShoppingCart() method exists
                         StringBuilder details = new StringBuilder("<html>");
                         details.append("<h3>Shopping Cart Details:</h3>");
