@@ -1,16 +1,16 @@
 package com.FoodDeliveryApp.UiForms;
 
+import com.FoodDeliveryApp.Exceptions.InvalidCredentialsException;
+import com.FoodDeliveryApp.Exceptions.UserTypeNotFoundException;
+import com.FoodDeliveryApp.Exceptions.UserTypeNotFoundException;
 import com.FoodDeliveryApp.Models.UserType;
 import com.FoodDeliveryApp.Models.Users;
-import com.FoodDeliveryApp.Services.DataStorageServices;
 import com.FoodDeliveryApp.Services.UserServices;
-import com.FoodDeliveryApp.UiForms.ClientInterface;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
 
 public class LogIn extends JFrame {
     private JPanel LogInPanel;
@@ -23,7 +23,7 @@ public class LogIn extends JFrame {
     private JFrame frame;
     private UserType userType;
 
-    public LogIn() throws HeadlessException {
+    public LogIn() {
 
         frame = new JFrame("Food Delivery !");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -33,39 +33,43 @@ public class LogIn extends JFrame {
         LogInBtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
                 try {
-                    String UserName = UserNameField.getText();
-                    String Password = new String(PasswordField.getPassword());
-                    Users user = new UserServices().LogInUser(UserName, Password);
+                    String userName = UserNameField.getText();
+                    String password = new String(PasswordField.getPassword());
 
-                   if(user !=null) {
+                    UserServices userService = new UserServices();
+                    Users user = userService.LogInUser(userName, password);
 
-                       frame.setVisible(false);
-                       userType = new UserServices().getUserType(user);
+                    if (user == null) {
+                        throw new InvalidCredentialsException("Invalid username or password.");
+                    }
 
-                       if( userType.equals(UserType.CLIENT)){
-                            //new ClientInterface();
+                    userType = userService.getUserType(user);
 
-                           System.out.println("client logged in");
-                       }else if(userType.equals(UserType.ADMIN)){
-                           // open admin Panel
-                           System.out.println("admin logged in");
-                       } else if (userType.equals(UserType.DELIVERYMAN)) {
-                           // open deliveryman Panel
-                           new DeliveryManInterface(user.getUserID());
-                           System.out.println("deliveryman logged in");
-                       }
+                    frame.setVisible(false);
+                    switch (userType) {
+                        case CLIENT:
+                            // new ClientInterface();
+                            System.out.println("Client logged in");
+                            break;
+                        case ADMIN:
+                            // Open admin panel
+                            System.out.println("Admin logged in");
+                            break;
+                        case DELIVERYMAN:
+                            // Open deliveryman panel
+                            new DeliveryManInterface(user.getUserID());
+                            System.out.println("Deliveryman logged in");
+                            break;
+                        default:
+                            throw new UserTypeNotFoundException("User not found.");
+                    }
 
-                   }
-                   else{
-                       System.out.println("Did not log in");
-                       userType = UserType.FAILED;
-                   }
+                } catch (InvalidCredentialsException | UserTypeNotFoundException ex) {
+                    JOptionPane.showMessageDialog(frame, ex.getMessage(), "Login Error", JOptionPane.ERROR_MESSAGE);
                 } catch (Exception ex) {
-                    throw new RuntimeException(ex);
+                    ex.printStackTrace();
                 }
-
             }
         });
 
@@ -74,12 +78,5 @@ public class LogIn extends JFrame {
         frame.pack();
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);
-
-
-
     }
-
-
-
-
 }

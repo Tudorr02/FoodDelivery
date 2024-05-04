@@ -2,7 +2,11 @@ package com.FoodDeliveryApp.Services;
 
 import com.FoodDeliveryApp.Converters.*;
 
+import com.FoodDeliveryApp.Exceptions.CsvReadException;
+import com.FoodDeliveryApp.Exceptions.CsvWriteException;
+import com.FoodDeliveryApp.Exceptions.DataConverterException;
 import com.FoodDeliveryApp.Models.*;
+import com.FoodDeliveryApp.Services.AuditServices.AuditingService;
 import com.FoodDeliveryApp.UiForms.LogIn;
 
 import java.io.*;
@@ -11,7 +15,7 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
-public class DataStorageServices<T> {
+public class DataStorageServices<T> extends AuditingService{
     // Static variable to hold the single instance
     private static DataStorageServices<?> instance;
 
@@ -35,7 +39,8 @@ public class DataStorageServices<T> {
         return (DataStorageServices) instance;
     }
 
-    public  void initData() throws Exception {
+    public  void initData() throws CsvReadException{
+        logAction("initData");
         DataConverter<Client> clientConverter = new ClientConverter();
         DataConverter<DeliveryMan> deliveryManConverter = new DeliveryManConverter();
         DataConverter<FoodItem> foodItemConverter = new FoodItemConverter();
@@ -76,44 +81,45 @@ public class DataStorageServices<T> {
 
     }
 
-    // Method to read data from a CSV file
-    public List<T> readCsv( DataConverter<T> converter ) throws Exception {
+    public List<T> readCsv(DataConverter<T> converter) throws CsvReadException {
+        logAction("readCsv " + converter.getFilePath());
         List<T> objects = new ArrayList<>();
         try (BufferedReader br = Files.newBufferedReader(Paths.get(converter.getFilePath()))) {
             String line;
             int lineIndex = 0;
             while ((line = br.readLine()) != null) {
-                if(lineIndex != 0){
+                if (lineIndex != 0) {
                     System.out.println(" - CSV Line: " + line);
                     T record = converter.convertFromCsv(line);
                     objects.add(record);
-                }else
-                {
+                } else {
                     lineIndex = 1;
                 }
             }
+        } catch (Exception e) {
+            throw new CsvReadException("Error reading from CSV file: " + converter.getFilePath(), e);
         }
-
         return objects;
     }
 
-    // Method to write data to a CSV file
     public <T> void writeCsv(DataConverter<T> converter , List<T> items ) throws IOException {
-            BufferedReader br = Files.newBufferedReader(Paths.get(converter.getFilePath()));
-            String val=br.readLine();
-            try(BufferedWriter bw = Files.newBufferedWriter(Paths.get(converter.getFilePath()))) {
-                bw.write(val);
+        BufferedReader br = Files.newBufferedReader(Paths.get(converter.getFilePath()));
+        String val=br.readLine();
+        try(BufferedWriter bw = Files.newBufferedWriter(Paths.get(converter.getFilePath()))) {
+            bw.write(val);
+            bw.newLine();
+
+            for (T object : items) {
+
+                String csvLine = converter.convertToCsv(object);
+                bw.write(csvLine);
+                System.out.println("Write CSV Line : " + csvLine);
                 bw.newLine();
 
-                for (T object : items) {
-
-                    String csvLine = converter.convertToCsv(object);
-                    bw.write(csvLine);
-                    System.out.println("Write CSV Line : " + csvLine);
-                    bw.newLine();
-
-                }
             }
+        } catch (DataConverterException e) {
+            throw new RuntimeException(e);
+        }
 
     }
 

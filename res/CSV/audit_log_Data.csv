@@ -1,0 +1,497 @@
+initData,2024-05-03 23:16:39
+readCsv res/CSV/Client_Data.csv,2024-05-03 23:16:39
+readCsv res/CSV/DeliveryMen_Data.csv,2024-05-03 23:16:39
+readCsv res/CSV/FoodItems_Data.csv,2024-05-03 23:16:39
+readCsv res/CSV/Reviews_Data.csv,2024-05-03 23:16:39
+readCsv res/CSV/Restaurants_Data.csv,2024-05-03 23:16:39
+readCsv res/CSV/ShoppingCart_Data.csv,2024-05-03 23:16:39
+readCsv res/CSV/PickUpOrders_Data.csv,2024-05-03 23:16:39
+readCsv res/CSV/DeliveryOrders_Data.csv,2024-05-03 23:16:39
+readCsv res/CSV/Delivery_Data.csv,2024-05-03 23:16:39
+writeCsv res/CSV/DeliveryOrders_Data.csv,2024-05-03 23:16:46
+generateAndRecordDelivery: DeliveryMan ID=D-100001, Order ID=DO-0000009, Order Date=2024-04-21T17:30,2024-05-03 23:16:46
+incrementDeliveryId: last ID=DEL-1000008,2024-05-03 23:16:46
+writeDeliveriesToCsv: Number of deliveries=10,2024-05-03 23:16:46
+writeCsv res/CSV/Delivery_Data.csv,2024-05-03 23:16:46
+initData,2024-05-03 23:16:46
+readCsv res/CSV/Client_Data.csv,2024-05-03 23:16:46
+readCsv res/CSV/DeliveryMen_Data.csv,2024-05-03 23:16:46
+readCsv res/CSV/FoodItems_Data.csv,2024-05-03 23:16:46
+readCsv res/CSV/Reviews_Data.csv,2024-05-03 23:16:46
+readCsv res/CSV/Restaurants_Data.csv,2024-05-03 23:16:46
+readCsv res/CSV/ShoppingCart_Data.csv,2024-05-03 23:16:46
+readCsv res/CSV/PickUpOrders_Data.csv,2024-05-03 23:16:46
+readCsv res/CSV/DeliveryOrders_Data.csv,2024-05-03 23:16:46
+readCsv res/CSV/Delivery_Data.csv,2024-05-03 23:16:46
+initData,2024-05-03 23:16:46
+readCsv res/CSV/Client_Data.csv,2024-05-03 23:16:46
+readCsv res/CSV/DeliveryMen_Data.csv,2024-05-03 23:16:46
+readCsv res/CSV/FoodItems_Data.csv,2024-05-03 23:16:46
+readCsv res/CSV/Reviews_Data.csv,2024-05-03 23:16:46
+readCsv res/CSV/Restaurants_Data.csv,2024-05-03 23:16:46
+readCsv res/CSV/ShoppingCart_Data.csv,2024-05-03 23:16:46
+readCsv res/CSV/PickUpOrders_Data.csv,2024-05-03 23:16:46
+readCsv res/CSV/DeliveryOrders_Data.csv,2024-05-03 23:16:46
+readCsv res/CSV/Delivery_Data.csv,2024-05-03 23:16:46
+updateDeliveryStatus: Delivery ID=DEL-1000009, Status=FINISHED,2024-05-03 23:16:57
+writeDeliveriesToCsv: Number of deliveries=10,2024-05-03 23:16:57
+writeCsv res/CSV/Delivery_Data.csv,2024-05-03 23:16:57
+initData,2024-05-03 23:16:57
+readCsv res/CSV/Client_Data.csv,2024-05-03 23:16:57
+readCsv res/CSV/DeliveryMen_Data.csv,2024-05-03 23:16:57
+readCsv res/CSV/FoodItems_Data.csv,2024-05-03 23:16:57
+readCsv res/CSV/Reviews_Data.csv,2024-05-03 23:16:57
+readCsv res/CSV/Restaurants_Data.csv,2024-05-03 23:16:57
+readCsv res/CSV/ShoppingCart_Data.csv,2024-05-03 23:16:57
+readCsv res/CSV/PickUpOrders_Data.csv,2024-05-03 23:16:57
+readCsv res/CSV/DeliveryOrders_Data.csv,2024-05-03 23:16:57
+readCsv res/CSV/Delivery_Data.csv,2024-05-03 23:16:57
+initData,2024-05-04 00:51:01
+readCsv res/CSV/Client_Data.csv,2024-05-04 00:51:01
+readCsv res/CSV/DeliveryMen_Data.csv,2024-05-04 00:51:01
+readCsv res/CSV/FoodItems_Data.csv,2024-05-04 00:51:01
+readCsv res/CSV/Reviews_Data.csv,2024-05-04 00:51:01
+readCsv res/CSV/Restaurants_Data.csv,2024-05-04 00:51:01
+readCsv res/CSV/ShoppingCart_Data.csv,2024-05-04 00:51:01
+readCsv res/CSV/PickUpOrders_Data.csv,2024-05-04 00:51:01
+readCsv res/CSV/DeliveryOrders_Data.csv,2024-05-04 00:51:01
+readCsv res/CSV/Delivery_Data.csv,2024-05-04 00:51:01
+initData,2024-05-04 00:51:11
+readCsv res/CSV/Client_Data.csv,2024-05-04 00:51:11
+readCsv res/CSV/DeliveryMen_Data.csv,2024-05-04 00:51:11
+readCsv res/CSV/FoodItems_Data.csv,2024-05-04 00:51:11
+readCsv res/CSV/Reviews_Data.csv,2024-05-04 00:51:11
+readCsv res/CSV/Restaurants_Data.csv,2024-05-04 00:51:11
+readCsv res/CSV/ShoppingCart_Data.csv,2024-05-04 00:51:11
+readCsv res/CSV/PickUpOrders_Data.csv,2024-05-04 00:51:11
+readCsv res/CSV/DeliveryOrders_Data.csv,2024-05-04 00:51:11
+readCsv res/CSV/Delivery_Data.csv,2024-05-04 00:51:11
+writeCsv res/CSV/DeliveryOrders_Data.csv,2024-05-04 00:51:22
+writeCsv res/CSV/DeliveryOrders_Data.csv,2024-05-04 00:51:29
+initData,2024-05-04 00:54:36
+readCsv res/CSV/Client_Data.csv,2024-05-04 00:54:36
+readCsv res/CSV/DeliveryMen_Data.csv,2024-05-04 00:54:36
+readCsv res/CSV/FoodItems_Data.csv,2024-05-04 00:54:36
+readCsv res/CSV/Reviews_Data.csv,2024-05-04 00:54:37
+readCsv res/CSV/Restaurants_Data.csv,2024-05-04 00:54:37
+readCsv res/CSV/ShoppingCart_Data.csv,2024-05-04 00:54:37
+readCsv res/CSV/PickUpOrders_Data.csv,2024-05-04 00:54:37
+readCsv res/CSV/DeliveryOrders_Data.csv,2024-05-04 00:54:37
+readCsv res/CSV/Delivery_Data.csv,2024-05-04 00:54:37
+initData,2024-05-04 00:54:41
+readCsv res/CSV/Client_Data.csv,2024-05-04 00:54:41
+readCsv res/CSV/DeliveryMen_Data.csv,2024-05-04 00:54:41
+readCsv res/CSV/FoodItems_Data.csv,2024-05-04 00:54:41
+readCsv res/CSV/Reviews_Data.csv,2024-05-04 00:54:41
+readCsv res/CSV/Restaurants_Data.csv,2024-05-04 00:54:41
+readCsv res/CSV/ShoppingCart_Data.csv,2024-05-04 00:54:41
+readCsv res/CSV/PickUpOrders_Data.csv,2024-05-04 00:54:41
+readCsv res/CSV/DeliveryOrders_Data.csv,2024-05-04 00:54:41
+readCsv res/CSV/Delivery_Data.csv,2024-05-04 00:54:41
+initData,2024-05-04 00:55:52
+readCsv res/CSV/Client_Data.csv,2024-05-04 00:55:52
+readCsv res/CSV/DeliveryMen_Data.csv,2024-05-04 00:55:52
+readCsv res/CSV/FoodItems_Data.csv,2024-05-04 00:55:52
+readCsv res/CSV/Reviews_Data.csv,2024-05-04 00:55:52
+readCsv res/CSV/Restaurants_Data.csv,2024-05-04 00:55:52
+readCsv res/CSV/ShoppingCart_Data.csv,2024-05-04 00:55:52
+readCsv res/CSV/PickUpOrders_Data.csv,2024-05-04 00:55:52
+readCsv res/CSV/DeliveryOrders_Data.csv,2024-05-04 00:55:52
+readCsv res/CSV/Delivery_Data.csv,2024-05-04 00:55:52
+writeCsv res/CSV/DeliveryOrders_Data.csv,2024-05-04 00:56:00
+initData,2024-05-04 00:59:25
+readCsv res/CSV/Client_Data.csv,2024-05-04 00:59:25
+readCsv res/CSV/DeliveryMen_Data.csv,2024-05-04 00:59:25
+readCsv res/CSV/FoodItems_Data.csv,2024-05-04 00:59:25
+readCsv res/CSV/Reviews_Data.csv,2024-05-04 00:59:25
+readCsv res/CSV/Restaurants_Data.csv,2024-05-04 00:59:25
+readCsv res/CSV/ShoppingCart_Data.csv,2024-05-04 00:59:25
+readCsv res/CSV/PickUpOrders_Data.csv,2024-05-04 00:59:25
+readCsv res/CSV/DeliveryOrders_Data.csv,2024-05-04 00:59:25
+readCsv res/CSV/Delivery_Data.csv,2024-05-04 00:59:25
+initData,2024-05-04 00:59:45
+readCsv res/CSV/Client_Data.csv,2024-05-04 00:59:45
+readCsv res/CSV/DeliveryMen_Data.csv,2024-05-04 00:59:45
+readCsv res/CSV/FoodItems_Data.csv,2024-05-04 00:59:45
+readCsv res/CSV/Reviews_Data.csv,2024-05-04 00:59:45
+readCsv res/CSV/Restaurants_Data.csv,2024-05-04 00:59:45
+readCsv res/CSV/ShoppingCart_Data.csv,2024-05-04 00:59:45
+readCsv res/CSV/PickUpOrders_Data.csv,2024-05-04 00:59:45
+readCsv res/CSV/DeliveryOrders_Data.csv,2024-05-04 00:59:45
+readCsv res/CSV/Delivery_Data.csv,2024-05-04 00:59:45
+initData,2024-05-04 01:00:00
+readCsv res/CSV/Client_Data.csv,2024-05-04 01:00:00
+readCsv res/CSV/DeliveryMen_Data.csv,2024-05-04 01:00:00
+readCsv res/CSV/FoodItems_Data.csv,2024-05-04 01:00:00
+readCsv res/CSV/Reviews_Data.csv,2024-05-04 01:00:00
+readCsv res/CSV/Restaurants_Data.csv,2024-05-04 01:00:00
+readCsv res/CSV/ShoppingCart_Data.csv,2024-05-04 01:00:00
+readCsv res/CSV/PickUpOrders_Data.csv,2024-05-04 01:00:01
+readCsv res/CSV/DeliveryOrders_Data.csv,2024-05-04 01:00:01
+readCsv res/CSV/Delivery_Data.csv,2024-05-04 01:00:01
+writeCsv res/CSV/DeliveryOrders_Data.csv,2024-05-04 01:00:11
+initData,2024-05-04 01:03:20
+readCsv res/CSV/Client_Data.csv,2024-05-04 01:03:20
+readCsv res/CSV/DeliveryMen_Data.csv,2024-05-04 01:03:20
+readCsv res/CSV/FoodItems_Data.csv,2024-05-04 01:03:20
+readCsv res/CSV/Reviews_Data.csv,2024-05-04 01:03:20
+readCsv res/CSV/Restaurants_Data.csv,2024-05-04 01:03:20
+readCsv res/CSV/ShoppingCart_Data.csv,2024-05-04 01:03:20
+readCsv res/CSV/PickUpOrders_Data.csv,2024-05-04 01:03:20
+readCsv res/CSV/DeliveryOrders_Data.csv,2024-05-04 01:03:20
+readCsv res/CSV/Delivery_Data.csv,2024-05-04 01:03:20
+writeCsv res/CSV/DeliveryOrders_Data.csv,2024-05-04 01:03:33
+initData,2024-05-04 01:04:07
+readCsv res/CSV/Client_Data.csv,2024-05-04 01:04:07
+readCsv res/CSV/DeliveryMen_Data.csv,2024-05-04 01:04:07
+readCsv res/CSV/FoodItems_Data.csv,2024-05-04 01:04:07
+readCsv res/CSV/Reviews_Data.csv,2024-05-04 01:04:07
+readCsv res/CSV/Restaurants_Data.csv,2024-05-04 01:04:07
+readCsv res/CSV/ShoppingCart_Data.csv,2024-05-04 01:04:07
+readCsv res/CSV/PickUpOrders_Data.csv,2024-05-04 01:04:07
+readCsv res/CSV/DeliveryOrders_Data.csv,2024-05-04 01:04:07
+readCsv res/CSV/Delivery_Data.csv,2024-05-04 01:04:07
+initData,2024-05-04 01:04:17
+readCsv res/CSV/Client_Data.csv,2024-05-04 01:04:17
+readCsv res/CSV/DeliveryMen_Data.csv,2024-05-04 01:04:17
+readCsv res/CSV/FoodItems_Data.csv,2024-05-04 01:04:17
+readCsv res/CSV/Reviews_Data.csv,2024-05-04 01:04:17
+readCsv res/CSV/Restaurants_Data.csv,2024-05-04 01:04:17
+readCsv res/CSV/ShoppingCart_Data.csv,2024-05-04 01:04:17
+readCsv res/CSV/PickUpOrders_Data.csv,2024-05-04 01:04:17
+readCsv res/CSV/DeliveryOrders_Data.csv,2024-05-04 01:04:17
+readCsv res/CSV/Delivery_Data.csv,2024-05-04 01:04:17
+writeCsv res/CSV/DeliveryOrders_Data.csv,2024-05-04 01:04:21
+initData,2024-05-04 01:05:21
+readCsv res/CSV/Client_Data.csv,2024-05-04 01:05:21
+readCsv res/CSV/DeliveryMen_Data.csv,2024-05-04 01:05:21
+readCsv res/CSV/FoodItems_Data.csv,2024-05-04 01:05:21
+readCsv res/CSV/Reviews_Data.csv,2024-05-04 01:05:21
+readCsv res/CSV/Restaurants_Data.csv,2024-05-04 01:05:21
+readCsv res/CSV/ShoppingCart_Data.csv,2024-05-04 01:05:21
+readCsv res/CSV/PickUpOrders_Data.csv,2024-05-04 01:05:21
+readCsv res/CSV/DeliveryOrders_Data.csv,2024-05-04 01:05:21
+readCsv res/CSV/Delivery_Data.csv,2024-05-04 01:05:21
+initData,2024-05-04 01:05:37
+readCsv res/CSV/Client_Data.csv,2024-05-04 01:05:37
+readCsv res/CSV/DeliveryMen_Data.csv,2024-05-04 01:05:37
+readCsv res/CSV/FoodItems_Data.csv,2024-05-04 01:05:37
+readCsv res/CSV/Reviews_Data.csv,2024-05-04 01:05:37
+readCsv res/CSV/Restaurants_Data.csv,2024-05-04 01:05:37
+readCsv res/CSV/ShoppingCart_Data.csv,2024-05-04 01:05:37
+readCsv res/CSV/PickUpOrders_Data.csv,2024-05-04 01:05:37
+readCsv res/CSV/DeliveryOrders_Data.csv,2024-05-04 01:05:37
+readCsv res/CSV/Delivery_Data.csv,2024-05-04 01:05:37
+writeCsv res/CSV/DeliveryOrders_Data.csv,2024-05-04 01:05:49
+initData,2024-05-04 01:07:09
+readCsv res/CSV/Client_Data.csv,2024-05-04 01:07:09
+readCsv res/CSV/DeliveryMen_Data.csv,2024-05-04 01:07:09
+readCsv res/CSV/FoodItems_Data.csv,2024-05-04 01:07:09
+readCsv res/CSV/Reviews_Data.csv,2024-05-04 01:07:09
+readCsv res/CSV/Restaurants_Data.csv,2024-05-04 01:07:09
+readCsv res/CSV/ShoppingCart_Data.csv,2024-05-04 01:07:09
+readCsv res/CSV/PickUpOrders_Data.csv,2024-05-04 01:07:09
+readCsv res/CSV/DeliveryOrders_Data.csv,2024-05-04 01:07:09
+readCsv res/CSV/Delivery_Data.csv,2024-05-04 01:07:09
+writeCsv res/CSV/DeliveryOrders_Data.csv,2024-05-04 01:07:14
+initData,2024-05-04 01:07:27
+readCsv res/CSV/Client_Data.csv,2024-05-04 01:07:27
+readCsv res/CSV/DeliveryMen_Data.csv,2024-05-04 01:07:27
+readCsv res/CSV/FoodItems_Data.csv,2024-05-04 01:07:27
+readCsv res/CSV/Reviews_Data.csv,2024-05-04 01:07:27
+readCsv res/CSV/Restaurants_Data.csv,2024-05-04 01:07:27
+readCsv res/CSV/ShoppingCart_Data.csv,2024-05-04 01:07:27
+readCsv res/CSV/PickUpOrders_Data.csv,2024-05-04 01:07:27
+readCsv res/CSV/DeliveryOrders_Data.csv,2024-05-04 01:07:27
+readCsv res/CSV/Delivery_Data.csv,2024-05-04 01:07:27
+writeCsv res/CSV/DeliveryOrders_Data.csv,2024-05-04 01:07:32
+initData,2024-05-04 01:13:46
+readCsv res/CSV/Client_Data.csv,2024-05-04 01:13:46
+readCsv res/CSV/DeliveryMen_Data.csv,2024-05-04 01:13:46
+readCsv res/CSV/FoodItems_Data.csv,2024-05-04 01:13:46
+readCsv res/CSV/Reviews_Data.csv,2024-05-04 01:13:46
+readCsv res/CSV/Restaurants_Data.csv,2024-05-04 01:13:46
+readCsv res/CSV/ShoppingCart_Data.csv,2024-05-04 01:13:46
+readCsv res/CSV/PickUpOrders_Data.csv,2024-05-04 01:13:46
+readCsv res/CSV/DeliveryOrders_Data.csv,2024-05-04 01:13:46
+readCsv res/CSV/Delivery_Data.csv,2024-05-04 01:13:46
+writeCsv res/CSV/DeliveryOrders_Data.csv,2024-05-04 01:13:51
+initData,2024-05-04 01:20:39
+readCsv res/CSV/Client_Data.csv,2024-05-04 01:20:39
+readCsv res/CSV/DeliveryMen_Data.csv,2024-05-04 01:20:39
+readCsv res/CSV/FoodItems_Data.csv,2024-05-04 01:20:39
+readCsv res/CSV/Reviews_Data.csv,2024-05-04 01:20:39
+readCsv res/CSV/Restaurants_Data.csv,2024-05-04 01:20:39
+readCsv res/CSV/ShoppingCart_Data.csv,2024-05-04 01:20:39
+readCsv res/CSV/PickUpOrders_Data.csv,2024-05-04 01:20:39
+readCsv res/CSV/DeliveryOrders_Data.csv,2024-05-04 01:20:39
+readCsv res/CSV/Delivery_Data.csv,2024-05-04 01:20:39
+initData,2024-05-04 01:21:11
+readCsv res/CSV/Client_Data.csv,2024-05-04 01:21:11
+readCsv res/CSV/DeliveryMen_Data.csv,2024-05-04 01:21:11
+readCsv res/CSV/FoodItems_Data.csv,2024-05-04 01:21:11
+readCsv res/CSV/Reviews_Data.csv,2024-05-04 01:21:11
+readCsv res/CSV/Restaurants_Data.csv,2024-05-04 01:21:11
+readCsv res/CSV/ShoppingCart_Data.csv,2024-05-04 01:21:11
+readCsv res/CSV/PickUpOrders_Data.csv,2024-05-04 01:21:11
+readCsv res/CSV/DeliveryOrders_Data.csv,2024-05-04 01:21:11
+readCsv res/CSV/Delivery_Data.csv,2024-05-04 01:21:11
+initData,2024-05-04 01:21:29
+readCsv res/CSV/Client_Data.csv,2024-05-04 01:21:29
+readCsv res/CSV/DeliveryMen_Data.csv,2024-05-04 01:21:29
+readCsv res/CSV/FoodItems_Data.csv,2024-05-04 01:21:29
+readCsv res/CSV/Reviews_Data.csv,2024-05-04 01:21:29
+readCsv res/CSV/Restaurants_Data.csv,2024-05-04 01:21:29
+readCsv res/CSV/ShoppingCart_Data.csv,2024-05-04 01:21:29
+readCsv res/CSV/PickUpOrders_Data.csv,2024-05-04 01:21:29
+readCsv res/CSV/DeliveryOrders_Data.csv,2024-05-04 01:21:29
+readCsv res/CSV/Delivery_Data.csv,2024-05-04 01:21:29
+initData,2024-05-04 01:21:48
+readCsv res/CSV/Client_Data.csv,2024-05-04 01:21:48
+readCsv res/CSV/DeliveryMen_Data.csv,2024-05-04 01:21:48
+readCsv res/CSV/FoodItems_Data.csv,2024-05-04 01:21:48
+readCsv res/CSV/Reviews_Data.csv,2024-05-04 01:21:48
+readCsv res/CSV/Restaurants_Data.csv,2024-05-04 01:21:48
+readCsv res/CSV/ShoppingCart_Data.csv,2024-05-04 01:21:48
+readCsv res/CSV/PickUpOrders_Data.csv,2024-05-04 01:21:48
+readCsv res/CSV/DeliveryOrders_Data.csv,2024-05-04 01:21:48
+readCsv res/CSV/Delivery_Data.csv,2024-05-04 01:21:48
+initData,2024-05-04 01:22:06
+readCsv res/CSV/Client_Data.csv,2024-05-04 01:22:06
+readCsv res/CSV/DeliveryMen_Data.csv,2024-05-04 01:22:06
+readCsv res/CSV/FoodItems_Data.csv,2024-05-04 01:22:06
+readCsv res/CSV/Reviews_Data.csv,2024-05-04 01:22:07
+readCsv res/CSV/Restaurants_Data.csv,2024-05-04 01:22:07
+readCsv res/CSV/ShoppingCart_Data.csv,2024-05-04 01:22:07
+readCsv res/CSV/PickUpOrders_Data.csv,2024-05-04 01:22:07
+readCsv res/CSV/DeliveryOrders_Data.csv,2024-05-04 01:22:07
+readCsv res/CSV/Delivery_Data.csv,2024-05-04 01:22:07
+initData,2024-05-04 01:24:06
+readCsv res/CSV/Client_Data.csv,2024-05-04 01:24:06
+readCsv res/CSV/DeliveryMen_Data.csv,2024-05-04 01:24:06
+readCsv res/CSV/FoodItems_Data.csv,2024-05-04 01:24:06
+readCsv res/CSV/Reviews_Data.csv,2024-05-04 01:24:06
+readCsv res/CSV/Restaurants_Data.csv,2024-05-04 01:24:06
+readCsv res/CSV/ShoppingCart_Data.csv,2024-05-04 01:24:06
+readCsv res/CSV/PickUpOrders_Data.csv,2024-05-04 01:24:06
+readCsv res/CSV/DeliveryOrders_Data.csv,2024-05-04 01:24:06
+readCsv res/CSV/Delivery_Data.csv,2024-05-04 01:24:06
+initData,2024-05-04 01:25:53
+readCsv res/CSV/Client_Data.csv,2024-05-04 01:25:53
+readCsv res/CSV/DeliveryMen_Data.csv,2024-05-04 01:25:53
+readCsv res/CSV/FoodItems_Data.csv,2024-05-04 01:25:53
+readCsv res/CSV/Reviews_Data.csv,2024-05-04 01:25:53
+readCsv res/CSV/Restaurants_Data.csv,2024-05-04 01:25:53
+readCsv res/CSV/ShoppingCart_Data.csv,2024-05-04 01:25:53
+readCsv res/CSV/PickUpOrders_Data.csv,2024-05-04 01:25:53
+readCsv res/CSV/DeliveryOrders_Data.csv,2024-05-04 01:25:53
+readCsv res/CSV/Delivery_Data.csv,2024-05-04 01:25:53
+initData,2024-05-04 01:26:14
+readCsv res/CSV/Client_Data.csv,2024-05-04 01:26:14
+readCsv res/CSV/DeliveryMen_Data.csv,2024-05-04 01:26:14
+readCsv res/CSV/FoodItems_Data.csv,2024-05-04 01:26:14
+readCsv res/CSV/Reviews_Data.csv,2024-05-04 01:26:14
+readCsv res/CSV/Restaurants_Data.csv,2024-05-04 01:26:14
+readCsv res/CSV/ShoppingCart_Data.csv,2024-05-04 01:26:14
+readCsv res/CSV/PickUpOrders_Data.csv,2024-05-04 01:26:14
+readCsv res/CSV/DeliveryOrders_Data.csv,2024-05-04 01:26:14
+readCsv res/CSV/Delivery_Data.csv,2024-05-04 01:26:14
+writeCsv res/CSV/DeliveryOrders_Data.csv,2024-05-04 01:26:18
+initData,2024-05-04 01:28:55
+readCsv res/CSV/Client_Data.csv,2024-05-04 01:28:55
+readCsv res/CSV/DeliveryMen_Data.csv,2024-05-04 01:28:55
+readCsv res/CSV/FoodItems_Data.csv,2024-05-04 01:28:55
+readCsv res/CSV/Reviews_Data.csv,2024-05-04 01:28:55
+readCsv res/CSV/Restaurants_Data.csv,2024-05-04 01:28:55
+readCsv res/CSV/ShoppingCart_Data.csv,2024-05-04 01:28:55
+readCsv res/CSV/PickUpOrders_Data.csv,2024-05-04 01:28:55
+readCsv res/CSV/DeliveryOrders_Data.csv,2024-05-04 01:28:55
+readCsv res/CSV/Delivery_Data.csv,2024-05-04 01:28:55
+writeCsv res/CSV/DeliveryOrders_Data.csv,2024-05-04 01:28:59
+initData,2024-05-04 01:31:01
+readCsv res/CSV/Client_Data.csv,2024-05-04 01:31:01
+readCsv res/CSV/DeliveryMen_Data.csv,2024-05-04 01:31:01
+readCsv res/CSV/FoodItems_Data.csv,2024-05-04 01:31:01
+readCsv res/CSV/Reviews_Data.csv,2024-05-04 01:31:01
+readCsv res/CSV/Restaurants_Data.csv,2024-05-04 01:31:01
+readCsv res/CSV/ShoppingCart_Data.csv,2024-05-04 01:31:01
+readCsv res/CSV/PickUpOrders_Data.csv,2024-05-04 01:31:01
+readCsv res/CSV/DeliveryOrders_Data.csv,2024-05-04 01:31:01
+readCsv res/CSV/Delivery_Data.csv,2024-05-04 01:31:01
+initData,2024-05-04 01:31:08
+readCsv res/CSV/Client_Data.csv,2024-05-04 01:31:08
+readCsv res/CSV/DeliveryMen_Data.csv,2024-05-04 01:31:08
+readCsv res/CSV/FoodItems_Data.csv,2024-05-04 01:31:08
+readCsv res/CSV/Reviews_Data.csv,2024-05-04 01:31:08
+readCsv res/CSV/Restaurants_Data.csv,2024-05-04 01:31:08
+readCsv res/CSV/ShoppingCart_Data.csv,2024-05-04 01:31:08
+readCsv res/CSV/PickUpOrders_Data.csv,2024-05-04 01:31:08
+readCsv res/CSV/DeliveryOrders_Data.csv,2024-05-04 01:31:08
+readCsv res/CSV/Delivery_Data.csv,2024-05-04 01:31:08
+generateAndRecordDelivery: DeliveryMan ID=D-100001, Order ID=DO-0000009, Order Date=2024-04-21T17:30,2024-05-04 01:31:14
+incrementDeliveryId: last ID=DEL-1000001,2024-05-04 01:31:14
+writeDeliveriesToCsv: Number of deliveries=2,2024-05-04 01:31:14
+initData,2024-05-04 01:31:14
+readCsv res/CSV/Client_Data.csv,2024-05-04 01:31:14
+readCsv res/CSV/DeliveryMen_Data.csv,2024-05-04 01:31:14
+readCsv res/CSV/FoodItems_Data.csv,2024-05-04 01:31:14
+readCsv res/CSV/Reviews_Data.csv,2024-05-04 01:31:14
+readCsv res/CSV/Restaurants_Data.csv,2024-05-04 01:31:14
+readCsv res/CSV/ShoppingCart_Data.csv,2024-05-04 01:31:14
+readCsv res/CSV/PickUpOrders_Data.csv,2024-05-04 01:31:14
+readCsv res/CSV/DeliveryOrders_Data.csv,2024-05-04 01:31:14
+readCsv res/CSV/Delivery_Data.csv,2024-05-04 01:31:14
+initData,2024-05-04 01:31:14
+readCsv res/CSV/Client_Data.csv,2024-05-04 01:31:14
+readCsv res/CSV/DeliveryMen_Data.csv,2024-05-04 01:31:14
+readCsv res/CSV/FoodItems_Data.csv,2024-05-04 01:31:14
+readCsv res/CSV/Reviews_Data.csv,2024-05-04 01:31:14
+readCsv res/CSV/Restaurants_Data.csv,2024-05-04 01:31:14
+readCsv res/CSV/ShoppingCart_Data.csv,2024-05-04 01:31:14
+readCsv res/CSV/PickUpOrders_Data.csv,2024-05-04 01:31:14
+readCsv res/CSV/DeliveryOrders_Data.csv,2024-05-04 01:31:14
+readCsv res/CSV/Delivery_Data.csv,2024-05-04 01:31:14
+generateAndRecordDelivery: DeliveryMan ID=D-100001, Order ID=DO-0000010, Order Date=2024-04-21T17:35,2024-05-04 01:31:21
+incrementDeliveryId: last ID=DEL-1000002,2024-05-04 01:31:21
+writeDeliveriesToCsv: Number of deliveries=3,2024-05-04 01:31:21
+initData,2024-05-04 01:31:21
+readCsv res/CSV/Client_Data.csv,2024-05-04 01:31:21
+readCsv res/CSV/DeliveryMen_Data.csv,2024-05-04 01:31:21
+readCsv res/CSV/FoodItems_Data.csv,2024-05-04 01:31:21
+readCsv res/CSV/Reviews_Data.csv,2024-05-04 01:31:21
+readCsv res/CSV/Restaurants_Data.csv,2024-05-04 01:31:21
+readCsv res/CSV/ShoppingCart_Data.csv,2024-05-04 01:31:21
+readCsv res/CSV/PickUpOrders_Data.csv,2024-05-04 01:31:21
+readCsv res/CSV/DeliveryOrders_Data.csv,2024-05-04 01:31:21
+readCsv res/CSV/Delivery_Data.csv,2024-05-04 01:31:21
+initData,2024-05-04 01:31:21
+readCsv res/CSV/Client_Data.csv,2024-05-04 01:31:21
+readCsv res/CSV/DeliveryMen_Data.csv,2024-05-04 01:31:21
+readCsv res/CSV/FoodItems_Data.csv,2024-05-04 01:31:21
+readCsv res/CSV/Reviews_Data.csv,2024-05-04 01:31:21
+readCsv res/CSV/Restaurants_Data.csv,2024-05-04 01:31:21
+readCsv res/CSV/ShoppingCart_Data.csv,2024-05-04 01:31:21
+readCsv res/CSV/PickUpOrders_Data.csv,2024-05-04 01:31:21
+readCsv res/CSV/DeliveryOrders_Data.csv,2024-05-04 01:31:21
+readCsv res/CSV/Delivery_Data.csv,2024-05-04 01:31:21
+updateDeliveryStatus: Delivery ID=DEL-1000002, Status=FINISHED,2024-05-04 01:31:24
+writeDeliveriesToCsv: Number of deliveries=3,2024-05-04 01:31:24
+initData,2024-05-04 01:31:24
+readCsv res/CSV/Client_Data.csv,2024-05-04 01:31:24
+readCsv res/CSV/DeliveryMen_Data.csv,2024-05-04 01:31:24
+readCsv res/CSV/FoodItems_Data.csv,2024-05-04 01:31:24
+readCsv res/CSV/Reviews_Data.csv,2024-05-04 01:31:24
+readCsv res/CSV/Restaurants_Data.csv,2024-05-04 01:31:24
+readCsv res/CSV/ShoppingCart_Data.csv,2024-05-04 01:31:24
+readCsv res/CSV/PickUpOrders_Data.csv,2024-05-04 01:31:24
+readCsv res/CSV/DeliveryOrders_Data.csv,2024-05-04 01:31:24
+readCsv res/CSV/Delivery_Data.csv,2024-05-04 01:31:24
+initData,2024-05-04 13:10:23
+readCsv res/CSV/Client_Data.csv,2024-05-04 13:10:23
+readCsv res/CSV/DeliveryMen_Data.csv,2024-05-04 13:10:23
+readCsv res/CSV/FoodItems_Data.csv,2024-05-04 13:10:23
+readCsv res/CSV/Reviews_Data.csv,2024-05-04 13:10:23
+readCsv res/CSV/Restaurants_Data.csv,2024-05-04 13:10:23
+readCsv res/CSV/ShoppingCart_Data.csv,2024-05-04 13:10:23
+readCsv res/CSV/PickUpOrders_Data.csv,2024-05-04 13:10:23
+readCsv res/CSV/DeliveryOrders_Data.csv,2024-05-04 13:10:23
+readCsv res/CSV/Delivery_Data.csv,2024-05-04 13:10:23
+generateAndRecordDelivery: DeliveryMan ID=D-100001, Order ID=DO-0000007, Order Date=2024-04-21T15:20,2024-05-04 13:10:33
+incrementDeliveryId: last ID=DEL-1000003,2024-05-04 13:10:33
+writeDeliveriesToCsv: Number of deliveries=4,2024-05-04 13:10:33
+initData,2024-05-04 13:10:33
+readCsv res/CSV/Client_Data.csv,2024-05-04 13:10:33
+readCsv res/CSV/DeliveryMen_Data.csv,2024-05-04 13:10:33
+readCsv res/CSV/FoodItems_Data.csv,2024-05-04 13:10:33
+readCsv res/CSV/Reviews_Data.csv,2024-05-04 13:10:33
+readCsv res/CSV/Restaurants_Data.csv,2024-05-04 13:10:33
+readCsv res/CSV/ShoppingCart_Data.csv,2024-05-04 13:10:33
+readCsv res/CSV/PickUpOrders_Data.csv,2024-05-04 13:10:33
+readCsv res/CSV/DeliveryOrders_Data.csv,2024-05-04 13:10:33
+readCsv res/CSV/Delivery_Data.csv,2024-05-04 13:10:33
+initData,2024-05-04 13:10:33
+readCsv res/CSV/Client_Data.csv,2024-05-04 13:10:33
+readCsv res/CSV/DeliveryMen_Data.csv,2024-05-04 13:10:33
+readCsv res/CSV/FoodItems_Data.csv,2024-05-04 13:10:33
+readCsv res/CSV/Reviews_Data.csv,2024-05-04 13:10:33
+readCsv res/CSV/Restaurants_Data.csv,2024-05-04 13:10:33
+readCsv res/CSV/ShoppingCart_Data.csv,2024-05-04 13:10:33
+readCsv res/CSV/PickUpOrders_Data.csv,2024-05-04 13:10:33
+readCsv res/CSV/DeliveryOrders_Data.csv,2024-05-04 13:10:33
+readCsv res/CSV/Delivery_Data.csv,2024-05-04 13:10:33
+updateDeliveryStatus: Delivery ID=DEL-1000003, Status=FINISHED,2024-05-04 13:10:41
+writeDeliveriesToCsv: Number of deliveries=4,2024-05-04 13:10:41
+initData,2024-05-04 13:10:41
+readCsv res/CSV/Client_Data.csv,2024-05-04 13:10:41
+readCsv res/CSV/DeliveryMen_Data.csv,2024-05-04 13:10:41
+readCsv res/CSV/FoodItems_Data.csv,2024-05-04 13:10:41
+readCsv res/CSV/Reviews_Data.csv,2024-05-04 13:10:41
+readCsv res/CSV/Restaurants_Data.csv,2024-05-04 13:10:41
+readCsv res/CSV/ShoppingCart_Data.csv,2024-05-04 13:10:41
+readCsv res/CSV/PickUpOrders_Data.csv,2024-05-04 13:10:41
+readCsv res/CSV/DeliveryOrders_Data.csv,2024-05-04 13:10:41
+readCsv res/CSV/Delivery_Data.csv,2024-05-04 13:10:41
+initData,2024-05-04 13:17:18
+readCsv res/CSV/Client_Data.csv,2024-05-04 13:17:18
+readCsv res/CSV/DeliveryMen_Data.csv,2024-05-04 13:17:18
+readCsv res/CSV/FoodItems_Data.csv,2024-05-04 13:17:18
+readCsv res/CSV/Reviews_Data.csv,2024-05-04 13:17:18
+readCsv res/CSV/Restaurants_Data.csv,2024-05-04 13:17:18
+readCsv res/CSV/ShoppingCart_Data.csv,2024-05-04 13:17:18
+readCsv res/CSV/PickUpOrders_Data.csv,2024-05-04 13:17:18
+readCsv res/CSV/DeliveryOrders_Data.csv,2024-05-04 13:17:18
+readCsv res/CSV/Delivery_Data.csv,2024-05-04 13:17:18
+initData,2024-05-04 13:17:32
+readCsv res/CSV/Client_Data.csv,2024-05-04 13:17:32
+readCsv res/CSV/DeliveryMen_Data.csv,2024-05-04 13:17:32
+readCsv res/CSV/FoodItems_Data.csv,2024-05-04 13:17:32
+readCsv res/CSV/Reviews_Data.csv,2024-05-04 13:17:32
+readCsv res/CSV/Restaurants_Data.csv,2024-05-04 13:17:32
+readCsv res/CSV/ShoppingCart_Data.csv,2024-05-04 13:17:32
+readCsv res/CSV/PickUpOrders_Data.csv,2024-05-04 13:17:32
+readCsv res/CSV/DeliveryOrders_Data.csv,2024-05-04 13:17:32
+readCsv res/CSV/Delivery_Data.csv,2024-05-04 13:17:32
+initData,2024-05-04 13:23:07
+readCsv res/CSV/Client_Data.csv,2024-05-04 13:23:07
+readCsv res/CSV/DeliveryMen_Data.csv,2024-05-04 13:23:07
+readCsv res/CSV/FoodItems_Data.csv,2024-05-04 13:23:07
+readCsv res/CSV/Reviews_Data.csv,2024-05-04 13:23:07
+readCsv res/CSV/Restaurants_Data.csv,2024-05-04 13:23:07
+readCsv res/CSV/ShoppingCart_Data.csv,2024-05-04 13:23:07
+readCsv res/CSV/PickUpOrders_Data.csv,2024-05-04 13:23:07
+readCsv res/CSV/DeliveryOrders_Data.csv,2024-05-04 13:23:07
+readCsv res/CSV/Delivery_Data.csv,2024-05-04 13:23:07
+initData,2024-05-04 13:23:27
+readCsv res/CSV/Client_Data.csv,2024-05-04 13:23:27
+readCsv res/CSV/DeliveryMen_Data.csv,2024-05-04 13:23:27
+readCsv res/CSV/FoodItems_Data.csv,2024-05-04 13:23:27
+readCsv res/CSV/Reviews_Data.csv,2024-05-04 13:23:27
+readCsv res/CSV/Restaurants_Data.csv,2024-05-04 13:23:27
+readCsv res/CSV/ShoppingCart_Data.csv,2024-05-04 13:23:27
+readCsv res/CSV/PickUpOrders_Data.csv,2024-05-04 13:23:27
+readCsv res/CSV/DeliveryOrders_Data.csv,2024-05-04 13:23:27
+readCsv res/CSV/Delivery_Data.csv,2024-05-04 13:23:27
+initData,2024-05-04 13:24:44
+readCsv res/CSV/Client_Data.csv,2024-05-04 13:24:44
+readCsv res/CSV/DeliveryMen_Data.csv,2024-05-04 13:24:44
+readCsv res/CSV/FoodItems_Data.csv,2024-05-04 13:24:44
+readCsv res/CSV/Reviews_Data.csv,2024-05-04 13:24:44
+readCsv res/CSV/Restaurants_Data.csv,2024-05-04 13:24:44
+readCsv res/CSV/ShoppingCart_Data.csv,2024-05-04 13:24:44
+readCsv res/CSV/PickUpOrders_Data.csv,2024-05-04 13:24:44
+readCsv res/CSV/DeliveryOrders_Data.csv,2024-05-04 13:24:44
+readCsv res/CSV/Delivery_Data.csv,2024-05-04 13:24:44
+LogInUser: Ion87,2024-05-04 13:25:17
+getUserType: Ion87,2024-05-04 13:25:17
+initData,2024-05-04 13:26:24
+readCsv res/CSV/Client_Data.csv,2024-05-04 13:26:24
+readCsv res/CSV/DeliveryMen_Data.csv,2024-05-04 13:26:24
+readCsv res/CSV/FoodItems_Data.csv,2024-05-04 13:26:24
+readCsv res/CSV/Reviews_Data.csv,2024-05-04 13:26:24
+readCsv res/CSV/Restaurants_Data.csv,2024-05-04 13:26:24
+readCsv res/CSV/ShoppingCart_Data.csv,2024-05-04 13:26:24
+readCsv res/CSV/PickUpOrders_Data.csv,2024-05-04 13:26:24
+readCsv res/CSV/DeliveryOrders_Data.csv,2024-05-04 13:26:24
+readCsv res/CSV/Delivery_Data.csv,2024-05-04 13:26:24
+LogInUser: Ion87,2024-05-04 13:26:40
+getUserType: Ion87,2024-05-04 13:26:40

@@ -4,13 +4,14 @@ import com.FoodDeliveryApp.Models.Client;
 import com.FoodDeliveryApp.Models.DeliveryMan;
 import com.FoodDeliveryApp.Models.UserType;
 import com.FoodDeliveryApp.Models.Users;
+import com.FoodDeliveryApp.Services.AuditServices.AuditingService;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 
-public class UserServices {
+public class UserServices extends AuditingService {
     List<Users> users;
 
     public UserServices() throws Exception {
@@ -20,7 +21,8 @@ public class UserServices {
     }
 
     public Users LogInUser(String UserName, String Password){
-         for (Users user : users) {
+        logAction("LogInUser: " + UserName);
+        for (Users user : users) {
              if(user.getUserName().equals(UserName) && user.getPassword().equals(Password)){
                  return user;
              }
@@ -29,6 +31,7 @@ public class UserServices {
     }
 
     public UserType getUserType(Users user){
+        logAction("getUserType: " + user.getUserName());
         switch (user.getClass().getSimpleName()){
             case "Client": return UserType.CLIENT;
             case "DeliveryMan": return UserType.DELIVERYMAN;

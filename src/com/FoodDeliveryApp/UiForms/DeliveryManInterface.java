@@ -84,20 +84,24 @@ public class DeliveryManInterface  extends javax.swing.JFrame {
                         if (response == JOptionPane.YES_OPTION) {
 
                             deliveryOrder.setAsigned(AsignedType.PRELUAT);
+
                             try {
                                 DataStorageServices.getInstance().writeCsv((DataConverter) new DeliveryOrderConverter(), deliveriesOrders);
-                                DeliveryServices d = new DeliveryServices();
+                            } catch (Exception ex) {
+                                throw new RuntimeException(ex);
+                            }
+                            DeliveryServices d = new DeliveryServices();
 
                                 d.generateAndRecordDelivery(deliveryManId,deliveryOrder.getOrderID(),deliveryOrder.getOrderDate());
                                 deliveryButton.setVisible(false);
 
                                 OrdersHistory.removeAll();
+                            try {
                                 LoadHistoryButton(deliveryManId);
-
-
                             } catch (Exception ex) {
                                 throw new RuntimeException(ex);
                             }
+
 
                             // Optionally update the data storage to reflect this change
                             try {
@@ -242,7 +246,6 @@ private void displayOrderDetails(JButton button,Delivery delivery) {
             e.printStackTrace();
         }
     }
-
 
 
 
