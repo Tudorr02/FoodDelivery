@@ -5,6 +5,7 @@ import com.FoodDeliveryApp.Services.DataStorageServices;
 import com.FoodDeliveryApp.Services.DeliveryServices;
 import com.FoodDeliveryApp.Services.OrderServices;
 import com.FoodDeliveryApp.Services.ShoppingCartServices;
+import com.FoodDeliveryApp.UiForms.FrameUtils.FrameUtils;
 
 import javax.swing.*;
 import java.awt.*;
@@ -40,6 +41,7 @@ public class ClientInterface extends javax.swing.JFrame {
     private JLabel TitleLabel;
     private JButton OrderHistoryButton;
     private JButton ProfileButton;
+    private JButton SignOutBtn;
     private DefaultListModel ReviewsModel;
     private ShoppingCartServices shoppingCart;
     boolean restaurantLock;
@@ -50,6 +52,7 @@ public class ClientInterface extends javax.swing.JFrame {
     ClientInterface(String clientID) throws Exception {
 
         frame = new JFrame("Client Interface");
+        FrameUtils.setGlobalIcon(frame, "res/img/app_icon.jpg");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setPreferredSize(new Dimension(800, 700));
         frame.setMinimumSize(new Dimension(800, 700));
@@ -59,7 +62,7 @@ public class ClientInterface extends javax.swing.JFrame {
         parentTitlePanel.setMinimumSize(new Dimension(400, 30));
         parentTitlePanel.setPreferredSize(new Dimension(400, 30));
         parentTitlePanel.setMaximumSize(new Dimension(400, 30));
-        parentTitlePanel.setBackground(new Color(114,212,255));
+        parentTitlePanel.setBackground(new Color(86,138,109));
 
         titleParent = new JLabel("Restaurants");
         titleParent.setFont(new Font("Arial", Font.BOLD, 20));
@@ -86,13 +89,14 @@ public class ClientInterface extends javax.swing.JFrame {
         Image scaledImage = profileIcon.getImage().getScaledInstance(40, 40, Image.SCALE_SMOOTH);
         ImageIcon resizedIcon = new ImageIcon(scaledImage);
         ProfileButton.setIcon(resizedIcon);
+        ProfileButton.setVisible(false);
 
-        ProfileButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-
-            }
-        });
+//        ProfileButton.addActionListener(new ActionListener() {
+//            @Override
+//            public void actionPerformed(ActionEvent e) {
+//
+//            }
+//        });
 
         OrderHistoryButton.addActionListener(new ActionListener() {
             @Override
@@ -127,6 +131,24 @@ public class ClientInterface extends javax.swing.JFrame {
 
         }});
 
+        ImageIcon signOutIcon = new ImageIcon("res/img/sign_out.png");
+        Image signOutImg = signOutIcon.getImage().getScaledInstance(50, 50, Image.SCALE_SMOOTH);
+        signOutIcon = new ImageIcon(signOutImg);
+        SignOutBtn.setIcon(signOutIcon);
+  //      SignOutBtn.setBorderPainted(false);
+        SignOutBtn.setFocusPainted(false);
+//        SignOutBtn.setContentAreaFilled(false);
+ //       SignOutBtn.setMargin(new Insets(0, 0, 0, 0));
+        SignOutBtn.setToolTipText("Sign Out");
+
+        SignOutBtn.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                frame.dispose();
+                orderRestaurant=null;
+                new LogIn();
+            }
+        });
+
 
     }
 
@@ -135,6 +157,8 @@ public class ClientInterface extends javax.swing.JFrame {
         MainPanel.setVisible(false);
 
         JPanel orderHistoryMainPanel = new JPanel();
+        orderHistoryMainPanel.setBackground(new Color(212,239,223));
+
         orderHistoryMainPanel.setLayout(new BoxLayout(orderHistoryMainPanel, BoxLayout.Y_AXIS));
 
         frame.add(orderHistoryMainPanel);
@@ -158,6 +182,7 @@ public class ClientInterface extends javax.swing.JFrame {
 
         // Create the order history panel and set its layout
         JPanel orderHistoryPanel = new JPanel();
+        orderHistoryPanel.setBackground(new Color(212,239,223));
         orderHistoryPanel.setLayout(new BoxLayout(orderHistoryPanel, BoxLayout.Y_AXIS));
 
         // Create a JScrollPane to hold the order history panel
@@ -266,6 +291,7 @@ public class ClientInterface extends javax.swing.JFrame {
         JDialog dialog = new JDialog(frame, "Order Type", true);
         dialog.setSize(400, 200);
         dialog.setLayout(new BorderLayout());
+        dialog.setBackground(new Color(212,239,223));
         dialog.setResizable(false);
 
         // Create a panel for radio buttons and text field
@@ -297,7 +323,7 @@ public class ClientInterface extends javax.swing.JFrame {
         double[] price = {shoppingCart.calculateTotalPrice()};
         JButton orderBtn = new JButton(updateOrderPriceLabel(price[0]));
         orderBtn.setEnabled(false);
-        orderBtn.setBackground(Color.GREEN);
+        orderBtn.setBackground(new Color(86,138,109));
         orderBtn.setForeground(Color.WHITE);
 
         // Initialize order type and payment method
@@ -391,7 +417,6 @@ public class ClientInterface extends javax.swing.JFrame {
         panel.add(new JLabel());
         panel.add(paymentCash);
         panel.add(paymentCard);
-
         // Add action listener for the order button
         orderBtn.addActionListener(e1 -> {
             try {
@@ -531,6 +556,7 @@ public class ClientInterface extends javax.swing.JFrame {
             foodItemBtn.setMinimumSize(buttonSize);
             foodItemBtn.setMaximumSize(buttonSize);
             foodItemBtn.setAlignmentX(Component.CENTER_ALIGNMENT);
+            foodItemBtn.setBackground(new Color(86,138,109));
             foodItemPanel.add(foodItemBtn);
             foodItemPanel.add(itemDescriptionArea);
             foodItemPanel.setBorder(BorderFactory.createLineBorder(Color.BLACK));
