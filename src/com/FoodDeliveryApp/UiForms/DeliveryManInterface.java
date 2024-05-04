@@ -185,7 +185,7 @@ public class DeliveryManInterface  extends javax.swing.JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 ParentPanel.removeAll();
-                ParentPanel.add(TakeOrderPanel);
+                ParentPanel.add(ScrollPanel);
                 ParentPanel.repaint();
                 ParentPanel.revalidate();
             }
