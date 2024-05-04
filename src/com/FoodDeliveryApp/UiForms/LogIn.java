@@ -2,10 +2,10 @@ package com.FoodDeliveryApp.UiForms;
 
 import com.FoodDeliveryApp.Exceptions.InvalidCredentialsException;
 import com.FoodDeliveryApp.Exceptions.UserTypeNotFoundException;
-import com.FoodDeliveryApp.Exceptions.UserTypeNotFoundException;
 import com.FoodDeliveryApp.Models.UserType;
 import com.FoodDeliveryApp.Models.Users;
 import com.FoodDeliveryApp.Services.UserServices;
+import com.FoodDeliveryApp.UiForms.FrameUtils.FrameUtils;
 
 import javax.swing.*;
 import java.awt.*;
@@ -20,6 +20,7 @@ public class LogIn extends JFrame {
     private JTextField UserNameField;
     private JPasswordField PasswordField;
     private JLabel TitleLabel;
+    private JButton SignUpbtn;
     private JFrame frame;
     private UserType userType;
 
@@ -27,8 +28,17 @@ public class LogIn extends JFrame {
 
         frame = new JFrame("Food Delivery !");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setPreferredSize(new Dimension(400, 200));
+        frame.setPreferredSize(new Dimension(400, 400));
         frame.setResizable(false);
+        FrameUtils.setGlobalIcon(frame, "res/img/app_icon.jpg");
+
+        ImageIcon originalIcon = new ImageIcon("res/img/log_in.png"); // Update with the correct path
+        Image resizedImage = originalIcon.getImage().getScaledInstance(120, 120, Image.SCALE_AREA_AVERAGING); // Adjust dimensions
+        ImageIcon resizedIcon = new ImageIcon(resizedImage);
+        TitleLabel.setIcon(resizedIcon);
+        TitleLabel.setHorizontalTextPosition(SwingConstants.CENTER); // Adjust text position relative to the icon
+        TitleLabel.setVerticalTextPosition(SwingConstants.TOP);
+
 
         LogInBtn.addActionListener(new ActionListener() {
             @Override
@@ -45,7 +55,7 @@ public class LogIn extends JFrame {
                     }
 
                     userType = userService.getUserType(user);
-
+                    frame.dispose();
                     frame.setVisible(false);
                     switch (userType) {
                         case CLIENT:
@@ -78,5 +88,13 @@ public class LogIn extends JFrame {
         frame.pack();
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);
+        SignUpbtn.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                frame.dispose();
+                frame.setVisible(false);
+                new SignUp();
+            }
+        });
     }
 }
