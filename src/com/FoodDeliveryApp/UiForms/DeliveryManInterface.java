@@ -195,7 +195,7 @@ public class DeliveryManInterface  extends javax.swing.JFrame {
                 ShoppingCart sc = deliveryOrder.getShoppingCart();
                 String buttonLabel = String.format(
                         "<html>Restaurant: %s<br>Location: %s<br>Delivery Address: %s<br>Payment Method: %s<br>Total: %.2f</html>",
-                        deliveryOrder.getOrderID(),
+                        res.getName(),
                         res.getLocation(),
                         c.getDeliveryAddress(),
                         deliveryOrder.getPaymentMethod(),
