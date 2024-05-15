@@ -37,6 +37,7 @@ The application offers a user-friendly interface for customers to place orders, 
  
     <img src="https://github.com/Tudorr02/FoodDelivery/assets/92024989/a1ca2afd-f5ad-461f-8c58-803341d9d440" width="300" height="400">
     <img src="https://github.com/Tudorr02/FoodDelivery/assets/92024989/433d1396-0ac8-43f0-94c9-e461a3ed8669" width="500" height="400">
+    
   - **Order Placement**: Customers can choose to pay on delivery with card/cash.
   - **Order Type**: Customers can choose to pick up the order or have it delivered (10% additional charge).
   - **Promo Codes**: Apply promo codes for price reduction.
